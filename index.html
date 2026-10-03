@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>101 Game Pintar Edukasi Anak</title>
+  <title>101 Game Pintar Si Kecil — Cozy Garden Edition</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Fredoka:wght@600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
@@ -14,163 +14,286 @@
       user-select: none;
     }
     body {
-      font-family: 'Quicksand', sans-serif;
+      font-family: 'Baloo 2', cursive;
       touch-action: manipulation;
+      background-color: #ecfdf5;
+      background-image: radial-gradient(#d1fae5 2px, transparent 2px);
+      background-size: 22px 22px;
     }
-    .font-kids { font-family: 'Fredoka One', cursive; }
-    .btn-chunky {
-      box-shadow: 0 6px 0 rgba(0, 0, 0, 0.18);
-      transition: all 0.1s ease;
+    .font-chubby { font-family: 'Fredoka', cursive; }
+
+    /* --- COZY 2.5D THICK OUTLINE SYSTEM --- */
+    .cozy-slab {
+      border: 3.5px solid #362925;
+      box-shadow: 0 7px 0 #362925, 0 12px 16px rgba(54, 41, 37, 0.12);
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .btn-chunky:active {
+    .cozy-slab:active {
+      transform: translateY(5px);
+      box-shadow: 0 2px 0 #362925, 0 4px 6px rgba(54, 41, 37, 0.12);
+    }
+    .cozy-btn-green {
+      background: linear-gradient(180deg, #86efac 0%, #4ade80 100%);
+      border: 3.5px solid #233b2c;
+      box-shadow: 0 6px 0 #233b2c, 0 8px 12px rgba(0,0,0,0.1);
+    }
+    .cozy-btn-green:active {
       transform: translateY(4px);
-      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+      box-shadow: 0 2px 0 #233b2c;
     }
-    .game-card {
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    .cozy-btn-yellow {
+      background: linear-gradient(180deg, #fef08a 0%, #fde047 100%);
+      border: 3.5px solid #362925;
+      box-shadow: 0 5px 0 #362925;
     }
-    .game-card:active {
-      transform: scale(0.95);
+    .cozy-btn-yellow:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #362925;
     }
-    @keyframes floatUp {
-      0% { transform: translateY(105vh) scale(0.85); opacity: 0.9; }
-      100% { transform: translateY(-20vh) scale(1); opacity: 1; }
+
+    @keyframes floatGentle {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(1.5deg); }
     }
-    .floating-balloon {
-      animation: floatUp linear forwards;
+    .float-slow { animation: floatGentle 3.5s ease-in-out infinite; }
+
+    @keyframes floatUpCozy {
+      0% { transform: translateY(105vh) scale(0.9); opacity: 0.95; }
+      100% { transform: translateY(-20vh) scale(1.05); opacity: 1; }
     }
+    .floating-balloon { animation: floatUpCozy linear forwards; }
+
     .pop-burst {
-      transform: scale(1.6) !important;
+      transform: scale(1.65) rotate(15deg) !important;
       opacity: 0 !important;
-      transition: transform 0.12s ease-out, opacity 0.12s ease-out !important;
+      transition: all 0.12s ease-out !important;
     }
+
     @keyframes screenShake {
       0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-10px); }
-      40%, 80% { transform: translateX(10px); }
+      20%, 60% { transform: translateX(-9px); }
+      40%, 80% { transform: translateX(9px); }
     }
-    .shake {
-      animation: screenShake 0.35s ease-in-out;
+    .shake { animation: screenShake 0.35s ease-in-out; }
+
+    @media print {
+      body * { visibility: hidden; }
+      #certificatePrintArea, #certificatePrintArea * { visibility: visible; }
+      #certificatePrintArea { position: absolute; left: 0; top: 0; width: 100%; }
     }
   </style>
 </head>
-<body class="bg-amber-50 min-h-screen flex flex-col justify-between overflow-x-hidden">
+<body class="min-h-screen flex flex-col justify-between overflow-x-hidden text-[#362925]">
 
   <!-- ================= POPUP KUNCI LYNK.ID ================= -->
-  <div id="vipGateModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center border-4 border-amber-400 shadow-2xl relative">
-      <div class="text-6xl mb-2 animate-bounce">🎁</div>
-      <h2 class="text-2xl font-kids text-amber-950 mb-1">Akses 101 Game Pintar</h2>
-      <p class="text-xs text-slate-600 font-semibold mb-4 leading-relaxed">
-        Masukkan Kode Akses VIP dari konfirmasi pesanan Anda di Lynk.id:
+  <div id="vipGateModal" class="fixed inset-0 bg-[#2d3a31]/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="bg-[#fffdf7] rounded-[36px] p-6 max-w-sm w-full text-center cozy-slab relative border-4 border-[#362925]">
+      <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 bg-[#86efac] border-4 border-[#362925] rounded-full flex items-center justify-center text-3xl shadow">
+        🌱
+      </div>
+      <h2 class="text-2xl font-chubby text-[#362925] mt-4 mb-1">Akses 101 Game Pintar</h2>
+      <p class="text-xs text-[#5c4a42] font-semibold mb-5 leading-relaxed px-2">
+        Masukkan Kode Akses Eksklusif dari pembelian Anda di <span class="text-emerald-700 font-extrabold">Lynk.id</span>:
       </p>
 
       <input id="pinInput" type="text" placeholder="KODE AKSES..." 
-             class="w-full text-center text-xl font-kids tracking-widest px-4 py-3 border-2 border-amber-400 rounded-2xl mb-3 focus:outline-none focus:ring-4 focus:ring-amber-300 uppercase bg-amber-50/50" />
+             class="w-full text-center text-xl font-chubby tracking-widest px-4 py-3.5 border-4 border-[#362925] rounded-2xl mb-4 focus:outline-none focus:ring-4 focus:ring-emerald-300 uppercase bg-[#fefce8] text-[#362925]" />
       
       <button onclick="verifikasiAkses()" 
-              class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-kids py-3 rounded-2xl btn-chunky text-lg mb-4">
-        BUKA SEMUA GAME 🚀
+              class="w-full cozy-btn-green text-[#1e3325] font-chubby py-3.5 rounded-2xl text-lg mb-4 hover:brightness-105">
+        BUKA SEMUA GAME 🚀✨
       </button>
 
-      <div class="border-t border-slate-100 pt-3">
-        <p class="text-[11px] text-slate-500 mb-2">Belum membeli akses resmi?</p>
+      <div class="border-t-2 border-dashed border-[#e6d5bc] pt-3">
+        <p class="text-[11px] text-[#78645a] mb-2 font-bold">Belum punya kode akses?</p>
         <a id="lynkLink" href="https://lynk.id/" target="_blank" 
-           class="inline-block bg-amber-100 text-amber-950 text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-amber-200">
-          👉 Beli Akses VIP di Lynk.id
+           class="inline-block bg-[#fed7aa] border-2 border-[#362925] text-[#362925] text-xs font-chubby px-4 py-2 rounded-xl hover:bg-[#fdba74]">
+          👉 Beli Akses Resmi di Lynk.id
         </a>
       </div>
     </div>
   </div>
 
-  <!-- ================= NAVBAR ATAS ================= -->
-  <header class="bg-yellow-400 px-4 py-3 sticky top-0 z-30 shadow-md flex justify-between items-center border-b-4 border-yellow-500">
+  <!-- ================= TOP HEADER DENGAN BGM & TOOLS ORANG TUA ================= -->
+  <header class="bg-[#fef9c3] px-3 md:px-4 py-2.5 sticky top-0 z-30 border-b-4 border-[#362925] shadow-sm flex justify-between items-center">
     <div class="flex items-center gap-2">
-      <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center text-2xl shadow-inner border border-yellow-300">
-        ⭐
+      <div class="w-10 h-10 bg-[#bbf7d0] rounded-2xl border-[3px] border-[#362925] flex items-center justify-center text-xl shadow-sm float-slow">
+        🏡
       </div>
       <div>
-        <h1 class="text-base md:text-xl font-kids text-amber-950 leading-tight">101 GAME ANAK</h1>
-        <p class="text-[10px] font-bold text-amber-900">Edisi Pintar & Ceria</p>
+        <h1 class="text-sm md:text-base font-chubby text-[#362925] leading-tight">101 GAME ANAK</h1>
+        <p id="childGreeting" onclick="editChildName()" class="text-[10px] font-extrabold text-emerald-800 tracking-wide cursor-pointer hover:underline">
+          🌱 Halo, Kak Pintar! ✏️
+        </p>
       </div>
     </div>
 
-    <div class="flex items-center gap-2">
-      <div class="bg-amber-100 px-3 py-1 rounded-full border-2 border-amber-500 font-bold text-amber-950 text-xs flex items-center gap-1">
-        ⭐ <span id="starCounter">0</span> / 101
+    <!-- Kontrol: Bintang, BGM Musik, Timer Layar, Album Stiker -->
+    <div class="flex items-center gap-1.5 md:gap-2">
+      <div class="bg-[#fed7aa] px-2.5 py-1 rounded-full border-[2.5px] border-[#362925] font-chubby text-[#362925] text-xs flex items-center gap-1 shadow-sm">
+        ⭐ <span id="starCounter">0</span>
       </div>
-      <button onclick="toggleAudio()" id="btnMute" class="bg-white p-2 rounded-2xl text-base btn-chunky border border-amber-300">
-        🔊
+
+      <!-- Tombol BGM Musik Cozy -->
+      <button onclick="toggleBGM()" id="btnBGM" class="bg-white px-2 py-1 rounded-xl text-xs font-chubby border-[2.5px] border-[#362925] shadow flex items-center gap-1 active:translate-y-1">
+        🎵 <span id="bgmStatusText" class="hidden sm:inline">Musik</span>
       </button>
-      <button onclick="toggleFullscreen()" class="bg-white p-2 rounded-2xl text-base btn-chunky border border-amber-300 hidden sm:block">
-        ⛶
+
+      <!-- Tombol Timer Layar -->
+      <button onclick="bukaTimerModal()" class="bg-white p-1.5 rounded-xl text-sm border-[2.5px] border-[#362925] shadow active:translate-y-1" title="Batas Waktu Layar">
+        ⏱️
+      </button>
+
+      <!-- Tombol Album Stiker & Sertifikat -->
+      <button onclick="bukaStikerModal()" class="bg-[#bae6fd] p-1.5 rounded-xl text-sm border-[2.5px] border-[#362925] shadow active:translate-y-1" title="Hadiah Stiker & Sertifikat">
+        🎁
       </button>
     </div>
   </header>
 
-  <!-- ================= LOBBY ================= -->
+  <!-- ================= LOBBY (PILIHAN GAME) ================= -->
   <main id="lobbyScreen" class="p-4 max-w-4xl mx-auto flex-1 w-full pb-16">
-    <div class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-3xl p-5 text-white mb-5 shadow-lg border-4 border-white text-center">
-      <h2 class="text-xl md:text-2xl font-kids mb-1">Dunia Petualangan Ceria! 🎈</h2>
-      <p class="text-xs md:text-sm font-semibold text-purple-100">
-        Mainkan 101 game interaktif untuk melatih ketangkasan dan fokus si kecil.
+    <!-- Hero Island Banner -->
+    <div class="bg-gradient-to-b from-[#bbf7d0] to-[#86efac] border-4 border-[#362925] rounded-[32px] p-5 text-[#362925] mb-5 shadow-[0_8px_0_#362925] relative overflow-hidden text-center">
+      <span class="absolute -right-3 -bottom-3 text-7xl opacity-20 select-none">🌻</span>
+      <h2 class="text-xl md:text-2xl font-chubby mb-1 tracking-wide">Pondok Bermain & Belajar Ceria! 🧺</h2>
+      <p class="text-xs md:text-sm font-bold text-emerald-950 opacity-90 max-w-md mx-auto">
+        Koleksi 101 game edukatif santai untuk melatih daya ingat, logika, dan motorik si kecil.
       </p>
+      
+      <!-- Tombol Akses Sertifikat Juara -->
+      <div class="mt-3">
+        <button onclick="bukaSertifikatModal()" class="bg-[#fef08a] border-2 border-[#362925] text-[#362925] text-xs font-chubby px-3.5 py-1.5 rounded-xl shadow-[0_3px_0_#362925] active:translate-y-1 inline-flex items-center gap-1.5">
+          📜 Buka Sertifikat Kelulusan Anak
+        </button>
+      </div>
     </div>
 
-    <!-- Tab Kategori -->
-    <div class="flex gap-2 overflow-x-auto pb-3 mb-4 scrollbar-none">
-      <button onclick="filterKategori('all')" class="cat-btn active bg-amber-500 text-white px-4 py-2 rounded-2xl font-bold text-xs btn-chunky whitespace-nowrap">Semua (101)</button>
-      <button onclick="filterKategori('pop')" class="cat-btn bg-white text-slate-700 px-4 py-2 rounded-2xl font-bold text-xs btn-chunky whitespace-nowrap">🎈 Balon Pop (25)</button>
-      <button onclick="filterKategori('memori')" class="cat-btn bg-white text-slate-700 px-4 py-2 rounded-2xl font-bold text-xs btn-chunky whitespace-nowrap">🧠 Memori (26)</button>
-      <button onclick="filterKategori('tebak')" class="cat-btn bg-white text-slate-700 px-4 py-2 rounded-2xl font-bold text-xs btn-chunky whitespace-nowrap">❓ Tebak Gambar (25)</button>
-      <button onclick="filterKategori('hitung')" class="cat-btn bg-white text-slate-700 px-4 py-2 rounded-2xl font-bold text-xs btn-chunky whitespace-nowrap">🔢 Berhitung (25)</button>
+    <!-- Filter Tab -->
+    <div class="flex gap-2.5 overflow-x-auto pb-3 mb-5 scrollbar-none">
+      <button onclick="filterKategori('all')" class="cat-btn active bg-[#fef08a] text-[#362925] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">Semua (101)</button>
+      <button onclick="filterKategori('pop')" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🎈 Balon Pop (25)</button>
+      <button onclick="filterKategori('memori')" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🧠 Memori (26)</button>
+      <button onclick="filterKategori('tebak')" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🔍 Tebak Objek (25)</button>
+      <button onclick="filterKategori('hitung')" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🔢 Berhitung (25)</button>
     </div>
 
-    <!-- Grid Kartu 101 Game -->
-    <div id="gameGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"></div>
+    <!-- Grid 101 Game -->
+    <div id="gameGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5"></div>
   </main>
 
   <!-- ================= ARENA PERMAINAN ================= -->
-  <section id="gameScreen" class="hidden fixed inset-0 bg-sky-200 z-40 flex flex-col">
-    <!-- Header Game -->
-    <div class="bg-white/95 px-4 py-3 flex justify-between items-center shadow-md border-b-2 border-sky-300">
-      <button onclick="keluarGame()" class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-2xl font-kids text-xs btn-chunky flex items-center gap-1">
+  <section id="gameScreen" class="hidden fixed inset-0 bg-[#e0f2fe] z-40 flex flex-col">
+    <div class="bg-[#fffdf7] px-4 py-3 flex justify-between items-center border-b-4 border-[#362925] shadow-sm">
+      <button onclick="keluarGame()" class="bg-[#fca5a5] hover:bg-[#f87171] text-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs border-[3px] border-[#362925] shadow-[0_4px_0_#362925] active:translate-y-1 flex items-center gap-1">
         ⬅ KELUAR
       </button>
       <div class="text-center px-2">
-        <h3 id="arenaTitle" class="font-kids text-sky-950 text-sm md:text-base leading-tight">Judul Game</h3>
-        <span id="arenaSub" class="text-[10px] text-slate-500 font-bold block">Tingkat Edukasi</span>
+        <h3 id="arenaTitle" class="font-chubby text-[#362925] text-sm md:text-base leading-tight">Judul Game</h3>
+        <span id="arenaSub" class="text-[10px] text-emerald-800 font-extrabold block">🌱 Mode Belajar Santai</span>
       </div>
-      <div id="arenaScore" class="bg-amber-300 px-3 py-1 rounded-full text-xs font-kids text-amber-950 border border-amber-500">
+      <div id="arenaScore" class="bg-[#fef08a] px-3.5 py-1 rounded-full text-xs font-chubby text-[#362925] border-[3px] border-[#362925] shadow-sm">
         Poin: 0
       </div>
     </div>
 
-    <!-- Kanvas Interaktif -->
     <div id="gameCanvas" class="flex-1 overflow-hidden relative flex flex-col items-center justify-center p-4"></div>
   </section>
 
   <!-- ================= MODAL KEMENANGAN ================= -->
-  <div id="victoryModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl p-6 max-w-xs w-full text-center border-4 border-yellow-400 shadow-2xl">
-      <div class="text-6xl mb-2 animate-bounce">🏆</div>
-      <h3 class="text-2xl font-kids text-amber-900 mb-1">HEBAT SEKALI!</h3>
-      <p class="text-xs text-slate-600 font-bold mb-4">Kamu berhasil menyelesaikan misi ini dengan sangat pintar!</p>
+  <div id="victoryModal" class="hidden fixed inset-0 bg-[#2d3a31]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-[#fffdf7] rounded-[36px] p-6 max-w-xs w-full text-center cozy-slab border-4 border-[#362925]">
+      <div class="text-6xl mb-2 float-slow">🏆</div>
+      <h3 class="text-2xl font-chubby text-[#362925] mb-1">HEBAT SEKALI!</h3>
+      <p class="text-xs text-[#5c4a42] font-bold mb-4">Kamu berhasil menyelesaikan permainan ini!</p>
       
-      <div class="text-3xl mb-5 tracking-widest text-amber-400">⭐⭐⭐</div>
+      <div class="text-3xl mb-5 tracking-widest text-[#facc15] filter drop-shadow">⭐⭐⭐</div>
 
-      <div class="flex flex-col gap-2">
-        <button onclick="lanjutGameBerikutnya()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-kids py-3 rounded-2xl btn-chunky text-sm">
+      <div class="flex flex-col gap-2.5">
+        <button onclick="lanjutGameBerikutnya()" class="cozy-btn-green text-[#1e3325] font-chubby py-3 rounded-2xl text-sm hover:brightness-105">
           GAME BERIKUTNYA ➡
         </button>
-        <button onclick="mainkanLagi()" class="bg-sky-400 hover:bg-sky-500 text-white font-kids py-2.5 rounded-2xl btn-chunky text-xs">
+        <button onclick="mainkanLagi()" class="bg-[#bae6fd] hover:bg-[#7dd3fc] text-[#1e293b] font-chubby py-2.5 rounded-2xl text-xs border-[3px] border-[#362925] shadow-[0_3px_0_#362925] active:translate-y-1">
           🔄 Main Lagi
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ================= JAVASCRIPT ================= -->
+  <!-- ================= MODAL 1: BUKU STIKER & KOLEKSI HADIAH ================= -->
+  <div id="stikerModal" class="hidden fixed inset-0 bg-[#2d3a31]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-[#fffdf7] rounded-[32px] p-6 max-w-sm w-full border-4 border-[#362925] shadow-2xl relative max-h-[85vh] overflow-y-auto">
+      <button onclick="tutupModal('stikerModal')" class="absolute top-4 right-4 bg-[#fca5a5] border-2 border-[#362925] rounded-full w-8 h-8 font-chubby text-sm">✕</button>
+      <h3 class="text-xl font-chubby text-center mb-1">🎁 Album Stiker Prestasi</h3>
+      <p class="text-xs text-[#5c4a42] text-center font-bold mb-4">Selesaikan game untuk membuka stiker langka!</p>
+
+      <div id="stikerGrid" class="grid grid-cols-3 gap-2.5 text-center"></div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 2: PENGATUR TIMER LAYAR (PARENTAL CONTROL) ================= -->
+  <div id="timerModal" class="hidden fixed inset-0 bg-[#2d3a31]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-[#fffdf7] rounded-[32px] p-6 max-w-xs w-full text-center border-4 border-[#362925] shadow-2xl relative">
+      <button onclick="tutupModal('timerModal')" class="absolute top-4 right-4 bg-[#fca5a5] border-2 border-[#362925] rounded-full w-8 h-8 font-chubby text-sm">✕</button>
+      <div class="text-4xl mb-2">⏱️</div>
+      <h3 class="text-lg font-chubby mb-1">Batas Waktu Main</h3>
+      <p class="text-xs text-[#5c4a42] font-semibold mb-4">Pilih durasi agar si kecil tidak kelelahan menatap layar:</p>
+
+      <div class="flex flex-col gap-2">
+        <button onclick="setScreenTimer(15)" class="cozy-btn-yellow font-chubby py-2 rounded-xl text-xs">⏳ 15 Menit</button>
+        <button onclick="setScreenTimer(30)" class="cozy-btn-yellow font-chubby py-2 rounded-xl text-xs">⏳ 30 Menit</button>
+        <button onclick="setScreenTimer(0)" class="bg-[#e2e8f0] border-2 border-[#362925] font-chubby py-2 rounded-xl text-xs">🚫 Bebas (Tanpa Timer)</button>
+      </div>
+      <p id="timerStatusLabel" class="text-[11px] text-emerald-800 font-extrabold mt-3">Timer: Non-Aktif</p>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 3: SERTIFIKAT JUARA DIGITAL (PRINTABLE) ================= -->
+  <div id="certificateModal" class="hidden fixed inset-0 bg-[#2d3a31]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl p-6 max-w-md w-full border-4 border-[#362925] shadow-2xl relative my-8">
+      <button onclick="tutupModal('certificateModal')" class="absolute top-4 right-4 bg-[#fca5a5] border-2 border-[#362925] rounded-full w-8 h-8 font-chubby text-sm">✕</button>
+      
+      <!-- Area Sertifikat yang Dicetak -->
+      <div id="certificatePrintArea" class="bg-[#fffbeb] border-4 border-double border-amber-600 rounded-2xl p-6 text-center shadow-inner relative">
+        <div class="text-4xl mb-1">🏅</div>
+        <h2 class="text-xl font-chubby text-amber-950 uppercase tracking-widest">Sertifikat Kelulusan</h2>
+        <p class="text-[10px] text-amber-800 font-bold uppercase tracking-wider mb-3">101 Game Pintar Si Kecil</p>
+        
+        <p class="text-xs text-slate-600 mb-1">Diberikan dengan bangga kepada:</p>
+        <h3 id="certChildName" class="text-2xl font-chubby text-emerald-700 underline decoration-amber-400 mb-2">Kak Pintar</h3>
+        <p class="text-xs text-slate-700 font-semibold leading-relaxed mb-4">
+          Telah berhasil menyelesaikan tantangan game edukasi, mengasah memori, dan melatih logika cerdas.
+        </p>
+
+        <div class="flex justify-between items-center text-[10px] font-bold text-amber-900 border-t border-amber-300 pt-2 px-2">
+          <span>⭐ Skor: <span id="certStarCount">0</span> Bintang</span>
+          <span>📅 Status: Lulus Juara</span>
+        </div>
+      </div>
+
+      <div class="mt-4 flex gap-2">
+        <button onclick="window.print()" class="w-full cozy-btn-green font-chubby py-2.5 rounded-2xl text-xs flex items-center justify-center gap-1.5">
+          🖨️ Cetak / Simpan PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= LAYAR ISTIRAHAT SCREEN-TIME ================= -->
+  <div id="restScreenModal" class="hidden fixed inset-0 bg-[#2d3a31]/95 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="bg-[#fffdf7] rounded-[36px] p-6 max-w-xs w-full text-center cozy-slab border-4 border-[#362925]">
+      <div class="text-6xl mb-2">🌙</div>
+      <h3 class="text-xl font-chubby text-[#362925] mb-2">Waktunya Istirahat!</h3>
+      <p class="text-xs text-[#5c4a42] font-bold mb-4 leading-relaxed">
+        Waktu bermain telah selesai. Yuk istirahatkan mata sejenak, minum air, atau bermain di luar! 😊
+      </p>
+      <button onclick="bukaLagiAksesOrtu()" class="cozy-btn-yellow font-chubby py-2.5 px-4 rounded-xl text-xs">
+        Buka Akses Kembali (Khusus Ortu)
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= LOGIKA JAVASCRIPT ================= -->
   <script>
     /* 1. KODE AKSES LYNK.ID */
     const KODE_PIN_VIP = "ANAKPINTAR";
@@ -188,15 +311,17 @@
         soundEngine.win();
         confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
         document.getElementById("vipGateModal").classList.add("hidden");
+        startBGM(); // Putar BGM otomatis setelah kunci terbuka
       } else {
         soundEngine.wrong();
-        alert("Kode PIN salah. Silakan periksa kembali pesan pesanan di Lynk.id!");
+        alert("Kode PIN belum sesuai. Silakan periksa pesan pesanan Anda di Lynk.id!");
       }
     }
 
-    /* 2. AUDIO SYNTHESIZER */
-    let isMuted = false;
+    /* 2. AUDIO SYNTHESIZER & KID-FRIENDLY BGM (BEBAS HAK CIPTA / TANPA MP3) */
     let audioCtx = null;
+    let isBgmPlaying = false;
+    let bgmInterval = null;
 
     function getAudioContext() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -205,7 +330,6 @@
     }
 
     function playTone(freq, type = 'sine', duration = 0.12, gainVal = 0.2) {
-      if (isMuted) return;
       try {
         const ctx = getAudioContext();
         const osc = ctx.createOscillator();
@@ -219,6 +343,38 @@
         osc.start();
         osc.stop(ctx.currentTime + duration);
       } catch(e) {}
+    }
+
+    // Melodi BGM Ceria & Santai (Marimba Toy Pentatonic C Major Loop)
+    const bgmNotes = [
+      261.63, 329.63, 392.00, 523.25, 392.00, 329.63,
+      293.66, 349.23, 440.00, 523.25, 440.00, 349.23,
+      329.63, 392.00, 523.25, 659.25, 523.25, 392.00,
+      293.66, 329.63, 392.00, 440.00, 392.00, 261.63
+    ];
+    let noteIdx = 0;
+
+    function startBGM() {
+      if (isBgmPlaying) return;
+      getAudioContext();
+      isBgmPlaying = true;
+      document.getElementById("btnBGM").classList.add("bg-[#bbf7d0]");
+      
+      bgmInterval = setInterval(() => {
+        playTone(bgmNotes[noteIdx], 'triangle', 0.22, 0.04); // Volume sangat lembut
+        noteIdx = (noteIdx + 1) % bgmNotes.length;
+      }, 340);
+    }
+
+    function stopBGM() {
+      if (bgmInterval) clearInterval(bgmInterval);
+      isBgmPlaying = false;
+      document.getElementById("btnBGM").classList.remove("bg-[#bbf7d0]");
+    }
+
+    function toggleBGM() {
+      if (isBgmPlaying) stopBGM();
+      else startBGM();
     }
 
     const soundEngine = {
@@ -243,11 +399,6 @@
       }
     };
 
-    function toggleAudio() {
-      isMuted = !isMuted;
-      document.getElementById("btnMute").innerText = isMuted ? "🔇" : "🔊";
-    }
-
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(() => {});
@@ -256,8 +407,92 @@
       }
     }
 
+    /* 3. PERSONALISASI NAMA ANAK */
+    function loadChildName() {
+      const name = localStorage.getItem("child_name") || "Kak Pintar";
+      document.getElementById("childGreeting").innerText = `🌱 Halo, ${name}! ✏️`;
+      document.getElementById("certChildName").innerText = name;
+    }
+
+    function editChildName() {
+      const current = localStorage.getItem("child_name") || "Kak Pintar";
+      const baru = prompt("Masukkan nama panggilan anak tercinta:", current);
+      if (baru && baru.trim()) {
+        localStorage.setItem("child_name", baru.trim());
+        loadChildName();
+      }
+    }
+
+    /* 4. FITUR TIMER LAYAR (PARENTAL CONTROL) */
+    let screenTimerDuration = 0;
+    let timerInterval = null;
+
+    function bukaTimerModal() { document.getElementById("timerModal").classList.remove("hidden"); }
+    function setScreenTimer(menit) {
+      if (timerInterval) clearInterval(timerInterval);
+      if (menit === 0) {
+        document.getElementById("timerStatusLabel").innerText = "Timer: Bebas (Non-Aktif)";
+      } else {
+        document.getElementById("timerStatusLabel").innerText = `Timer Aktif: ${menit} Menit`;
+        screenTimerDuration = menit * 60;
+        timerInterval = setInterval(() => {
+          screenTimerDuration--;
+          if (screenTimerDuration <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById("restScreenModal").classList.remove("hidden");
+          }
+        }, 1000);
+      }
+      tutupModal("timerModal");
+    }
+
+    function bukaLagiAksesOrtu() {
+      const pin = prompt("Orang tua: Ketik angka 1234 untuk membuka kembali:");
+      if (pin === "1234") {
+        document.getElementById("restScreenModal").classList.add("hidden");
+      }
+    }
+
+    /* 5. FITUR BUKU STIKER PRESTASI */
+    const STICKER_LIST = [
+      { id: 1, name: "Kelinci Ceria", emoji: "🐰", req: 1 },
+      { id: 2, name: "Stroberi Manis", emoji: "🍓", req: 5 },
+      { id: 3, name: "Lebah Rajin", emoji: "🐝", req: 10 },
+      { id: 4, name: "Donat Lezat", emoji: "🍩", req: 20 },
+      { id: 5, name: "Singa Perkasa", emoji: "🦁", req: 35 },
+      { id: 6, name: "Koin Emas", emoji: "💰", req: 50 },
+      { id: 7, name: "Roket Cepat", emoji: "🚀", req: 75 },
+      { id: 8, name: "Mahkota Juara", emoji: "👑", req: 101 }
+    ];
+
+    function bukaStikerModal() {
+      const totalStars = parseInt(document.getElementById("starCounter").innerText) || 0;
+      const grid = document.getElementById("stikerGrid");
+      grid.innerHTML = "";
+
+      STICKER_LIST.forEach(s => {
+        const unlocked = totalStars >= s.req;
+        const div = document.createElement("div");
+        div.className = `p-3 rounded-2xl border-2 border-[#362925] flex flex-col items-center justify-center ${unlocked ? 'bg-[#bbf7d0]' : 'bg-[#e2e8f0] opacity-60'}`;
+        div.innerHTML = `
+          <div class="text-3xl mb-1">${unlocked ? s.emoji : '🔒'}</div>
+          <span class="text-[10px] font-chubby text-[#362925] leading-tight">${s.name}</span>
+          <span class="text-[9px] font-bold text-slate-500">${s.req} ⭐</span>
+        `;
+        grid.appendChild(div);
+      });
+      document.getElementById("stikerModal").classList.remove("hidden");
+    }
+
+    function bukaSertifikatModal() {
+      document.getElementById("certStarCount").innerText = document.getElementById("starCounter").innerText;
+      document.getElementById("certificateModal").classList.remove("hidden");
+    }
+
+    function tutupModal(id) { document.getElementById(id).classList.add("hidden"); }
+
     /* =========================================================
-       3. DAFTAR 101 GAME (IKON LOBI TEBAK GAMBAR TANPA BOCORAN)
+       6. 101 GAME DATABASE (100% PERSIS, ZERO-SPOILER)
     ========================================================= */
     const gamesData = [
       // 1 - 25: Balon Pop
@@ -315,7 +550,7 @@
       { id: 50, title: "Pasang Bunga Warna", category: "memori", icon: "🌻", cards: ["🌻", "🌸", "🌹", "🌷"] },
       { id: 51, title: "Memori Hobi Seru", category: "memori", icon: "🎨", cards: ["🎨", "📷", "🎸", "⚽"] },
 
-      /* 52 - 76: TEBAK GAMBAR (IKON LOBI BERUPA PETUNJUK/MISTERI, BUKAN JAWABAN LANGSUNG!) */
+      // 52 - 76: Tebak Objek (Ikon Lobi Bebas Spoiler)
       { id: 52, title: "Mana Buah Pisang?", category: "tebak", icon: "🧺", q: "Yang mana buah Pisang Manis?", ans: "🍌", ops: ["🍎", "🍌", "🍇"] },
       { id: 53, title: "Kendaraan di Langit?", category: "tebak", icon: "☁️", q: "Kendaraan yang terbang tinggi di awan?", ans: "✈️", ops: ["🚗", "✈️", "🚢"] },
       { id: 54, title: "Hewan yang Mengeong?", category: "tebak", icon: "🐾", q: "Hewan mana yang suka bersuara meong?", ans: "🐱", ops: ["🐱", "🐶", "🦁"] },
@@ -371,7 +606,7 @@
     ];
 
     /* =========================================================
-       4. RENDER LOBBY
+       7. RENDER LOBBY
     ========================================================= */
     const gameGrid = document.getElementById("gameGrid");
     let activeFilter = 'all';
@@ -383,17 +618,21 @@
       list.forEach(game => {
         const isDone = localStorage.getItem(`done_game_${game.id}`);
         const card = document.createElement("div");
-        card.className = "game-card bg-white p-3 rounded-2xl border-2 border-amber-200 shadow-sm flex flex-col items-center justify-between text-center cursor-pointer";
-        card.onclick = () => bukaGame(game);
+        card.className = "bg-[#fffdf7] p-3.5 rounded-[26px] cozy-slab flex flex-col items-center justify-between text-center cursor-pointer relative overflow-hidden group";
+        card.onclick = () => {
+          if (!isBgmPlaying) startBGM();
+          bukaGame(game);
+        };
 
         card.innerHTML = `
-          <div class="w-full flex justify-end min-h-[16px]">
+          <div class="w-full flex justify-between items-center min-h-[16px]">
+            <span class="text-[9px] font-extrabold text-[#78645a] bg-[#f5ebe0] px-2 py-0.5 rounded-full border border-[#362925]">#${game.id}</span>
             ${isDone ? '<span class="text-xs">⭐</span>' : ''}
           </div>
-          <div class="text-4xl my-1.5 filter drop-shadow">${game.icon}</div>
-          <h4 class="font-bold text-xs text-slate-800 leading-snug mb-2">${game.title}</h4>
-          <span class="w-full bg-yellow-400 hover:bg-yellow-500 text-amber-950 font-kids text-[10px] py-1.5 rounded-xl btn-chunky">
-            MAIN
+          <div class="text-4xl my-2 filter drop-shadow group-hover:scale-110 transition-transform">${game.icon}</div>
+          <h4 class="font-chubby text-xs text-[#362925] leading-snug mb-2.5">${game.title}</h4>
+          <span class="w-full cozy-btn-yellow text-[#362925] font-chubby text-[10px] py-1.5 rounded-xl block">
+            MAIN 🌱
           </span>
         `;
         gameGrid.appendChild(card);
@@ -413,16 +652,16 @@
     function filterKategori(kat) {
       activeFilter = kat;
       document.querySelectorAll(".cat-btn").forEach(btn => {
-        btn.classList.remove("bg-amber-500", "text-white");
-        btn.classList.add("bg-white", "text-slate-700");
+        btn.classList.remove("bg-[#fef08a]");
+        btn.classList.add("bg-white", "text-[#5c4a42]");
       });
-      event.target.classList.add("bg-amber-500", "text-white");
-      event.target.classList.remove("bg-white", "text-slate-700");
+      event.target.classList.add("bg-[#fef08a]");
+      event.target.classList.remove("bg-white", "text-[#5c4a42]");
       renderLobby();
     }
 
     /* =========================================================
-       5. GAME ENGINES (DENGAN ACAK JAWABAN TEBAK GAMBAR)
+       8. GAME ENGINES (TERKONEKSI PERSIS & RAMAH ANAK)
     ========================================================= */
     let currentGame = null;
     let activeInterval = null;
@@ -430,7 +669,7 @@
     function bukaGame(game) {
       currentGame = game;
       document.getElementById("arenaTitle").innerText = game.title;
-      document.getElementById("arenaSub").innerText = `Game #${game.id} • Mode Pintar`;
+      document.getElementById("arenaSub").innerText = `Kebun Level #${game.id} • Santai & Pintar`;
       document.getElementById("arenaScore").innerText = "Poin: 0";
       document.getElementById("gameScreen").classList.remove("hidden");
       document.getElementById("victoryModal").classList.add("hidden");
@@ -458,9 +697,7 @@
       document.getElementById("victoryModal").classList.remove("hidden");
     }
 
-    function mainkanLagi() {
-      bukaGame(currentGame);
-    }
+    function mainkanLagi() { bukaGame(currentGame); }
 
     function lanjutGameBerikutnya() {
       const nextId = (currentGame.id % 101) + 1;
@@ -475,11 +712,11 @@
       const target = 5;
 
       canvas.innerHTML = `
-        <div class="absolute top-2 w-full px-4 flex justify-between items-center z-10">
-          <div class="font-kids text-sky-950 text-xs bg-white/90 px-3.5 py-1.5 rounded-full shadow border border-sky-300">
-            🎯 ${game.desc} <span class="text-rose-500 font-bold ml-1">(Hindari 💣!)</span>
+        <div class="absolute top-3 w-full px-4 flex justify-between items-center z-10">
+          <div class="font-chubby text-[#362925] text-xs bg-[#fffdf7] px-3.5 py-1.5 rounded-full border-[3px] border-[#362925] shadow-sm">
+            🎯 ${game.desc} <span class="text-rose-500 font-bold ml-1">(Awas 💣!)</span>
           </div>
-          <div id="heartsContainer" class="text-base tracking-wider bg-white/90 px-3 py-1 rounded-full shadow border border-rose-300">
+          <div id="heartsContainer" class="text-base tracking-wider bg-[#fffdf7] px-3 py-1 rounded-full border-[3px] border-[#362925] shadow-sm">
             ❤️❤️❤️
           </div>
         </div>
@@ -491,9 +728,7 @@
 
       function updateHearts() {
         let h = "";
-        for (let i = 0; i < 3; i++) {
-          h += i < nyawa ? "❤️" : "🖤";
-        }
+        for (let i = 0; i < 3; i++) { h += i < nyawa ? "❤️" : "🖤"; }
         heartsUI.innerText = h;
       }
 
@@ -502,12 +737,12 @@
         soundEngine.wrong();
         sky.innerHTML = `
           <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-            <div class="bg-white p-6 rounded-3xl border-4 border-rose-300 shadow-xl max-w-xs w-full">
+            <div class="bg-[#fffdf7] p-6 rounded-[32px] border-4 border-[#362925] shadow-[0_8px_0_#362925] max-w-xs w-full">
               <div class="text-5xl mb-2">💥</div>
-              <h4 class="font-kids text-rose-600 text-lg mb-1">Awas Kena Bom!</h4>
-              <p class="text-xs text-slate-600 font-bold mb-4">Jangan menyerah ya! Ayo coba pecahkan lagi pelan-pelan!</p>
-              <button onclick="mainkanLagi()" class="w-full bg-amber-400 hover:bg-amber-500 text-amber-950 font-kids py-3 rounded-2xl btn-chunky text-sm">
-                🔄 COBA LAGI
+              <h4 class="font-chubby text-rose-600 text-lg mb-1">Awas Kena Bom!</h4>
+              <p class="text-xs text-[#5c4a42] font-bold mb-4">Ayo coba pecahkan lagi pelan-pelan!</p>
+              <button onclick="mainkanLagi()" class="w-full cozy-btn-yellow font-chubby py-3 rounded-2xl text-sm">
+                🔄 COBA LAGI 🌱
               </button>
             </div>
           </div>
@@ -521,7 +756,7 @@
         const isHazard = Math.random() < 0.32;
         const icon = isHazard ? "💣" : game.item;
 
-        b.className = "absolute text-6xl select-none floating-balloon cursor-pointer filter drop-shadow-md";
+        b.className = "absolute text-6xl select-none floating-balloon cursor-pointer filter drop-shadow active:scale-95";
         b.innerText = icon;
         b.style.animationDuration = `${Math.random() * 1.5 + 3.2}s`;
 
@@ -564,10 +799,10 @@
       const deck = [...deckIcons, ...deckIcons].sort(() => Math.random() - 0.5);
 
       canvas.innerHTML = `
-        <div class="font-kids text-sky-900 text-xs mb-3 bg-white/80 px-4 py-1.5 rounded-full shadow-sm border border-sky-300">
-          Temukan 2 Pasangan yang Sama!
+        <div class="font-chubby text-[#362925] text-xs mb-4 bg-[#fffdf7] px-4 py-1.5 rounded-full border-[3px] border-[#362925] shadow-sm">
+          Temukan 2 Pasangan yang Sama! 🌱
         </div>
-        <div id="memoryGrid" class="grid grid-cols-4 gap-2.5 max-w-xs mx-auto"></div>
+        <div id="memoryGrid" class="grid grid-cols-4 gap-3 max-w-xs mx-auto"></div>
       `;
       const grid = document.getElementById("memoryGrid");
       let opened = [];
@@ -575,14 +810,14 @@
 
       deck.forEach(symbol => {
         const card = document.createElement("div");
-        card.className = "w-16 h-20 bg-white rounded-2xl border-2 border-indigo-300 shadow flex items-center justify-center text-3xl font-kids cursor-pointer btn-chunky";
+        card.className = "w-16 h-20 bg-[#fffdf7] rounded-2xl border-[3.5px] border-[#362925] shadow-[0_5px_0_#362925] flex items-center justify-center text-3xl font-chubby cursor-pointer active:translate-y-1 transition-all";
         card.innerText = "❓";
 
         card.onclick = () => {
           if (opened.length < 2 && !card.classList.contains("done")) {
             soundEngine.tap();
             card.innerText = symbol;
-            card.classList.add("done", "bg-indigo-50");
+            card.classList.add("done", "bg-[#fef9c3]");
             opened.push({ elem: card, val: symbol });
 
             if (opened.length === 2) {
@@ -598,7 +833,7 @@
                 setTimeout(() => {
                   opened.forEach(o => {
                     o.elem.innerText = "❓";
-                    o.elem.classList.remove("done", "bg-indigo-50");
+                    o.elem.classList.remove("done", "bg-[#fef9c3]");
                   });
                   opened = [];
                 }, 700);
@@ -610,20 +845,19 @@
       });
     }
 
-    /* ENGINE 3: TEBAK GAMBAR (PILIHAN SELALU DIACAK SECARA DINAMIS) */
+    /* ENGINE 3: TEBAK OBJEK */
     function launchTebakEngine(canvas, game) {
-      // Mengacak urutan tombol pilihan agar anak tidak menebak posisi
       const opsiAcak = [...game.ops].sort(() => Math.random() - 0.5);
 
       canvas.innerHTML = `
-        <div class="bg-white p-6 rounded-3xl border-4 border-sky-300 shadow-xl max-w-sm w-full text-center">
-          <div class="bg-sky-100 text-sky-900 text-[11px] font-bold px-3 py-1 rounded-full inline-flex items-center gap-1 mb-3">
-            <span>🔍</span> Tebak Misteri
+        <div class="bg-[#fffdf7] p-6 rounded-[36px] border-4 border-[#362925] shadow-[0_8px_0_#362925] max-w-sm w-full text-center">
+          <div class="bg-[#bbf7d0] text-emerald-950 text-[11px] font-chubby px-3 py-1 rounded-full inline-flex items-center gap-1 mb-3 border-2 border-[#362925]">
+            <span>🔍</span> Tebak Misteri Kebun
           </div>
-          <h4 class="font-kids text-slate-800 text-base md:text-lg mb-6 leading-relaxed">${game.q}</h4>
+          <h4 class="font-chubby text-[#362925] text-base md:text-lg mb-6 leading-relaxed">${game.q}</h4>
           <div class="flex justify-center gap-3">
             ${opsiAcak.map(item => `
-              <button onclick="jawabTebak('${item}', '${game.ans}')" class="text-5xl p-4 bg-amber-50 hover:bg-amber-100 rounded-2xl border-2 border-amber-300 btn-chunky active:scale-95 transition-transform">
+              <button onclick="jawabTebak('${item}', '${game.ans}')" class="text-5xl p-4 bg-[#fefce8] hover:bg-[#fef08a] rounded-2xl border-[3.5px] border-[#362925] shadow-[0_5px_0_#362925] active:translate-y-1 active:shadow-none transition-all">
                 ${item}
               </button>
             `).join('')}
@@ -647,10 +881,12 @@
       const opsi = [targetCount, targetCount - 1, targetCount + 1].sort(() => Math.random() - 0.5);
 
       canvas.innerHTML = `
-        <div class="bg-white p-6 rounded-3xl border-4 border-emerald-300 shadow-xl max-w-sm w-full text-center">
-          <div class="bg-emerald-100 text-emerald-900 text-[11px] font-bold px-3 py-1 rounded-full inline-block mb-2">Belajar Berhitung</div>
-          <h4 class="font-kids text-slate-800 text-sm md:text-base mb-3 leading-snug">
-            Ada berapa jumlah <span class="text-emerald-700 underline font-extrabold">${game.name}</span> di bawah ini?
+        <div class="bg-[#fffdf7] p-6 rounded-[36px] border-4 border-[#362925] shadow-[0_8px_0_#362925] max-w-sm w-full text-center">
+          <div class="bg-[#fed7aa] text-amber-950 text-[11px] font-chubby px-3 py-1 rounded-full inline-block mb-2 border-2 border-[#362925]">
+            🧺 Panen Kebun Pintar
+          </div>
+          <h4 class="font-chubby text-[#362925] text-sm md:text-base mb-3 leading-snug">
+            Ada berapa jumlah <span class="text-emerald-800 underline font-extrabold">${game.name}</span> di bawah ini?
           </h4>
           
           <div class="flex flex-wrap justify-center gap-2 text-4xl mb-6 py-2">
@@ -659,7 +895,7 @@
 
           <div class="flex justify-center gap-3">
             ${opsi.map(num => `
-              <button onclick="jawabHitung(${num}, ${targetCount})" class="w-14 h-14 bg-emerald-400 hover:bg-emerald-500 text-white font-kids text-2xl rounded-2xl btn-chunky">
+              <button onclick="jawabHitung(${num}, ${targetCount})" class="w-14 h-14 cozy-btn-green text-[#1e3325] font-chubby text-2xl rounded-2xl hover:brightness-105">
                 ${num}
               </button>
             `).join('')}
@@ -677,9 +913,10 @@
       }
     };
 
-    /* Inisialisasi */
+    /* INISIALISASI */
     window.onload = () => {
       checkVIPAccess();
+      loadChildName();
       renderLobby();
     };
   </script>
