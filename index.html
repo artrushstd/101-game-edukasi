@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>101 Game Pintar Edukasi Anak</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    body {
+      font-family: 'Quicksand', sans-serif;
+      touch-action: manipulation;
+    }
+    .font-kids { font-family: 'Fredoka One', cursive; }
+    .btn-chunky {
+      box-shadow: 0 6px 0 rgba(0, 0, 0, 0.18);
+      transition: all 0.1s ease;
+    }
+    .btn-chunky:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+    }
+    .game-card {
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .game-card:active {
+      transform: scale(0.95);
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(105vh) scale(0.85); opacity: 0.9; }
+      100% { transform: translateY(-20vh) scale(1); opacity: 1; }
+    }
+    .floating-balloon {
+      animation: floatUp linear forwards;
+    }
+    .pop-burst {
+      transform: scale(1.6) !important;
+      opacity: 0 !important;
+      transition: transform 0.12s ease-out, opacity 0.12s ease-out !important;
+    }
+    @keyframes screenShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-10px); }
+      40%, 80% { transform: translateX(10px); }
+    }
+    .shake {
+      animation: screenShake 0.35s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-amber-50 min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+  <!-- ================= POPUP KUNCI LYNK.ID ================= -->
+  <div id="vipGateModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center border-4 border-amber-400 shadow-2xl relative">
+      <div class="text-6xl mb-2 animate-bounce">🎁</div>
+      <h2 class="text-2xl font-kids text-amber-950 mb-1">Akses 101 Game Pintar</h2>
+      <p class="text-xs text-slate-600 font-semibold mb-4 leading-relaxed">
+        Masukkan Kode Akses VIP dari konfirmasi pesanan Anda di Lynk.id:
+      </p>
+
+      <input id="pinInput" type="text" placeholder="KODE AKSES..." 
+             class="w-full text-center text-xl font-kids tracking-widest px-4 py-3 border-2 border-amber-400 rounded-2xl mb-3 focus:outline-none focus:ring-4 focus:ring-amber-300 uppercase bg-amber-50/50" />
+      
+      <button onclick="verifikasiAkses()" 
+              class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-kids py-3 rounded-2xl btn-chunky text-lg mb-4">
+        BUKA SEMUA GAME 🚀
+      </button>
+
+      <div class="border-t border-slate-100 pt-3">
+        <p class="text-[11px] text-slate-500 mb-2">Belum membeli akses resmi?</p>
+        <a id="lynkLink" href="https://lynk.id/" target="_blank" 
+           class="inline-block bg-amber-100 text-amber-950 text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-amber-200">
+          👉 Beli Akses VIP di Lynk.id
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= NAVBAR ATAS ================= -->
+  <header class="bg-yellow-400 px-4 py-3 sticky top-0 z-30 shadow-md flex justify-between items-center border-b-4 border-yellow-500">
+    <div class="flex items-center gap-2">
+      <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center text-2xl shadow-inner border border-yellow-300">
+        ⭐
+      </div>
+      <div>
+        <h1 class="text-base md:text-xl font-kids text-amber-950 leading-tight">101 GAME ANAK</h1>
+        <p class="text-[10px] font-bold text-amber-900">Edisi Pintar & Ceria</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <div class="bg-amber-100 px-3 py-1 rounded-full border-2 border-amber-500 font-bold text-amber-950 text-xs flex items-center gap-1">
+        ⭐ <span id="starCounter">0</span> / 101
+      </div>
+      <button onclick="toggleAudio()" id="btnMute" class="bg-white p-2 rounded-2xl text-base btn-chunky border border-amber-300">
+        🔊
+      </button>
+      <button onclick="toggleFullscreen()" class="bg-white p-2 rounded-2xl text-base btn-chunky border border-amber-300 hidden sm:block">
+        ⛶
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= LOBBY ================= -->
+  <main id="lobbyScreen" class="p-4 max-w-4xl mx-auto flex-1 w-full pb-16">
+    <div class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-3xl p-5 text-white mb-5 shadow-lg border-4 border-white text-center">
+      <h2 class="text-xl md:text-2xl font-kids mb-1">Dunia Petualangan Ceria! 🎈</h2>
+      <p class="text-xs md:text-sm font-semibold text-purple-100">
+        Mainkan 101 game interaktif untuk melatih ketangkasan dan fokus si kecil.
+      </p>
+    </div>
+
+    <!-- Tab Kategori -->
+    <div class="flex gap-2 overflow-x-auto pb-3 mb-4 scrollbar-none">
+      <button onclick="filterKategori('all')" class="cat-btn active bg-amber-500 text-white px-4 py-2 rounded-2xl font-bold text-xs btn-chunky whitespace-nowrap">Semua (101)</button>
+      <button onclick="filterKategori('pop')" class="cat-btn bg-white text-slate-700 px-4 py-2 rounded-2xl font-bold text-xs btn-chunky whitespace-nowrap">🎈 Balon Pop (25)</button>
+      <button onclick="filterKategori('memori')" class="cat-btn bg-white text-slate-700 px-4 py-2 rounded-2xl font-bold text-xs btn-chunky whitespace-nowrap">🧠 Memori (26)</button>
+      <button onclick="filterKategori('tebak')" class="cat-btn bg-white text-slate-700 px-4 py-2 rounded-2xl font-bold text-xs btn-chunky whitespace-nowrap">❓ Tebak Gambar (25)</button>
+      <button onclick="filterKategori('hitung')" class="cat-btn bg-white text-slate-700 px-4 py-2 rounded-2xl font-bold text-xs btn-chunky whitespace-nowrap">🔢 Berhitung (25)</button>
+    </div>
+
+    <!-- Grid Kartu 101 Game -->
+    <div id="gameGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"></div>
+  </main>
+
+  <!-- ================= ARENA PERMAINAN ================= -->
+  <section id="gameScreen" class="hidden fixed inset-0 bg-sky-200 z-40 flex flex-col">
+    <!-- Header Game -->
+    <div class="bg-white/95 px-4 py-3 flex justify-between items-center shadow-md border-b-2 border-sky-300">
+      <button onclick="keluarGame()" class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-2xl font-kids text-xs btn-chunky flex items-center gap-1">
+        ⬅ KELUAR
+      </button>
+      <div class="text-center px-2">
+        <h3 id="arenaTitle" class="font-kids text-sky-950 text-sm md:text-base leading-tight">Judul Game</h3>
+        <span id="arenaSub" class="text-[10px] text-slate-500 font-bold block">Tingkat Edukasi</span>
+      </div>
+      <div id="arenaScore" class="bg-amber-300 px-3 py-1 rounded-full text-xs font-kids text-amber-950 border border-amber-500">
+        Poin: 0
+      </div>
+    </div>
+
+    <!-- Kanvas Interaktif -->
+    <div id="gameCanvas" class="flex-1 overflow-hidden relative flex flex-col items-center justify-center p-4"></div>
+  </section>
+
+  <!-- ================= MODAL KEMENANGAN ================= -->
+  <div id="victoryModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 max-w-xs w-full text-center border-4 border-yellow-400 shadow-2xl">
+      <div class="text-6xl mb-2 animate-bounce">🏆</div>
+      <h3 class="text-2xl font-kids text-amber-900 mb-1">HEBAT SEKALI!</h3>
+      <p class="text-xs text-slate-600 font-bold mb-4">Kamu berhasil menyelesaikan misi ini dengan sangat pintar!</p>
+      
+      <div class="text-3xl mb-5 tracking-widest text-amber-400">⭐⭐⭐</div>
+
+      <div class="flex flex-col gap-2">
+        <button onclick="lanjutGameBerikutnya()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-kids py-3 rounded-2xl btn-chunky text-sm">
+          GAME BERIKUTNYA ➡
+        </button>
+        <button onclick="mainkanLagi()" class="bg-sky-400 hover:bg-sky-500 text-white font-kids py-2.5 rounded-2xl btn-chunky text-xs">
+          🔄 Main Lagi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    /* 1. KODE AKSES LYNK.ID */
+    const KODE_PIN_VIP = "ANAKPINTAR";
+
+    function checkVIPAccess() {
+      if (localStorage.getItem("vip_unlocked_101") === "true") {
+        document.getElementById("vipGateModal").classList.add("hidden");
+      }
+    }
+
+    function verifikasiAkses() {
+      const input = document.getElementById("pinInput").value.trim().toUpperCase();
+      if (input === KODE_PIN_VIP) {
+        localStorage.setItem("vip_unlocked_101", "true");
+        soundEngine.win();
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        document.getElementById("vipGateModal").classList.add("hidden");
+      } else {
+        soundEngine.wrong();
+        alert("Kode PIN salah. Silakan periksa kembali pesan pesanan di Lynk.id!");
+      }
+    }
+
+    /* 2. AUDIO SYNTHESIZER */
+    let isMuted = false;
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+
+    function playTone(freq, type = 'sine', duration = 0.12, gainVal = 0.2) {
+      if (isMuted) return;
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(gainVal, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    const soundEngine = {
+      pop: () => {
+        playTone(650, 'triangle', 0.08, 0.3);
+        setTimeout(() => playTone(880, 'triangle', 0.06, 0.2), 30);
+      },
+      tap: () => playTone(480, 'sine', 0.06, 0.15),
+      correct: () => {
+        playTone(523, 'sine', 0.1, 0.2);
+        setTimeout(() => playTone(659, 'sine', 0.15, 0.2), 80);
+      },
+      bomb: () => {
+        playTone(150, 'sawtooth', 0.25, 0.4);
+        setTimeout(() => playTone(110, 'sawtooth', 0.2, 0.3), 100);
+      },
+      wrong: () => playTone(220, 'sawtooth', 0.18, 0.15),
+      win: () => {
+        [440, 554, 659, 880].forEach((f, idx) => {
+          setTimeout(() => playTone(f, 'triangle', 0.2, 0.25), idx * 110);
+        });
+      }
+    };
+
+    function toggleAudio() {
+      isMuted = !isMuted;
+      document.getElementById("btnMute").innerText = isMuted ? "🔇" : "🔊";
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    /* =========================================================
+       3. DAFTAR 101 GAME (IKON LOBI TEBAK GAMBAR TANPA BOCORAN)
+    ========================================================= */
+    const gamesData = [
+      // 1 - 25: Balon Pop
+      { id: 1, title: "Pecah Balon Merah", category: "pop", icon: "🎈", item: "🎈", desc: "Pecahkan 5 Balon Merah!" },
+      { id: 2, title: "Pecah Bintang Kuning", category: "pop", icon: "⭐", item: "⭐", desc: "Tangkap 5 Bintang Kuning!" },
+      { id: 3, title: "Letup Stroberi Manis", category: "pop", icon: "🍓", item: "🍓", desc: "Pecahkan 5 Stroberi Segar!" },
+      { id: 4, title: "Pecah Balon Donat", category: "pop", icon: "🍩", item: "🍩", desc: "Tangkap 5 Donat Ceria!" },
+      { id: 5, title: "Letup Apel Merah", category: "pop", icon: "🍎", item: "🍎", desc: "Pecahkan 5 Apel Merah!" },
+      { id: 6, title: "Balon Permen Warna", category: "pop", icon: "🍬", item: "🍬", desc: "Tangkap 5 Permen Manis!" },
+      { id: 7, title: "Pecah Jeruk Segar", category: "pop", icon: "🍊", item: "🍊", desc: "Pecahkan 5 Jeruk Manis!" },
+      { id: 8, title: "Tangkap Bunga Mekar", category: "pop", icon: "🌸", item: "🌸", desc: "Tangkap 5 Bunga Cantik!" },
+      { id: 9, title: "Letup Balon Ceri", category: "pop", icon: "🍒", item: "🍒", desc: "Pecahkan 5 Buah Ceri!" },
+      { id: 10, title: "Pecah Bola Sepak", category: "pop", icon: "⚽", item: "⚽", desc: "Tangkap 5 Bola Sepak!" },
+      { id: 11, title: "Balon Semangka Manis", category: "pop", icon: "🍉", item: "🍉", desc: "Pecahkan 5 Semangka Segar!" },
+      { id: 12, title: "Tangkap Kado Hadiah", category: "pop", icon: "🎁", item: "🎁", desc: "Kumpulkan 5 Kado Hadiah!" },
+      { id: 13, title: "Balon Pisang Kuning", category: "pop", icon: "🍌", item: "🍌", desc: "Pecahkan 5 Pisang Manis!" },
+      { id: 14, title: "Letup Balon Es Krim", category: "pop", icon: "🍦", item: "🍦", desc: "Tangkap 5 Es Krim Lezat!" },
+      { id: 15, title: "Balon Mobil Cepat", category: "pop", icon: "🚗", item: "🚗", desc: "Tangkap 5 Mobil Balap!" },
+      { id: 16, title: "Pecah Roket Angkasa", category: "pop", icon: "🚀", item: "🚀", desc: "Tangkap 5 Roket Meluncur!" },
+      { id: 17, title: "Balon Kucing Imut", category: "pop", icon: "🐱", item: "🐱", desc: "Pecahkan 5 Balon Kucing!" },
+      { id: 18, title: "Letup Kelinci Lucu", category: "pop", icon: "🐰", item: "🐰", desc: "Tangkap 5 Kelinci Melompat!" },
+      { id: 19, title: "Balon Mahkota Raja", category: "pop", icon: "👑", item: "👑", desc: "Kumpulkan 5 Mahkota Emas!" },
+      { id: 20, title: "Pecah Lonceng Ceria", category: "pop", icon: "🔔", item: "🔔", desc: "Bunyikan 5 Lonceng Ajaib!" },
+      { id: 21, title: "Tangkap Ikan Badut", category: "pop", icon: "🐟", item: "🐟", desc: "Tangkap 5 Ikan Berenang!" },
+      { id: 22, title: "Balon Anggur Ungu", category: "pop", icon: "🍇", item: "🍇", desc: "Pecahkan 5 Anggur Manis!" },
+      { id: 23, title: "Pecah Lolipop Manis", category: "pop", icon: "🍭", item: "🍭", desc: "Tangkap 5 Lolipop Ceria!" },
+      { id: 24, title: "Balon Katak Melompat", category: "pop", icon: "🐸", item: "🐸", desc: "Tangkap 5 Katak Hijau!" },
+      { id: 25, title: "Letup Bintang Kejora", category: "pop", icon: "🌟", item: "🌟", desc: "Kumpulkan 5 Bintang Berkilau!" },
+
+      // 26 - 51: Memori
+      { id: 26, title: "Memori Hewan Ternak", category: "memori", icon: "🐮", cards: ["🐮", "🐔", "🐴", "🐑"] },
+      { id: 27, title: "Pasangan Buah Manis", category: "memori", icon: "🍎", cards: ["🍎", "🍌", "🍇", "🍓"] },
+      { id: 28, title: "Memori Kendaraan Darat", category: "memori", icon: "🚗", cards: ["🚗", "🚌", "🚂", "🚕"] },
+      { id: 29, title: "Pasang Hewan Rimba", category: "memori", icon: "🦁", cards: ["🦁", "🐯", "🐵", "🐘"] },
+      { id: 30, title: "Memori Sahabat Kucing Anjing", category: "memori", icon: "🐱", cards: ["🐱", "🐶", "🐰", "🐼"] },
+      { id: 31, title: "Cocok Kendaraan Terbang", category: "memori", icon: "✈️", cards: ["✈️", "🚀", "🚁", "🎈"] },
+      { id: 32, title: "Pasangan Makanan Lezat", category: "memori", icon: "🍕", cards: ["🍕", "🍔", "🍩", "🍦"] },
+      { id: 33, title: "Memori Sayur Sehat", category: "memori", icon: "🥕", cards: ["🥕", "🌽", "🥦", "🍅"] },
+      { id: 34, title: "Pasang Hewan Air", category: "memori", icon: "🐬", cards: ["🐬", "🐟", "🐙", "🦀"] },
+      { id: 35, title: "Memori Alat Musik", category: "memori", icon: "🎸", cards: ["🎸", "🥁", "🎹", "🔔"] },
+      { id: 36, title: "Pasang Olahraga Bola", category: "memori", icon: "⚽", cards: ["⚽", "🏀", "🎾", "🏈"] },
+      { id: 37, title: "Memori Kue Ulang Tahun", category: "memori", icon: "🎂", cards: ["🎂", "🧁", "🍩", "🍪"] },
+      { id: 38, title: "Pasangan Burung Bernyanyi", category: "memori", icon: "🐦", cards: ["🐦", "🦆", "🦉", "🦜"] },
+      { id: 39, title: "Memori Benda Bermain", category: "memori", icon: "🪁", cards: ["🪁", "⚽", "🚗", "🎈"] },
+      { id: 40, title: "Pasangan Emoji Ceria", category: "memori", icon: "😄", cards: ["😄", "🥳", "😍", "😎"] },
+      { id: 41, title: "Memori Perlengkapan Belajar", category: "memori", icon: "📚", cards: ["📚", "✏️", "🎨", "🎒"] },
+      { id: 42, title: "Pasangan Musim Alam", category: "memori", icon: "☀️", cards: ["☀️", "🌧️", "🌈", "⭐"] },
+      { id: 43, title: "Memori Binatang Kecil", category: "memori", icon: "🐝", cards: ["🐝", "🦋", "🐞", "🐜"] },
+      { id: 44, title: "Pasangan Hadiah Kejutan", category: "memori", icon: "🎁", cards: ["🎁", "👑", "💎", "⭐"] },
+      { id: 45, title: "Memori Jeruk & Ceri", category: "memori", icon: "🍒", cards: ["🍒", "🍊", "🍋", "🍉"] },
+      { id: 46, title: "Pasang Hewan Kutub", category: "memori", icon: "🐧", cards: ["🐧", "🐻", "🐋", "🐟"] },
+      { id: 47, title: "Memori Minuman Segar", category: "memori", icon: "🧃", cards: ["🧃", "🥛", "🥤", "🍼"] },
+      { id: 48, title: "Pasangan Luar Angkasa", category: "memori", icon: "🪐", cards: ["🪐", "🚀", "⭐", "🌙"] },
+      { id: 49, title: "Memori Transportasi Air", category: "memori", icon: "🚢", cards: ["🚢", "⛵", "🚤", "🛳️"] },
+      { id: 50, title: "Pasang Bunga Warna", category: "memori", icon: "🌻", cards: ["🌻", "🌸", "🌹", "🌷"] },
+      { id: 51, title: "Memori Hobi Seru", category: "memori", icon: "🎨", cards: ["🎨", "📷", "🎸", "⚽"] },
+
+      /* 52 - 76: TEBAK GAMBAR (IKON LOBI BERUPA PETUNJUK/MISTERI, BUKAN JAWABAN LANGSUNG!) */
+      { id: 52, title: "Mana Buah Pisang?", category: "tebak", icon: "🧺", q: "Yang mana buah Pisang Manis?", ans: "🍌", ops: ["🍎", "🍌", "🍇"] },
+      { id: 53, title: "Kendaraan di Langit?", category: "tebak", icon: "☁️", q: "Kendaraan yang terbang tinggi di awan?", ans: "✈️", ops: ["🚗", "✈️", "🚢"] },
+      { id: 54, title: "Hewan yang Mengeong?", category: "tebak", icon: "🐾", q: "Hewan mana yang suka bersuara meong?", ans: "🐱", ops: ["🐱", "🐶", "🦁"] },
+      { id: 55, title: "Mana Benda Bulat?", category: "tebak", icon: "📐", q: "Benda mana yang berbentuk bola bulat?", ans: "⚽", ops: ["📦", "⚽", "📐"] },
+      { id: 56, title: "Hewan Suka Wortel?", category: "tebak", icon: "🥕", q: "Hewan mana yang paling suka makan wortel?", ans: "🐰", ops: ["🐼", "🐰", "🐮"] },
+      { id: 57, title: "Mana Alat Musik Petik?", category: "tebak", icon: "🎶", q: "Alat musik mana yang dimainkan dengan dipetik?", ans: "🎸", ops: ["🎸", "🥁", "🔔"] },
+      { id: 58, title: "Buah Warna Merah?", category: "tebak", icon: "🎨", q: "Yang mana buah Apel Merah segar?", ans: "🍎", ops: ["🍌", "🍎", "🍊"] },
+      { id: 59, title: "Siapa Raja Hutan?", category: "tebak", icon: "👑", q: "Hewan perkasa mana yang dijuluki Raja Hutan?", ans: "🦁", ops: ["🦁", "🐵", "🐰"] },
+      { id: 60, title: "Kendaraan di Atas Air?", category: "tebak", icon: "🌊", q: "Kendaraan mana yang berlayar di laut?", ans: "🚢", ops: ["🚗", "🚂", "🚢"] },
+      { id: 61, title: "Mana Makanan Manis?", category: "tebak", icon: "🧁", q: "Camilan dingin mana yang rasanya manis?", ans: "🍦", ops: ["🥦", "🍦", "🌽"] },
+      { id: 62, title: "Hewan Berkokok Pagi?", category: "tebak", icon: "🌅", q: "Hewan mana yang berkokok membangunkan pagi?", ans: "🐔", ops: ["🐔", "🐱", "🐶"] },
+      { id: 63, title: "Kendaraan Berjalan di Rel?", category: "tebak", icon: "🛤️", q: "Kendaraan mana yang berjalan di atas rel?", ans: "🚂", ops: ["🚂", "🚌", "✈️"] },
+      { id: 64, title: "Mana Kendaraan Luar Angkasa?", category: "tebak", icon: "🌌", q: "Kendaraan mana yang meluncur menuju bintang?", ans: "🚀", ops: ["🚲", "🚀", "🚗"] },
+      { id: 65, title: "Hewan Berbelalai Panjang?", category: "tebak", icon: "🌿", q: "Hewan besar mana yang memiliki belalai panjang?", ans: "🐘", ops: ["🐘", "🐯", "🐴"] },
+      { id: 66, title: "Mana Buah Berwarna Jingga?", category: "tebak", icon: "🎨", q: "Yang mana buah Jeruk segar kaya vitamin C?", ans: "🍊", ops: ["🍇", "🍊", "🍏"] },
+      { id: 67, title: "Mana Benda Pelindung Hujan?", category: "tebak", icon: "🌧️", q: "Benda mana yang melindungi kita dari tetesan hujan?", ans: "☂️", ops: ["🕶️", "☂️", "🎒"] },
+      { id: 68, title: "Hewan Pandai Berenang?", category: "tebak", icon: "🌊", q: "Hewan mana yang hidup dan bernapas di dalam air?", ans: "🐟", ops: ["🐱", "🐟", "🐵"] },
+      { id: 69, title: "Mana Buah Berbiji Banyak?", category: "tebak", icon: "🧺", q: "Buah besar hijau berair mana yang bijinya banyak?", ans: "🍉", ops: ["🍉", "🍌", "🥑"] },
+      { id: 70, title: "Siapa Teman Penghasil Madu?", category: "tebak", icon: "🍯", q: "Hewan kecil mana yang membuat madu manis?", ans: "🐝", ops: ["🦋", "🐝", "🐞"] },
+      { id: 71, title: "Mana Benda Penerang Malam?", category: "tebak", icon: "✨", q: "Benda langit mana yang bersinar di malam hari?", ans: "🌙", ops: ["🌙", "☁️", "🌈"] },
+      { id: 72, title: "Kendaraan Roda Dua?", category: "tebak", icon: "🚦", q: "Kendaraan santai mana yang dikayuh dengan pedal?", ans: "🚲", ops: ["🚲", "🚗", "🚌"] },
+      { id: 73, title: "Mana Camilan Donat Cokelat?", category: "tebak", icon: "☕", q: "Kue lezat mana yang memiliki lubang di tengahnya?", ans: "🍩", ops: ["🍕", "🍩", "🍞"] },
+      { id: 74, title: "Hewan Bertubuh Belang?", category: "tebak", icon: "🔍", q: "Hewan mana yang tubuhnya bergaris hitam-putih?", ans: "🦓", ops: ["🦓", "🐮", "🦁"] },
+      { id: 75, title: "Mana Mahkota Sang Raja?", category: "tebak", icon: "🏰", q: "Perhiasan emas mana yang dipakai di kepala raja?", ans: "👑", ops: ["👑", "👒", "🎩"] },
+      { id: 76, title: "Benda Berdenting Merdu?", category: "tebak", icon: "🎵", q: "Benda mana yang berbunyi saat digoyangkan?", ans: "🔔", ops: ["📦", "🔔", "📚"] },
+
+      // 77 - 101: Hitung Cepat
+      { id: 77, title: "Hitung Apel Merah", category: "hitung", icon: "🍎", item: "🍎", name: "Apel Merah" },
+      { id: 78, title: "Berapa Jumlah Bintang?", category: "hitung", icon: "⭐", item: "⭐", name: "Bintang Kuning" },
+      { id: 79, title: "Hitung Stroberi Segar", category: "hitung", icon: "🍓", item: "🍓", name: "Stroberi" },
+      { id: 80, title: "Jumlah Koin Emas", category: "hitung", icon: "💰", item: "💰", name: "Koin Emas" },
+      { id: 81, title: "Hitung Mobil Balap", category: "hitung", icon: "🚗", item: "🚗", name: "Mobil Balap" },
+      { id: 82, title: "Berapa Ikan Berenang?", category: "hitung", icon: "🐟", item: "🐟", name: "Ikan Ceria" },
+      { id: 83, title: "Hitung Donat Lezat", category: "hitung", icon: "🍩", item: "🍩", name: "Donat Manis" },
+      { id: 84, title: "Hitung Bola Sepak", category: "hitung", icon: "⚽", item: "⚽", name: "Bola Sepak" },
+      { id: 85, title: "Berapa Kado Hadiah?", category: "hitung", icon: "🎁", item: "🎁", name: "Kado Hadiah" },
+      { id: 86, title: "Hitung Jeruk Segar", category: "hitung", icon: "🍊", item: "🍊", name: "Jeruk Segar" },
+      { id: 87, title: "Berapa Bebek Kuning?", category: "hitung", icon: "🐥", item: "🐥", name: "Bebek Kuning" },
+      { id: 88, title: "Hitung Permen Manis", category: "hitung", icon: "🍬", item: "🍬", name: "Permen Warna" },
+      { id: 89, title: "Berapa Balon Udara?", category: "hitung", icon: "🎈", item: "🎈", name: "Balon Ceria" },
+      { id: 90, title: "Jumlah Es Krim Lezat", category: "hitung", icon: "🍦", item: "🍦", name: "Es Krim" },
+      { id: 91, title: "Hitung Semangka Manis", category: "hitung", icon: "🍉", item: "🍉", name: "Semangka Segar" },
+      { id: 92, title: "Berapa Pesawat Terbang?", category: "hitung", icon: "✈️", item: "✈️", name: "Pesawat Terbang" },
+      { id: 93, title: "Hitung Ceri Merah", category: "hitung", icon: "🍒", item: "🍒", name: "Buah Ceri" },
+      { id: 94, title: "Berapa Lonceng Emas?", category: "hitung", icon: "🔔", item: "🔔", name: "Lonceng Emas" },
+      { id: 95, title: "Hitung Mahkota Juara", category: "hitung", icon: "👑", item: "👑", name: "Mahkota Juara" },
+      { id: 96, title: "Berapa Kue Ulang Tahun?", category: "hitung", icon: "🎂", item: "🎂", name: "Kue Lezat" },
+      { id: 97, title: "Hitung Pisang Manis", category: "hitung", icon: "🍌", item: "🍌", name: "Pisang Manis" },
+      { id: 98, title: "Berapa Kupu-kupu Cantik?", category: "hitung", icon: "🦋", item: "🦋", name: "Kupu-kupu" },
+      { id: 99, title: "Hitung Bunga Mekar", category: "hitung", icon: "🌸", item: "🌸", name: "Bunga Mekar" },
+      { id: 100, title: "Berapa Roket Angkasa?", category: "hitung", icon: "🚀", item: "🚀", name: "Roket Angkasa" },
+      { id: 101, title: "Hitung Bintang Kejora", category: "hitung", icon: "🌟", item: "🌟", name: "Bintang Kejora" }
+    ];
+
+    /* =========================================================
+       4. RENDER LOBBY
+    ========================================================= */
+    const gameGrid = document.getElementById("gameGrid");
+    let activeFilter = 'all';
+
+    function renderLobby() {
+      gameGrid.innerHTML = '';
+      const list = activeFilter === 'all' ? gamesData : gamesData.filter(g => g.category === activeFilter);
+
+      list.forEach(game => {
+        const isDone = localStorage.getItem(`done_game_${game.id}`);
+        const card = document.createElement("div");
+        card.className = "game-card bg-white p-3 rounded-2xl border-2 border-amber-200 shadow-sm flex flex-col items-center justify-between text-center cursor-pointer";
+        card.onclick = () => bukaGame(game);
+
+        card.innerHTML = `
+          <div class="w-full flex justify-end min-h-[16px]">
+            ${isDone ? '<span class="text-xs">⭐</span>' : ''}
+          </div>
+          <div class="text-4xl my-1.5 filter drop-shadow">${game.icon}</div>
+          <h4 class="font-bold text-xs text-slate-800 leading-snug mb-2">${game.title}</h4>
+          <span class="w-full bg-yellow-400 hover:bg-yellow-500 text-amber-950 font-kids text-[10px] py-1.5 rounded-xl btn-chunky">
+            MAIN
+          </span>
+        `;
+        gameGrid.appendChild(card);
+      });
+
+      updateBintang();
+    }
+
+    function updateBintang() {
+      let total = 0;
+      for (let i = 1; i <= 101; i++) {
+        if (localStorage.getItem(`done_game_${i}`)) total++;
+      }
+      document.getElementById("starCounter").innerText = total;
+    }
+
+    function filterKategori(kat) {
+      activeFilter = kat;
+      document.querySelectorAll(".cat-btn").forEach(btn => {
+        btn.classList.remove("bg-amber-500", "text-white");
+        btn.classList.add("bg-white", "text-slate-700");
+      });
+      event.target.classList.add("bg-amber-500", "text-white");
+      event.target.classList.remove("bg-white", "text-slate-700");
+      renderLobby();
+    }
+
+    /* =========================================================
+       5. GAME ENGINES (DENGAN ACAK JAWABAN TEBAK GAMBAR)
+    ========================================================= */
+    let currentGame = null;
+    let activeInterval = null;
+
+    function bukaGame(game) {
+      currentGame = game;
+      document.getElementById("arenaTitle").innerText = game.title;
+      document.getElementById("arenaSub").innerText = `Game #${game.id} • Mode Pintar`;
+      document.getElementById("arenaScore").innerText = "Poin: 0";
+      document.getElementById("gameScreen").classList.remove("hidden");
+      document.getElementById("victoryModal").classList.add("hidden");
+
+      const canvas = document.getElementById("gameCanvas");
+      canvas.innerHTML = '';
+
+      if (game.category === 'pop') launchPopEngine(canvas, game);
+      else if (game.category === 'memori') launchMemoryEngine(canvas, game);
+      else if (game.category === 'tebak') launchTebakEngine(canvas, game);
+      else if (game.category === 'hitung') launchHitungEngine(canvas, game);
+    }
+
+    function keluarGame() {
+      if (activeInterval) clearInterval(activeInterval);
+      document.getElementById("gameScreen").classList.add("hidden");
+      renderLobby();
+    }
+
+    function triggerMenang() {
+      if (activeInterval) clearInterval(activeInterval);
+      soundEngine.win();
+      confetti({ particleCount: 75, spread: 65, origin: { y: 0.6 } });
+      localStorage.setItem(`done_game_${currentGame.id}`, "true");
+      document.getElementById("victoryModal").classList.remove("hidden");
+    }
+
+    function mainkanLagi() {
+      bukaGame(currentGame);
+    }
+
+    function lanjutGameBerikutnya() {
+      const nextId = (currentGame.id % 101) + 1;
+      const nextGame = gamesData.find(g => g.id === nextId);
+      bukaGame(nextGame);
+    }
+
+    /* ENGINE 1: BALON POP */
+    function launchPopEngine(canvas, game) {
+      let skor = 0;
+      let nyawa = 3;
+      const target = 5;
+
+      canvas.innerHTML = `
+        <div class="absolute top-2 w-full px-4 flex justify-between items-center z-10">
+          <div class="font-kids text-sky-950 text-xs bg-white/90 px-3.5 py-1.5 rounded-full shadow border border-sky-300">
+            🎯 ${game.desc} <span class="text-rose-500 font-bold ml-1">(Hindari 💣!)</span>
+          </div>
+          <div id="heartsContainer" class="text-base tracking-wider bg-white/90 px-3 py-1 rounded-full shadow border border-rose-300">
+            ❤️❤️❤️
+          </div>
+        </div>
+        <div id="skyBox" class="w-full h-full relative overflow-hidden"></div>
+      `;
+
+      const sky = document.getElementById("skyBox");
+      const heartsUI = document.getElementById("heartsContainer");
+
+      function updateHearts() {
+        let h = "";
+        for (let i = 0; i < 3; i++) {
+          h += i < nyawa ? "❤️" : "🖤";
+        }
+        heartsUI.innerText = h;
+      }
+
+      function gameOverPop() {
+        if (activeInterval) clearInterval(activeInterval);
+        soundEngine.wrong();
+        sky.innerHTML = `
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+            <div class="bg-white p-6 rounded-3xl border-4 border-rose-300 shadow-xl max-w-xs w-full">
+              <div class="text-5xl mb-2">💥</div>
+              <h4 class="font-kids text-rose-600 text-lg mb-1">Awas Kena Bom!</h4>
+              <p class="text-xs text-slate-600 font-bold mb-4">Jangan menyerah ya! Ayo coba pecahkan lagi pelan-pelan!</p>
+              <button onclick="mainkanLagi()" class="w-full bg-amber-400 hover:bg-amber-500 text-amber-950 font-kids py-3 rounded-2xl btn-chunky text-sm">
+                🔄 COBA LAGI
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      activeInterval = setInterval(() => {
+        if (skor >= target || nyawa <= 0) return;
+
+        const b = document.createElement("button");
+        const isHazard = Math.random() < 0.32;
+        const icon = isHazard ? "💣" : game.item;
+
+        b.className = "absolute text-6xl select-none floating-balloon cursor-pointer filter drop-shadow-md";
+        b.innerText = icon;
+        b.style.animationDuration = `${Math.random() * 1.5 + 3.2}s`;
+
+        const maxX = Math.max(sky.clientWidth - 80, 40);
+        b.style.left = `${Math.floor(Math.random() * maxX)}px`;
+
+        sky.appendChild(b);
+
+        b.onclick = () => {
+          if (isHazard) {
+            soundEngine.bomb();
+            nyawa--;
+            updateHearts();
+            sky.classList.add("shake");
+            setTimeout(() => { sky.classList.remove("shake"); }, 380);
+
+            b.classList.add("pop-burst");
+            setTimeout(() => { b.remove(); }, 120);
+
+            if (nyawa <= 0) gameOverPop();
+          } else {
+            soundEngine.pop();
+            skor++;
+            document.getElementById("arenaScore").innerText = `Poin: ${skor} / ${target}`;
+
+            b.classList.add("pop-burst");
+            setTimeout(() => { b.remove(); }, 120);
+
+            if (skor >= target) triggerMenang();
+          }
+        };
+
+        setTimeout(() => { if (b && b.parentNode) b.remove(); }, 4600);
+      }, 650);
+    }
+
+    /* ENGINE 2: KARTU MEMORI */
+    function launchMemoryEngine(canvas, game) {
+      const deckIcons = game.cards;
+      const deck = [...deckIcons, ...deckIcons].sort(() => Math.random() - 0.5);
+
+      canvas.innerHTML = `
+        <div class="font-kids text-sky-900 text-xs mb-3 bg-white/80 px-4 py-1.5 rounded-full shadow-sm border border-sky-300">
+          Temukan 2 Pasangan yang Sama!
+        </div>
+        <div id="memoryGrid" class="grid grid-cols-4 gap-2.5 max-w-xs mx-auto"></div>
+      `;
+      const grid = document.getElementById("memoryGrid");
+      let opened = [];
+      let matchedCount = 0;
+
+      deck.forEach(symbol => {
+        const card = document.createElement("div");
+        card.className = "w-16 h-20 bg-white rounded-2xl border-2 border-indigo-300 shadow flex items-center justify-center text-3xl font-kids cursor-pointer btn-chunky";
+        card.innerText = "❓";
+
+        card.onclick = () => {
+          if (opened.length < 2 && !card.classList.contains("done")) {
+            soundEngine.tap();
+            card.innerText = symbol;
+            card.classList.add("done", "bg-indigo-50");
+            opened.push({ elem: card, val: symbol });
+
+            if (opened.length === 2) {
+              if (opened[0].val === opened[1].val) {
+                soundEngine.correct();
+                matchedCount++;
+                opened = [];
+                if (matchedCount === deckIcons.length) {
+                  setTimeout(triggerMenang, 400);
+                }
+              } else {
+                soundEngine.wrong();
+                setTimeout(() => {
+                  opened.forEach(o => {
+                    o.elem.innerText = "❓";
+                    o.elem.classList.remove("done", "bg-indigo-50");
+                  });
+                  opened = [];
+                }, 700);
+              }
+            }
+          }
+        };
+        grid.appendChild(card);
+      });
+    }
+
+    /* ENGINE 3: TEBAK GAMBAR (PILIHAN SELALU DIACAK SECARA DINAMIS) */
+    function launchTebakEngine(canvas, game) {
+      // Mengacak urutan tombol pilihan agar anak tidak menebak posisi
+      const opsiAcak = [...game.ops].sort(() => Math.random() - 0.5);
+
+      canvas.innerHTML = `
+        <div class="bg-white p-6 rounded-3xl border-4 border-sky-300 shadow-xl max-w-sm w-full text-center">
+          <div class="bg-sky-100 text-sky-900 text-[11px] font-bold px-3 py-1 rounded-full inline-flex items-center gap-1 mb-3">
+            <span>🔍</span> Tebak Misteri
+          </div>
+          <h4 class="font-kids text-slate-800 text-base md:text-lg mb-6 leading-relaxed">${game.q}</h4>
+          <div class="flex justify-center gap-3">
+            ${opsiAcak.map(item => `
+              <button onclick="jawabTebak('${item}', '${game.ans}')" class="text-5xl p-4 bg-amber-50 hover:bg-amber-100 rounded-2xl border-2 border-amber-300 btn-chunky active:scale-95 transition-transform">
+                ${item}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    window.jawabTebak = (jawaban, kunci) => {
+      if (jawaban === kunci) {
+        soundEngine.correct();
+        triggerMenang();
+      } else {
+        soundEngine.wrong();
+      }
+    };
+
+    /* ENGINE 4: HITUNG CEPAT */
+    function launchHitungEngine(canvas, game) {
+      const targetCount = Math.floor(Math.random() * 4) + 2;
+      const opsi = [targetCount, targetCount - 1, targetCount + 1].sort(() => Math.random() - 0.5);
+
+      canvas.innerHTML = `
+        <div class="bg-white p-6 rounded-3xl border-4 border-emerald-300 shadow-xl max-w-sm w-full text-center">
+          <div class="bg-emerald-100 text-emerald-900 text-[11px] font-bold px-3 py-1 rounded-full inline-block mb-2">Belajar Berhitung</div>
+          <h4 class="font-kids text-slate-800 text-sm md:text-base mb-3 leading-snug">
+            Ada berapa jumlah <span class="text-emerald-700 underline font-extrabold">${game.name}</span> di bawah ini?
+          </h4>
+          
+          <div class="flex flex-wrap justify-center gap-2 text-4xl mb-6 py-2">
+            ${game.item.repeat(targetCount)}
+          </div>
+
+          <div class="flex justify-center gap-3">
+            ${opsi.map(num => `
+              <button onclick="jawabHitung(${num}, ${targetCount})" class="w-14 h-14 bg-emerald-400 hover:bg-emerald-500 text-white font-kids text-2xl rounded-2xl btn-chunky">
+                ${num}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    window.jawabHitung = (dipilih, benar) => {
+      if (dipilih === benar) {
+        soundEngine.correct();
+        triggerMenang();
+      } else {
+        soundEngine.wrong();
+      }
+    };
+
+    /* Inisialisasi */
+    window.onload = () => {
+      checkVIPAccess();
+      renderLobby();
+    };
+  </script>
+</body>
+</html>
