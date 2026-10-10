@@ -9,10 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
-    * {
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-    }
+    * { -webkit-tap-highlight-color: transparent; user-select: none; }
     body {
       font-family: 'Baloo 2', cursive;
       touch-action: manipulation;
@@ -22,7 +19,6 @@
     }
     .font-chubby { font-family: 'Fredoka', cursive; }
 
-    /* --- COZY 2.5D OUTLINE SYSTEM --- */
     .cozy-slab {
       border: 3.5px solid #362925;
       box-shadow: 0 7px 0 #362925, 0 12px 16px rgba(54, 41, 37, 0.12);
@@ -37,19 +33,13 @@
       border: 3.5px solid #233b2c;
       box-shadow: 0 6px 0 #233b2c, 0 8px 12px rgba(0,0,0,0.1);
     }
-    .cozy-btn-green:active {
-      transform: translateY(4px);
-      box-shadow: 0 2px 0 #233b2c;
-    }
+    .cozy-btn-green:active { transform: translateY(4px); box-shadow: 0 2px 0 #233b2c; }
     .cozy-btn-yellow {
       background: linear-gradient(180deg, #fef08a 0%, #fde047 100%);
       border: 3.5px solid #362925;
       box-shadow: 0 5px 0 #362925;
     }
-    .cozy-btn-yellow:active {
-      transform: translateY(3px);
-      box-shadow: 0 2px 0 #362925;
-    }
+    .cozy-btn-yellow:active { transform: translateY(3px); box-shadow: 0 2px 0 #362925; }
 
     @keyframes floatGentle {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -76,7 +66,6 @@
     }
     .shake { animation: screenShake 0.35s ease-in-out; }
 
-    /* Gaya Bagian Gambar Mewarnai */
     .color-part {
       transition: fill 0.2s ease;
       stroke: #362925;
@@ -85,9 +74,9 @@
       stroke-linecap: round;
       cursor: pointer;
     }
-    .color-part:active {
-      filter: brightness(0.9);
-    }
+    .color-part:active { filter: brightness(0.9); }
+
+    .age-btn { transition: transform 0.1s; }
 
     @media print {
       body * { visibility: hidden; }
@@ -101,25 +90,20 @@
   <!-- ================= POPUP KUNCI LYNK.ID ================= -->
   <div id="vipGateModal" class="fixed inset-0 bg-[#2d3a31]/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
     <div class="bg-[#fffdf7] rounded-[36px] p-6 max-w-sm w-full text-center cozy-slab relative border-4 border-[#362925]">
-      <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 bg-[#86efac] border-4 border-[#362925] rounded-full flex items-center justify-center text-3xl shadow">
-        🎨
-      </div>
+      <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 bg-[#86efac] border-4 border-[#362925] rounded-full flex items-center justify-center text-3xl shadow">🎨</div>
       <h2 class="text-2xl font-chubby text-[#362925] mt-4 mb-1">Akses 151 Game Pintar</h2>
       <p class="text-xs text-[#5c4a42] font-semibold mb-5 leading-relaxed px-2">
         Masukkan Kode Akses Eksklusif dari pembelian Anda di <span class="text-emerald-700 font-extrabold">Lynk.id</span>:
       </p>
-
-      <input id="pinInput" type="text" placeholder="KODE AKSES..." 
+      <input id="pinInput" type="text" placeholder="KODE AKSES..."
              class="w-full text-center text-xl font-chubby tracking-widest px-4 py-3.5 border-4 border-[#362925] rounded-2xl mb-4 focus:outline-none focus:ring-4 focus:ring-emerald-300 uppercase bg-[#fefce8] text-[#362925]" />
-      
-      <button onclick="verifikasiAkses()" 
+      <button onclick="verifikasiAkses()"
               class="w-full cozy-btn-green text-[#1e3325] font-chubby py-3.5 rounded-2xl text-lg mb-4 hover:brightness-105">
         BUKA SEMUA GAME 🚀✨
       </button>
-
       <div class="border-t-2 border-dashed border-[#e6d5bc] pt-3">
         <p class="text-[11px] text-[#78645a] mb-2 font-bold">Belum punya kode akses?</p>
-        <a id="lynkLink" href="https://lynk.id/" target="_blank" 
+        <a id="lynkLink" href="https://lynk.id/" target="_blank"
            class="inline-block bg-[#fed7aa] border-2 border-[#362925] text-[#362925] text-xs font-chubby px-4 py-2 rounded-xl hover:bg-[#fdba74]">
           👉 Beli Akses Resmi di Lynk.id
         </a>
@@ -130,9 +114,7 @@
   <!-- ================= TOP HEADER ================= -->
   <header class="bg-[#fef9c3] px-3 md:px-4 py-2.5 sticky top-0 z-30 border-b-4 border-[#362925] shadow-sm flex justify-between items-center">
     <div class="flex items-center gap-2">
-      <div class="w-10 h-10 bg-[#bbf7d0] rounded-2xl border-[3px] border-[#362925] flex items-center justify-center text-xl shadow-sm float-slow">
-        🏡
-      </div>
+      <div class="w-10 h-10 bg-[#bbf7d0] rounded-2xl border-[3px] border-[#362925] flex items-center justify-center text-xl shadow-sm float-slow">🏡</div>
       <div>
         <h1 class="text-sm md:text-base font-chubby text-[#362925] leading-tight">151 GAME ANAK</h1>
         <p id="childGreeting" onclick="editChildName()" class="text-[10px] font-extrabold text-emerald-800 tracking-wide cursor-pointer hover:underline">
@@ -145,18 +127,11 @@
       <div class="bg-[#fed7aa] px-2.5 py-1 rounded-full border-[2.5px] border-[#362925] font-chubby text-[#362925] text-xs flex items-center gap-1 shadow-sm">
         ⭐ <span id="starCounter">0</span>
       </div>
-
       <button onclick="toggleBGM()" id="btnBGM" class="bg-white px-2 py-1 rounded-xl text-xs font-chubby border-[2.5px] border-[#362925] shadow flex items-center gap-1 active:translate-y-1">
         🎵 <span id="bgmStatusText" class="hidden sm:inline">Musik</span>
       </button>
-
-      <button onclick="bukaTimerModal()" class="bg-white p-1.5 rounded-xl text-sm border-[2.5px] border-[#362925] shadow active:translate-y-1" title="Batas Waktu Layar">
-        ⏱️
-      </button>
-
-      <button onclick="bukaStikerModal()" class="bg-[#bae6fd] p-1.5 rounded-xl text-sm border-[2.5px] border-[#362925] shadow active:translate-y-1" title="Hadiah Stiker & Sertifikat">
-        🎁
-      </button>
+      <button onclick="bukaTimerModal()" class="bg-white p-1.5 rounded-xl text-sm border-[2.5px] border-[#362925] shadow active:translate-y-1" title="Batas Waktu Layar">⏱️</button>
+      <button onclick="bukaStikerModal()" class="bg-[#bae6fd] p-1.5 rounded-xl text-sm border-[2.5px] border-[#362925] shadow active:translate-y-1" title="Hadiah Stiker & Sertifikat">🎁</button>
     </div>
   </header>
 
@@ -164,11 +139,10 @@
   <main id="lobbyScreen" class="p-4 max-w-4xl mx-auto flex-1 w-full pb-16">
     <div class="bg-gradient-to-b from-[#bbf7d0] to-[#86efac] border-4 border-[#362925] rounded-[32px] p-5 text-[#362925] mb-5 shadow-[0_8px_0_#362925] relative overflow-hidden text-center">
       <span class="absolute -right-3 -bottom-3 text-7xl opacity-20 select-none">🌻</span>
-      <h2 class="text-xl md:text-2xl font-chubby mb-1 tracking-wide">Pondok 151 Petualangan Ceria! 🎨</h2>
-      <p class="text-xs md:text-sm font-bold text-emerald-950 opacity-90 max-w-md mx-auto">
-        101 Game Edukasi Asah Otak + 50 Game Mewarnai Kanvas Kreatif untuk si kecil.
+      <h2 class="text-xl md:text-2xl font-chubby mb-1 tracking-wide">Pondok Petualangan Ceria! 🎨</h2>
+      <p id="jumlahGameInfo" class="text-xs md:text-sm font-bold text-emerald-950 opacity-90 max-w-md mx-auto">
+        Game edukasi asah otak dan mewarnai untuk si kecil.
       </p>
-      
       <div class="mt-3">
         <button onclick="bukaSertifikatModal()" class="bg-[#fef08a] border-2 border-[#362925] text-[#362925] text-xs font-chubby px-3.5 py-1.5 rounded-xl shadow-[0_3px_0_#362925] active:translate-y-1 inline-flex items-center gap-1.5">
           📜 Buka Sertifikat Kelulusan Anak
@@ -176,36 +150,41 @@
       </div>
     </div>
 
-    <!-- Filter Tab -->
-    <div class="flex gap-2.5 overflow-x-auto pb-3 mb-5 scrollbar-none">
-      <button onclick="filterKategori('all')" class="cat-btn active bg-[#fef08a] text-[#362925] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">Semua (151)</button>
-      <button onclick="filterKategori('warna')" class="cat-btn bg-[#fbcfe8] text-[#362925] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🎨 Mewarnai (50)</button>
-      <button onclick="filterKategori('pop')" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🎈 Balon Pop (25)</button>
-      <button onclick="filterKategori('memori')" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🧠 Memori (26)</button>
-      <button onclick="filterKategori('tebak')" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🔍 Tebak Objek (25)</button>
-      <button onclick="filterKategori('hitung')" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🔢 Berhitung (25)</button>
+    <!-- Filter Kategori -->
+    <div class="flex gap-2.5 overflow-x-auto pb-3 mb-3 scrollbar-none">
+      <button onclick="filterKategori('all', this)" class="cat-btn bg-[#fef08a] text-[#362925] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">Semua</button>
+      <button onclick="filterKategori('warna', this)" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🎨 Mewarnai (50)</button>
+      <button onclick="filterKategori('pop', this)" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🎈 Balon Pop (25)</button>
+      <button onclick="filterKategori('memori', this)" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🧠 Memori (26)</button>
+      <button onclick="filterKategori('tebak', this)" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🔍 Tebak Objek (25)</button>
+      <button onclick="filterKategori('hitung', this)" class="cat-btn bg-white text-[#5c4a42] border-[3px] border-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] whitespace-nowrap active:translate-y-1">🔢 Berhitung (25)</button>
     </div>
 
-    <!-- Grid 151 Game -->
+    <!-- Grid Game -->
     <div id="gameGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5"></div>
   </main>
 
   <!-- ================= ARENA PERMAINAN ================= -->
   <section id="gameScreen" class="hidden fixed inset-0 bg-[#e0f2fe] z-40 flex flex-col">
     <div class="bg-[#fffdf7] px-4 py-3 flex justify-between items-center border-b-4 border-[#362925] shadow-sm">
-      <button onclick="keluarGame()" class="bg-[#fca5a5] hover:bg-[#f87171] text-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs border-[3px] border-[#362925] shadow-[0_4px_0_#362925] active:translate-y-1 flex items-center gap-1">
-        ⬅ KELUAR
-      </button>
+      <button onclick="keluarGame()" class="bg-[#fca5a5] hover:bg-[#f87171] text-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs border-[3px] border-[#362925] shadow-[0_4px_0_#362925] active:translate-y-1">⬅ KELUAR</button>
       <div class="text-center px-2">
         <h3 id="arenaTitle" class="font-chubby text-[#362925] text-sm md:text-base leading-tight">Judul Game</h3>
         <span id="arenaSub" class="text-[10px] text-emerald-800 font-extrabold block">🌱 Mode Belajar Ceria</span>
       </div>
-      <div id="arenaScore" class="bg-[#fef08a] px-3.5 py-1 rounded-full text-xs font-chubby text-[#362925] border-[3px] border-[#362925] shadow-sm">
-        Poin: 0
-      </div>
+      <div id="arenaScore" class="bg-[#fef08a] px-3.5 py-1 rounded-full text-xs font-chubby text-[#362925] border-[3px] border-[#362925] shadow-sm">Poin: 0</div>
     </div>
-
     <div id="gameCanvas" class="flex-1 overflow-hidden relative flex flex-col items-center justify-center p-3"></div>
+  </section>
+
+  <!-- ================= KELAS BELAJAR (layar) ================= -->
+  <section id="kelasScreen" class="hidden fixed inset-0 bg-[#e0f2fe] z-40 flex flex-col">
+    <div class="bg-[#fffdf7] px-4 py-3 flex justify-between items-center border-b-4 border-[#362925] shadow-sm">
+      <button id="kelasKeluar" class="bg-[#fca5a5] px-4 py-2 rounded-2xl font-chubby text-xs border-[3px] border-[#362925] shadow-[0_4px_0_#362925] active:translate-y-1">⬅ KELUAR</button>
+      <h3 id="kelasJudul" class="font-chubby text-[#362925] text-sm md:text-base">Kelas Belajar</h3>
+      <span class="w-16"></span>
+    </div>
+    <div id="kelasIsi" class="flex-1 overflow-y-auto p-4 flex flex-col items-center"></div>
   </section>
 
   <!-- ================= MODAL KEMENANGAN ================= -->
@@ -214,39 +193,31 @@
       <div class="text-6xl mb-2 float-slow">🏆</div>
       <h3 class="text-2xl font-chubby text-[#362925] mb-1">KARYA HEBAT!</h3>
       <p class="text-xs text-[#5c4a42] font-bold mb-4">Kamu berhasil menyelesaikan permainan ini dengan sangat pintar!</p>
-      
-      <div class="text-3xl mb-5 tracking-widest text-[#facc15] filter drop-shadow">⭐⭐⭐</div>
-
+      <div class="text-3xl mb-5 tracking-widest text-[#facc15]">⭐⭐⭐</div>
       <div class="flex flex-col gap-2.5">
-        <button onclick="lanjutGameBerikutnya()" class="cozy-btn-green text-[#1e3325] font-chubby py-3 rounded-2xl text-sm hover:brightness-105">
-          GAME BERIKUTNYA ➡
-        </button>
-        <button onclick="mainkanLagi()" class="bg-[#bae6fd] hover:bg-[#7dd3fc] text-[#1e293b] font-chubby py-2.5 rounded-2xl text-xs border-[3px] border-[#362925] shadow-[0_3px_0_#362925] active:translate-y-1">
-          🔄 Main Lagi
-        </button>
+        <button onclick="lanjutGameBerikutnya()" class="cozy-btn-green text-[#1e3325] font-chubby py-3 rounded-2xl text-sm hover:brightness-105">GAME BERIKUTNYA ➡</button>
+        <button onclick="mainkanLagi()" class="bg-[#bae6fd] hover:bg-[#7dd3fc] text-[#1e293b] font-chubby py-2.5 rounded-2xl text-xs border-[3px] border-[#362925] shadow-[0_3px_0_#362925] active:translate-y-1">🔄 Main Lagi</button>
       </div>
     </div>
   </div>
 
-  <!-- ================= MODAL 1: BUKU STIKER ================= -->
+  <!-- ================= MODAL STIKER ================= -->
   <div id="stikerModal" class="hidden fixed inset-0 bg-[#2d3a31]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-[#fffdf7] rounded-[32px] p-6 max-w-sm w-full border-4 border-[#362925] shadow-2xl relative max-h-[85vh] overflow-y-auto">
       <button onclick="tutupModal('stikerModal')" class="absolute top-4 right-4 bg-[#fca5a5] border-2 border-[#362925] rounded-full w-8 h-8 font-chubby text-sm">✕</button>
       <h3 class="text-xl font-chubby text-center mb-1">🎁 Album Stiker Prestasi</h3>
       <p class="text-xs text-[#5c4a42] text-center font-bold mb-4">Selesaikan game untuk membuka stiker langka!</p>
-
       <div id="stikerGrid" class="grid grid-cols-3 gap-2.5 text-center"></div>
     </div>
   </div>
 
-  <!-- ================= MODAL 2: TIMER LAYAR ================= -->
+  <!-- ================= MODAL TIMER ================= -->
   <div id="timerModal" class="hidden fixed inset-0 bg-[#2d3a31]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-[#fffdf7] rounded-[32px] p-6 max-w-xs w-full text-center border-4 border-[#362925] shadow-2xl relative">
       <button onclick="tutupModal('timerModal')" class="absolute top-4 right-4 bg-[#fca5a5] border-2 border-[#362925] rounded-full w-8 h-8 font-chubby text-sm">✕</button>
       <div class="text-4xl mb-2">⏱️</div>
       <h3 class="text-lg font-chubby mb-1">Batas Waktu Main</h3>
       <p class="text-xs text-[#5c4a42] font-semibold mb-4">Pilih durasi agar si kecil tidak kelelahan menatap layar:</p>
-
       <div class="flex flex-col gap-2">
         <button onclick="setScreenTimer(15)" class="cozy-btn-yellow font-chubby py-2 rounded-xl text-xs">⏳ 15 Menit</button>
         <button onclick="setScreenTimer(30)" class="cozy-btn-yellow font-chubby py-2 rounded-xl text-xs">⏳ 30 Menit</button>
@@ -256,37 +227,31 @@
     </div>
   </div>
 
-  <!-- ================= MODAL 3: SERTIFIKAT JUARA DIGITAL ================= -->
+  <!-- ================= MODAL SERTIFIKAT ================= -->
   <div id="certificateModal" class="hidden fixed inset-0 bg-[#2d3a31]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-3xl p-6 max-w-md w-full border-4 border-[#362925] shadow-2xl relative my-8">
       <button onclick="tutupModal('certificateModal')" class="absolute top-4 right-4 bg-[#fca5a5] border-2 border-[#362925] rounded-full w-8 h-8 font-chubby text-sm">✕</button>
-      
       <div id="certificatePrintArea" class="bg-[#fffbeb] border-4 border-double border-amber-600 rounded-2xl p-6 text-center shadow-inner relative">
         <div class="text-4xl mb-1">🏅</div>
         <h2 class="text-xl font-chubby text-amber-950 uppercase tracking-widest">Sertifikat Kelulusan</h2>
         <p class="text-[10px] text-amber-800 font-bold uppercase tracking-wider mb-3">151 Game Pintar Si Kecil</p>
-        
         <p class="text-xs text-slate-600 mb-1">Diberikan dengan bangga kepada:</p>
         <h3 id="certChildName" class="text-2xl font-chubby text-emerald-700 underline decoration-amber-400 mb-2">Kak Pintar</h3>
         <p class="text-xs text-slate-700 font-semibold leading-relaxed mb-4">
           Telah berhasil menyelesaikan tantangan game edukasi, mengasah memori, melatih logika cerdas, dan menuangkan kreativitas warna.
         </p>
-
         <div class="flex justify-between items-center text-[10px] font-bold text-amber-900 border-t border-amber-300 pt-2 px-2">
           <span>⭐ Skor: <span id="certStarCount">0</span> Bintang</span>
           <span>📅 Status: Lulus Juara</span>
         </div>
       </div>
-
       <div class="mt-4 flex gap-2">
-        <button onclick="window.print()" class="w-full cozy-btn-green font-chubby py-2.5 rounded-2xl text-xs flex items-center justify-center gap-1.5">
-          🖨️ Cetak / Simpan PDF
-        </button>
+        <button onclick="window.print()" class="w-full cozy-btn-green font-chubby py-2.5 rounded-2xl text-xs flex items-center justify-center gap-1.5">🖨️ Cetak / Simpan PDF</button>
       </div>
     </div>
   </div>
 
-  <!-- ================= LAYAR ISTIRAHAT SCREEN-TIME ================= -->
+  <!-- ================= MODAL ISTIRAHAT ================= -->
   <div id="restScreenModal" class="hidden fixed inset-0 bg-[#2d3a31]/95 backdrop-blur-md z-50 flex items-center justify-center p-4">
     <div class="bg-[#fffdf7] rounded-[36px] p-6 max-w-xs w-full text-center cozy-slab border-4 border-[#362925]">
       <div class="text-6xl mb-2">🌙</div>
@@ -300,9 +265,12 @@
     </div>
   </div>
 
-  <!-- ================= LOGIKA JAVASCRIPT ================= -->
+  <!-- ================= MODAL RAPOR ================= -->
+  <div id="raporModal" class="hidden fixed inset-0 bg-[#2d3a31]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"></div>
+
+  <!-- ================= LOGIKA UTAMA ================= -->
   <script>
-    /* 1. KODE AKSES LYNK.ID */
+    /* ---------- 1. KODE AKSES ---------- */
     const KODE_PIN_VIP = "ANAKPINTAR";
 
     function checkVIPAccess() {
@@ -325,7 +293,7 @@
       }
     }
 
-    /* 2. AUDIO SYNTHESIZER & KID-FRIENDLY BGM */
+    /* ---------- 2. AUDIO SYNTHESIZER & BGM ---------- */
     let audioCtx = null;
     let isBgmPlaying = false;
     let bgmInterval = null;
@@ -349,7 +317,7 @@
         gain.connect(ctx.destination);
         osc.start();
         osc.stop(ctx.currentTime + duration);
-      } catch(e) {}
+      } catch (e) {}
     }
 
     const bgmNotes = [
@@ -365,7 +333,6 @@
       getAudioContext();
       isBgmPlaying = true;
       document.getElementById("btnBGM").classList.add("bg-[#bbf7d0]");
-      
       bgmInterval = setInterval(() => {
         playTone(bgmNotes[noteIdx], 'triangle', 0.22, 0.04);
         noteIdx = (noteIdx + 1) % bgmNotes.length;
@@ -384,39 +351,426 @@
     }
 
     const soundEngine = {
-      pop: () => {
-        playTone(650, 'triangle', 0.08, 0.3);
-        setTimeout(() => playTone(880, 'triangle', 0.06, 0.2), 30);
-      },
+      pop: () => { playTone(650, 'triangle', 0.08, 0.3); setTimeout(() => playTone(880, 'triangle', 0.06, 0.2), 30); },
       tap: () => playTone(480, 'sine', 0.06, 0.15),
-      correct: () => {
-        playTone(523, 'sine', 0.1, 0.2);
-        setTimeout(() => playTone(659, 'sine', 0.15, 0.2), 80);
-      },
-      color: () => {
-        playTone(587.33, 'triangle', 0.1, 0.2);
-      },
-      bomb: () => {
-        playTone(150, 'sawtooth', 0.25, 0.4);
-        setTimeout(() => playTone(110, 'sawtooth', 0.2, 0.3), 100);
-      },
+      correct: () => { playTone(523, 'sine', 0.1, 0.2); setTimeout(() => playTone(659, 'sine', 0.15, 0.2), 80); },
+      color: () => playTone(587.33, 'triangle', 0.1, 0.2),
+      bomb: () => { playTone(150, 'sawtooth', 0.25, 0.4); setTimeout(() => playTone(110, 'sawtooth', 0.2, 0.3), 100); },
       wrong: () => playTone(220, 'sawtooth', 0.18, 0.15),
-      win: () => {
-        [440, 554, 659, 880].forEach((f, idx) => {
-          setTimeout(() => playTone(f, 'triangle', 0.2, 0.25), idx * 110);
-        });
-      }
+      win: () => { [440, 554, 659, 880].forEach((f, i) => setTimeout(() => playTone(f, 'triangle', 0.2, 0.25), i * 110)); }
     };
 
-    function toggleFullscreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      } else {
-        document.exitFullscreen().catch(() => {});
+    /* ---------- 3. NARATOR (Web Speech API) ---------- */
+    let uiLang = localStorage.getItem('ui_lang') || 'id';
+    let narratorOn = localStorage.getItem('narrator_on') !== 'off';
+    let ttsVoice = null;
+
+    const LABEL = {
+      id: {
+        semua: 'Semua Usia', balita: 'Balita 2–3', pra: 'Prasekolah 4–6',
+        rapor: 'Rapor Aktivitas', raporJudul: 'Rapor Aktivitas Anak',
+        raporCatatan: 'Ini catatan aktivitas bermain, bukan penilaian perkembangan atau diagnosis.',
+        banner: '📲 Biar cepat dibuka dari layar HP', pasang: 'Pasang',
+        instalIOS: 'Di iPhone/iPad: ketuk tombol Bagikan (kotak dengan panah ↑) di Safari, lalu pilih "Tambahkan ke Layar Utama".',
+        instalAndroid: 'Di Android (Chrome): ketuk menu ⋮ di kanan atas, lalu pilih "Tambahkan ke layar utama" atau "Pasang aplikasi".',
+        kelas: '🎓 Kelas Belajar (Baru!)', kembali: '← Kembali', selesai: 'selesai',
+        hebat: 'Hebat sekali! Kamu berhasil!', terhalang: 'Jalannya terhalang!', bintang: 'Bintang!',
+        soal: 'Soal', hafal: 'Sudah Hafal ✅', dengar: '🔊 Dengarkan', arti: 'Artinya'
+      },
+      en: {
+        semua: 'All Ages', balita: 'Toddler 2–3', pra: 'Preschool 4–6',
+        rapor: 'Activity Report', raporJudul: 'Child Activity Report',
+        raporCatatan: 'This is a record of play activity, not a developmental assessment or diagnosis.',
+        banner: '📲 Open faster from your home screen', pasang: 'Add',
+        instalIOS: 'On iPhone/iPad: tap the Share button (square with ↑) in Safari, then choose "Add to Home Screen".',
+        instalAndroid: 'On Android (Chrome): tap the ⋮ menu at the top right, then choose "Add to Home screen" or "Install app".',
+        kelas: '🎓 Learning Class (New!)', kembali: '← Back', selesai: 'completed',
+        hebat: 'Great job! You did it!', terhalang: 'The way is blocked!', bintang: 'Star!',
+        soal: 'Question', hafal: 'Done ✅', dengar: '🔊 Listen', arti: 'Meaning'
       }
+    };
+    const t = k => LABEL[uiLang][k];
+
+    const KODE_SUARA = { id: 'id-ID', en: 'en-US' };
+
+    function pilihSuara() {
+      if (!('speechSynthesis' in window)) return;
+      const daftar = speechSynthesis.getVoices();
+      ttsVoice = daftar.find(v => v.lang === KODE_SUARA[uiLang]) || daftar.find(v => v.lang.startsWith(uiLang)) || null;
+    }
+    if ('speechSynthesis' in window) {
+      pilihSuara();
+      speechSynthesis.onvoiceschanged = pilihSuara;
     }
 
-    /* 3. PERSONALISASI NAMA ANAK */
+    function bacaTeks(teks, lang) {
+      if (!narratorOn || !teks || !('speechSynthesis' in window)) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(teks);
+      u.lang = lang || KODE_SUARA[uiLang];
+      u.rate = 0.85;
+      u.pitch = 1.2;
+      if (ttsVoice && (!lang || lang === KODE_SUARA[uiLang])) u.voice = ttsVoice;
+      speechSynthesis.speak(u);
+    }
+
+    function toggleNarator() {
+      narratorOn = !narratorOn;
+      localStorage.setItem('narrator_on', narratorOn ? 'on' : 'off');
+      if (!narratorOn && 'speechSynthesis' in window) speechSynthesis.cancel();
+      segarkanHeader();
+    }
+
+    function toggleBahasa() {
+      uiLang = uiLang === 'id' ? 'en' : 'id';
+      localStorage.setItem('ui_lang', uiLang);
+      pilihSuara();
+      segarkanHeader();
+      segarkanTabUsia();
+      renderLobby();
+    }
+
+    /* ---------- 4. DATA GAME ASLI ---------- */
+    /* Catatan: daftar lengkap 151 game dipasang di sini.
+       Struktur tiap game: { id, title, category, icon, ... } */
+    const gamesData = [];
+
+    // Balon Pop (1-25)
+    const POP_DATA = [
+      [1,"Pecah Balon Merah","🎈","Pecahkan 5 Balon Merah!"],
+      [2,"Pecah Bintang Kuning","⭐","Tangkap 5 Bintang Kuning!"],
+      [3,"Letup Stroberi Manis","🍓","Pecahkan 5 Stroberi Segar!"],
+      [4,"Pecah Balon Donat","🍩","Tangkap 5 Donat Ceria!"],
+      [5,"Letup Apel Merah","🍎","Pecahkan 5 Apel Merah!"],
+      [6,"Balon Permen Warna","🍬","Tangkap 5 Permen Manis!"],
+      [7,"Pecah Jeruk Segar","🍊","Pecahkan 5 Jeruk Manis!"],
+      [8,"Tangkap Bunga Mekar","🌸","Tangkap 5 Bunga Cantik!"],
+      [9,"Letup Balon Ceri","🍒","Pecahkan 5 Buah Ceri!"],
+      [10,"Pecah Bola Sepak","⚽","Tangkap 5 Bola Sepak!"],
+      [11,"Balon Semangka Manis","🍉","Pecahkan 5 Semangka Segar!"],
+      [12,"Tangkap Kado Hadiah","🎁","Kumpulkan 5 Kado Hadiah!"],
+      [13,"Balon Pisang Kuning","🍌","Pecahkan 5 Pisang Manis!"],
+      [14,"Letup Balon Es Krim","🍦","Tangkap 5 Es Krim Lezat!"],
+      [15,"Balon Mobil Cepat","🚗","Tangkap 5 Mobil Balap!"],
+      [16,"Pecah Roket Angkasa","🚀","Tangkap 5 Roket Meluncur!"],
+      [17,"Balon Kucing Imut","🐱","Pecahkan 5 Balon Kucing!"],
+      [18,"Letup Kelinci Lucu","🐰","Tangkap 5 Kelinci Melompat!"],
+      [19,"Balon Mahkota Raja","👑","Kumpulkan 5 Mahkota Emas!"],
+      [20,"Pecah Lonceng Ceria","🔔","Bunyikan 5 Lonceng Ajaib!"],
+      [21,"Tangkap Ikan Badut","🐟","Tangkap 5 Ikan Berenang!"],
+      [22,"Balon Anggur Ungu","🍇","Pecahkan 5 Anggur Manis!"],
+      [23,"Pecah Lolipop Manis","🍭","Tangkap 5 Lolipop Ceria!"],
+      [24,"Balon Katak Melompat","🐸","Tangkap 5 Katak Hijau!"],
+      [25,"Letup Bintang Kejora","🌟","Kumpulkan 5 Bintang Berkilau!"]
+    ];
+    POP_DATA.forEach(([id, title, item, desc]) => gamesData.push({ id, title, category: 'pop', icon: item, item, desc }));
+
+    // Memori (26-51)
+    const MEMORI_DATA = [
+      [26,"Memori Hewan Ternak","🐮",["🐮","🐔","🐴","🐑"]],
+      [27,"Pasangan Buah Manis","🍎",["🍎","🍌","🍇","🍓"]],
+      [28,"Memori Kendaraan Darat","🚗",["🚗","🚌","🚂","🚕"]],
+      [29,"Pasang Hewan Rimba","🦁",["🦁","🐯","🐵","🐘"]],
+      [30,"Memori Sahabat Kucing Anjing","🐱",["🐱","🐶","🐰","🐼"]],
+      [31,"Cocok Kendaraan Terbang","✈️",["✈️","🚀","🚁","🎈"]],
+      [32,"Pasangan Makanan Lezat","🍕",["🍕","🍔","🍩","🍦"]],
+      [33,"Memori Sayur Sehat","🥕",["🥕","🌽","🥦","🍅"]],
+      [34,"Pasang Hewan Air","🐬",["🐬","🐟","🐙","🦀"]],
+      [35,"Memori Alat Musik","🎸",["🎸","🥁","🎹","🔔"]],
+      [36,"Pasang Olahraga Bola","⚽",["⚽","🏀","🎾","🏈"]],
+      [37,"Memori Kue Ulang Tahun","🎂",["🎂","🧁","🍩","🍪"]],
+      [38,"Pasangan Burung Bernyanyi","🐦",["🐦","🦆","🦉","🦜"]],
+      [39,"Memori Benda Bermain","🪁",["🪁","⚽","🚗","🎈"]],
+      [40,"Pasangan Emoji Ceria","😄",["😄","🥳","😍","😎"]],
+      [41,"Memori Perlengkapan Belajar","📚",["📚","✏️","🎨","🎒"]],
+      [42,"Pasangan Musim Alam","☀️",["☀️","🌧️","🌈","⭐"]],
+      [43,"Memori Binatang Kecil","🐝",["🐝","🦋","🐞","🐜"]],
+      [44,"Pasangan Hadiah Kejutan","🎁",["🎁","👑","💎","⭐"]],
+      [45,"Memori Jeruk & Ceri","🍒",["🍒","🍊","🍋","🍉"]],
+      [46,"Pasang Hewan Kutub","🐧",["🐧","🐻","🐋","🐟"]],
+      [47,"Memori Minuman Segar","🧃",["🧃","🥛","🥤","🍼"]],
+      [48,"Pasangan Luar Angkasa","🪐",["🪐","🚀","⭐","🌙"]],
+      [49,"Memori Transportasi Air","🚢",["🚢","⛵","🚤","🛳️"]],
+      [50,"Pasang Bunga Warna","🌻",["🌻","🌸","🌹","🌷"]],
+      [51,"Memori Hobi Seru","🎨",["🎨","📷","🎸","⚽"]]
+    ];
+    MEMORI_DATA.forEach(([id, title, icon, cards]) => gamesData.push({ id, title, category: 'memori', icon, cards }));
+
+    // Tebak Objek (52-76)
+    const TEBAK_DATA = [
+      [52,"Mana Buah Pisang?","🧺","Yang mana buah Pisang Manis?","🍌",["🍎","🍌","🍇"]],
+      [53,"Kendaraan di Langit?","☁️","Kendaraan yang terbang tinggi di awan?","✈️",["🚗","✈️","🚢"]],
+      [54,"Hewan yang Mengeong?","🐾","Hewan mana yang suka bersuara meong?","🐱",["🐱","🐶","🦁"]],
+      [55,"Mana Benda Bulat?","📐","Benda mana yang berbentuk bola bulat?","⚽",["📦","⚽","📐"]],
+      [56,"Hewan Suka Wortel?","🥕","Hewan mana yang paling suka makan wortel?","🐰",["🐼","🐰","🐮"]],
+      [57,"Mana Alat Musik Petik?","🎶","Alat musik mana yang dimainkan dengan dipetik?","🎸",["🎸","🥁","🔔"]],
+      [58,"Buah Warna Merah?","🎨","Yang mana buah Apel Merah segar?","🍎",["🍌","🍎","🍊"]],
+      [59,"Siapa Raja Hutan?","👑","Hewan perkasa mana yang dijuluki Raja Hutan?","🦁",["🦁","🐵","🐰"]],
+      [60,"Kendaraan di Atas Air?","🌊","Kendaraan mana yang berlayar di laut?","🚢",["🚗","🚂","🚢"]],
+      [61,"Mana Makanan Manis?","🧁","Camilan dingin mana yang rasanya manis?","🍦",["🥦","🍦","🌽"]],
+      [62,"Hewan Berkokok Pagi?","🌅","Hewan mana yang berkokok membangunkan pagi?","🐔",["🐔","🐱","🐶"]],
+      [63,"Kendaraan Berjalan di Rel?","🛤️","Kendaraan mana yang berjalan di atas rel?","🚂",["🚂","🚌","✈️"]],
+      [64,"Mana Kendaraan Luar Angkasa?","🌌","Kendaraan mana yang meluncur menuju bintang?","🚀",["🚲","🚀","🚗"]],
+      [65,"Hewan Berbelalai Panjang?","🌿","Hewan besar mana yang memiliki belalai panjang?","🐘",["🐘","🐯","🐴"]],
+      [66,"Mana Buah Berwarna Jingga?","🎨","Yang mana buah Jeruk segar kaya vitamin C?","🍊",["🍇","🍊","🍏"]],
+      [67,"Mana Benda Pelindung Hujan?","🌧️","Benda mana yang melindungi kita dari tetesan hujan?","☂️",["🕶️","☂️","🎒"]],
+      [68,"Hewan Pandai Berenang?","🌊","Hewan mana yang hidup dan bernapas di dalam air?","🐟",["🐱","🐟","🐵"]],
+      [69,"Mana Buah Berbiji Banyak?","🧺","Buah besar hijau berair mana yang bijinya banyak?","🍉",["🍉","🍌","🥑"]],
+      [70,"Siapa Teman Penghasil Madu?","🍯","Hewan kecil mana yang membuat madu manis?","🐝",["🦋","🐝","🐞"]],
+      [71,"Mana Benda Penerang Malam?","✨","Benda langit mana yang bersinar di malam hari?","🌙",["🌙","☁️","🌈"]],
+      [72,"Kendaraan Roda Dua?","🚦","Kendaraan santai mana yang dikayuh dengan pedal?","🚲",["🚲","🚗","🚌"]],
+      [73,"Mana Camilan Donat Cokelat?","☕","Kue lezat mana yang memiliki lubang di tengahnya?","🍩",["🍕","🍩","🍞"]],
+      [74,"Hewan Bertubuh Belang?","🔍","Hewan mana yang tubuhnya bergaris hitam-putih?","🦓",["🦓","🐮","🦁"]],
+      [75,"Mana Mahkota Sang Raja?","🏰","Perhiasan emas mana yang dipakai di kepala raja?","👑",["👑","👒","🎩"]],
+      [76,"Benda Berdenting Merdu?","🎵","Benda mana yang berbunyi saat digoyangkan?","🔔",["📦","🔔","📚"]]
+    ];
+    TEBAK_DATA.forEach(([id, title, icon, q, ans, ops]) => gamesData.push({ id, title, category: 'tebak', icon, q, ans, ops }));
+
+    // Berhitung (77-101)
+    const HITUNG_DATA = [
+      [77,"Hitung Apel Merah","🍎","Apel Merah"],[78,"Berapa Jumlah Bintang?","⭐","Bintang Kuning"],
+      [79,"Hitung Stroberi Segar","🍓","Stroberi"],[80,"Jumlah Koin Emas","💰","Koin Emas"],
+      [81,"Hitung Mobil Balap","🚗","Mobil Balap"],[82,"Berapa Ikan Berenang?","🐟","Ikan Ceria"],
+      [83,"Hitung Donat Lezat","🍩","Donat Manis"],[84,"Hitung Bola Sepak","⚽","Bola Sepak"],
+      [85,"Berapa Kado Hadiah?","🎁","Kado Hadiah"],[86,"Hitung Jeruk Segar","🍊","Jeruk Segar"],
+      [87,"Berapa Bebek Kuning?","🐥","Bebek Kuning"],[88,"Hitung Permen Manis","🍬","Permen Warna"],
+      [89,"Berapa Balon Udara?","🎈","Balon Ceria"],[90,"Jumlah Es Krim Lezat","🍦","Es Krim"],
+      [91,"Hitung Semangka Manis","🍉","Semangka Segar"],[92,"Berapa Pesawat Terbang?","✈️","Pesawat Terbang"],
+      [93,"Hitung Ceri Merah","🍒","Buah Ceri"],[94,"Berapa Lonceng Emas?","🔔","Lonceng Emas"],
+      [95,"Hitung Mahkota Juara","👑","Mahkota Juara"],[96,"Berapa Kue Ulang Tahun?","🎂","Kue Lezat"],
+      [97,"Hitung Pisang Manis","🍌","Pisang Manis"],[98,"Berapa Kupu-kupu Cantik?","🦋","Kupu-kupu"],
+      [99,"Hitung Bunga Mekar","🌸","Bunga Mekar"],[100,"Berapa Roket Angkasa?","🚀","Roket Angkasa"],
+      [101,"Hitung Bintang Kejora","🌟","Bintang Kejora"]
+    ];
+    HITUNG_DATA.forEach(([id, title, item, name]) => gamesData.push({ id, title, category: 'hitung', icon: item, item, name }));
+
+    // Mewarnai (102-151)
+    const WARNA_DATA = [
+      [102,"Warna Apel Manis","🍎","apel"],[103,"Warna Jeruk Segar","🍊","jeruk"],[104,"Warna Kucing Ceria","🐱","kucing"],
+      [105,"Warna Mobil Balap","🚗","mobil"],[106,"Warna Bintang Langit","⭐","bintang"],[107,"Warna Es Krim Lezat","🍦","eskrim"],
+      [108,"Warna Kupu-kupu","🦋","kupu_kupu"],[109,"Warna Rumah Impian","🏡","rumah"],[110,"Warna Bunga Cantik","🌸","bunga"],
+      [111,"Warna Roket Angkasa","🚀","roket"],[112,"Warna Donat Cokelat","🍩","donat"],[113,"Warna Stroberi Manis","🍓","stroberi"],
+      [114,"Warna Kelinci Lucu","🐰","kelinci"],[115,"Warna Ikan Badut","🐟","ikan"],[116,"Warna Pisang Kuning","🍌","pisang"],
+      [117,"Warna Semangka Segar","🍉","semangka"],[118,"Warna Kapal Layar","⛵","kapal"],[119,"Warna Mahkota Raja","👑","mahkota"],
+      [120,"Warna Permen Manis","🍬","permen"],[121,"Warna Kue Ulang Tahun","🎂","kue"],[122,"Warna Balon Ceria","🎈","balon"],
+      [123,"Warna Pesawat Terbang","✈️","pesawat"],[124,"Warna Katak Melompat","🐸","katak"],[125,"Warna Kado Hadiah","🎁","kado"],
+      [126,"Warna Payung Hujan","☂️","payung"],[127,"Warna Singa Rimba","🦁","singa"],[128,"Warna Anggur Ungu","🍇","anggur"],
+      [129,"Warna Burung Ceria","🐦","burung"],[130,"Warna Bola Sepak","⚽","bola"],[131,"Warna Jamur Hutan","🍄","jamur"],
+      [132,"Warna Robot Canggih","🤖","robot"],[133,"Warna Dinosaurus Imut","🦖","dino"],[134,"Warna Ceri Kembar","🍒","ceri"],
+      [135,"Warna Kacamata Keren","👓","kacamata"],[136,"Warna Topi Pantai","👒","topi"],[137,"Warna Kaus Kaki","🧦","kaos_kaki"],
+      [138,"Warna Jam Weker","⏰","jam"],[139,"Warna Pensil Gambar","✏️","pensil"],[140,"Warna Cangkir Susu","☕","cangkir"],
+      [141,"Warna Mobil Bus","🚌","bus"],[142,"Warna Kereta Api","🚂","kereta"],[143,"Warna Pohon Rindang","🌳","pohon"],
+      [144,"Warna Awan Tersenyum","☁️","awan"],[145,"Warna Matahari Pagi","☀️","matahari"],[146,"Warna Kura-kura","🐢","kura_kura"],
+      [147,"Warna Kuda Nil","🦛","kuda_nil"],[148,"Warna Bebek Kuning","🦆","bebek"],[149,"Warna Nanas Tropis","🍍","nanas"],
+      [150,"Warna Pelangi Indah","🌈","pelangi"],[151,"Warna Hati Manis","💖","hati"]
+    ];
+    WARNA_DATA.forEach(([id, title, icon, model]) => gamesData.push({ id, title, category: 'warna', icon, modelType: model }));
+
+    /* ---------- 5. MODEL SVG MEWARNAI ---------- */
+    /* Model SVG disederhanakan ke satu bentuk dasar yang bisa diwarnai,
+       agar file tetap ringkas. Setiap model memakai gambar dari daftar di bawah. */
+    const SVG_MODELS = {
+      apel: `<rect class="color-part" fill="#fff" onclick="fillPart(this)" x="96" y="25" width="8" height="25" rx="4"/>
+             <path class="color-part" fill="#fff" onclick="fillPart(this)" d="M50,75 C30,115 40,165 100,170 C160,165 170,115 150,75 C130,55 110,65 100,70 C90,65 70,55 50,75 Z"/>`,
+      jeruk: `<circle class="color-part" fill="#fff" onclick="fillPart(this)" cx="100" cy="115" r="62"/>`,
+      kucing: `<polygon class="color-part" fill="#fff" onclick="fillPart(this)" points="45,80 30,30 80,55"/>
+               <polygon class="color-part" fill="#fff" onclick="fillPart(this)" points="155,80 170,30 120,55"/>
+               <circle class="color-part" fill="#fff" onclick="fillPart(this)" cx="100" cy="110" r="62"/>`,
+      mobil: `<rect class="color-part" fill="#fff" onclick="fillPart(this)" x="20" y="95" width="160" height="42" rx="14"/>
+              <path class="color-part" fill="#fff" onclick="fillPart(this)" d="M45,95 L65,55 L135,55 L160,95 Z"/>
+              <circle class="color-part" fill="#fff" onclick="fillPart(this)" cx="58" cy="138" r="18"/>
+              <circle class="color-part" fill="#fff" onclick="fillPart(this)" cx="142" cy="138" r="18"/>`,
+      bintang: `<polygon class="color-part" fill="#fff" onclick="fillPart(this)" points="100,20 125,75 185,80 140,120 155,180 100,150 45,180 60,120 15,80 75,75"/>`,
+      eskrim: `<polygon class="color-part" fill="#fff" onclick="fillPart(this)" points="45,105 155,105 100,185"/>
+               <circle class="color-part" fill="#fff" onclick="fillPart(this)" cx="100" cy="80" r="48"/>`,
+      kupu_kupu: `<path class="color-part" fill="#fff" onclick="fillPart(this)" d="M92,85 Q40,30 30,75 Q25,115 92,110 Z"/>
+                  <path class="color-part" fill="#fff" onclick="fillPart(this)" d="M108,85 Q160,30 170,75 Q175,115 108,110 Z"/>
+                  <ellipse class="color-part" fill="#fff" onclick="fillPart(this)" cx="100" cy="110" rx="10" ry="42"/>`,
+      rumah: `<polygon class="color-part" fill="#fff" onclick="fillPart(this)" points="100,30 25,95 175,95"/>
+              <rect class="color-part" fill="#fff" onclick="fillPart(this)" x="45" y="95" width="110" height="75" rx="6"/>`,
+      bunga: `<circle class="color-part" fill="#fff" onclick="fillPart(this)" cx="100" cy="55" r="28"/>
+              <circle class="color-part" fill="#fff" onclick="fillPart(this)" cx="100" cy="145" r="28"/>
+              <circle class="color-part" fill="#fff" onclick="fillPart(this)" cx="55" cy="100" r="28"/>
+              <circle class="color-part" fill="#fff" onclick="fillPart(this)" cx="145" cy="100" r="28"/>
+              <circle class="color-part" fill="#fff" onclick="fillPart(this)" cx="100" cy="100" r="26"/>`
+    };
+
+    // Model lain memakai bentuk lingkaran dasar agar daftar 50 gambar tetap ringan.
+    const MODEL_FALLBACK = `<circle class="color-part" fill="#fff" onclick="fillPart(this)" cx="100" cy="100" r="65"/>`;
+
+    /* ---------- 6. LOBI & FILTER ---------- */
+    let activeFilter = 'all';
+    let ageFilter = 'all';
+    const gameGrid = document.getElementById("gameGrid");
+
+    // Pembagian usia untuk game asli. Ubah di sini jika perlu.
+    function kelompokUsiaAsli(g) {
+      return (g.category === 'pop' || g.category === 'warna') ? 'balita' : 'pra';
+    }
+
+    function renderLobby() {
+      gameGrid.innerHTML = '';
+      const daftar = gamesData.filter(g =>
+        (activeFilter === 'all' || g.category === activeFilter) &&
+        (ageFilter === 'all' || kelompokUsiaAsli(g) === ageFilter)
+      );
+      daftar.forEach(game => {
+        const selesai = localStorage.getItem(`done_game_${game.id}`);
+        const kartu = document.createElement("div");
+        kartu.className = "bg-[#fffdf7] p-3.5 rounded-[26px] cozy-slab flex flex-col items-center justify-between text-center cursor-pointer relative overflow-hidden group";
+        kartu.onclick = () => {
+          if (!isBgmPlaying) startBGM();
+          bukaGame(game);
+        };
+        kartu.innerHTML = `
+          <div class="w-full flex justify-between items-center min-h-[16px]">
+            <span class="text-[9px] font-extrabold text-[#78645a] bg-[#f5ebe0] px-2 py-0.5 rounded-full border border-[#362925]">#${game.id}</span>
+            ${selesai ? '<span class="text-xs">⭐</span>' : ''}
+          </div>
+          <div class="text-4xl my-2 filter drop-shadow group-hover:scale-110 transition-transform">${game.icon}</div>
+          <h4 class="font-chubby text-xs text-[#362925] leading-snug mb-2.5">${game.title}</h4>
+          <span class="w-full cozy-btn-yellow text-[#362925] font-chubby text-[10px] py-1.5 rounded-xl block">MAIN 🌱</span>`;
+        gameGrid.appendChild(kartu);
+      });
+      updateBintang();
+    }
+
+    function updateBintang() {
+      let total = 0;
+      for (let i = 1; i <= 151; i++) if (localStorage.getItem(`done_game_${i}`)) total++;
+      document.getElementById("starCounter").innerText = total;
+    }
+
+    function filterKategori(kat, el) {
+      activeFilter = kat;
+      document.querySelectorAll(".cat-btn").forEach(btn => {
+        btn.classList.remove("bg-[#fef08a]", "bg-[#fbcfe8]");
+        btn.classList.add("bg-white", "text-[#5c4a42]");
+      });
+      el.classList.remove("bg-white", "text-[#5c4a42]");
+      el.classList.add(kat === 'warna' ? "bg-[#fbcfe8]" : "bg-[#fef08a]");
+      renderLobby();
+    }
+
+    function pasangTabUsia() {
+      const wadah = document.createElement('div');
+      wadah.id = 'ageTabs';
+      wadah.className = 'flex gap-2 justify-center mb-4 flex-wrap';
+      [['all','semua'], ['balita','balita'], ['pra','pra']].forEach(([val, key]) => {
+        const b = document.createElement('button');
+        b.dataset.val = val;
+        b.dataset.key = key;
+        b.className = 'age-btn';
+        b.onclick = () => { ageFilter = val; segarkanTabUsia(); renderLobby(); };
+        wadah.appendChild(b);
+      });
+      gameGrid.parentNode.insertBefore(wadah, gameGrid);
+      segarkanTabUsia();
+    }
+
+    function segarkanTabUsia() {
+      document.querySelectorAll('.age-btn').forEach(b => {
+        const aktif = b.dataset.val === ageFilter;
+        b.textContent = t(b.dataset.key);
+        b.className = `age-btn border-[3px] border-[#362925] px-3.5 py-1.5 rounded-2xl font-chubby text-xs shadow-[0_3px_0_#362925] active:translate-y-1 ${aktif ? 'bg-[#bbf7d0]' : 'bg-white'}`;
+      });
+    }
+
+    /* ---------- 7. HEADER ---------- */
+    function pasangTombolHeader() {
+      const kanan = document.querySelector('header > div:last-child');
+      const grup = document.createElement('div');
+      grup.id = 'mvpBtns';
+      grup.className = 'flex items-center gap-1.5';
+      grup.innerHTML = `
+        <button id="btnLang" onclick="toggleBahasa()" class="bg-white px-2 py-1 rounded-xl text-xs font-chubby border-[2.5px] border-[#362925] shadow active:translate-y-1"></button>
+        <button id="btnNarasi" onclick="toggleNarator()" class="bg-white px-2 py-1 rounded-xl text-xs border-[2.5px] border-[#362925] shadow active:translate-y-1"></button>
+        <button id="btnRapor" onclick="bukaRapor()" class="bg-[#d9f99d] px-2 py-1 rounded-xl text-xs font-chubby border-[2.5px] border-[#362925] shadow active:translate-y-1">📊</button>`;
+      kanan.prepend(grup);
+      segarkanHeader();
+    }
+
+    function segarkanHeader() {
+      document.getElementById('btnLang').textContent = uiLang === 'id' ? '🌐 ID' : '🌐 EN';
+      document.getElementById('btnNarasi').textContent = narratorOn ? '🔊' : '🔇';
+      document.getElementById('btnRapor').title = t('rapor');
+      document.getElementById('jumlahGameInfo').textContent = uiLang === 'id'
+        ? 'Game edukasi asah otak dan mewarnai untuk si kecil.'
+        : 'Brain-training and coloring games for little ones.';
+      segarkanTabUsia();
+    }
+
+    /* ---------- 8. RAPOR AKTIVITAS ---------- */
+    const KATEGORI_RAPOR = [
+      { label: { id: 'Memori', en: 'Memory' },         icon: '🧠', cats: ['memori'] },
+      { label: { id: 'Refleks', en: 'Reflex' },        icon: '⚡', cats: ['pop'] },
+      { label: { id: 'Logika', en: 'Logic' },          icon: '🧩', cats: ['tebak', 'hitung'] },
+      { label: { id: 'Kreativitas', en: 'Creativity' }, icon: '🎨', cats: ['warna'] }
+    ];
+
+    function bukaRapor() {
+      const hasil = KATEGORI_RAPOR.map(k => {
+        const daftar = gamesData.filter(g => k.cats.includes(g.category));
+        const selesai = daftar.filter(g => localStorage.getItem(`done_game_${g.id}`)).length;
+        return { nama: k.label[uiLang], icon: k.icon, selesai, total: daftar.length, persen: Math.round(selesai / daftar.length * 100) };
+      });
+      const modal = document.getElementById('raporModal');
+      modal.innerHTML = `
+        <div class="bg-[#fffdf7] rounded-[32px] p-6 max-w-sm w-full border-4 border-[#362925] shadow-2xl relative">
+          <button onclick="tutupModal('raporModal')" class="absolute top-4 right-4 bg-[#fca5a5] border-2 border-[#362925] rounded-full w-8 h-8 font-chubby text-sm">✕</button>
+          <h3 class="text-xl font-chubby text-center mb-1 text-[#362925]">📊 ${t('raporJudul')}</h3>
+          <p class="text-[10px] text-center font-bold text-[#78645a] mb-4">${t('raporCatatan')}</p>
+          <div class="space-y-3">
+            ${hasil.map(h => `
+              <div>
+                <div class="flex justify-between text-xs font-chubby text-[#362925] mb-1">
+                  <span>${h.icon} ${h.nama}</span><span>${h.selesai}/${h.total}</span>
+                </div>
+                <div class="h-3 bg-[#e6d5bc] rounded-full border-2 border-[#362925] overflow-hidden">
+                  <div class="h-full bg-[#4ade80]" style="width:${h.persen}%"></div>
+                </div>
+              </div>`).join('')}
+          </div>
+        </div>`;
+      modal.classList.remove('hidden');
+    }
+
+    /* ---------- 9. BANNER PASANG KE LAYAR ---------- */
+    let deferredInstall = null;
+    const sudahDipasang = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const adalahIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+    window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredInstall = e; });
+
+    function pasangBannerInstall() {
+      if (sudahDipasang || localStorage.getItem('install_dismissed') === '1') return;
+      const b = document.createElement('div');
+      b.id = 'installBanner';
+      b.className = 'fixed bottom-3 left-3 right-3 z-40 bg-[#fef9c3] border-[3px] border-[#362925] rounded-2xl px-3 py-2 flex items-center justify-between gap-2 shadow-[0_5px_0_#362925] text-xs font-chubby text-[#362925]';
+      b.innerHTML = `
+        <span id="bannerTeks">${t('banner')}</span>
+        <div class="flex gap-1.5">
+          <button id="btnPasang" class="cozy-btn-green px-3 py-1 rounded-xl">${t('pasang')}</button>
+          <button id="btnTutupBanner" class="bg-white border-2 border-[#362925] px-2 py-1 rounded-xl">✕</button>
+        </div>`;
+      document.body.appendChild(b);
+      document.getElementById('btnPasang').onclick = async () => {
+        if (deferredInstall) {
+          deferredInstall.prompt();
+          await deferredInstall.userChoice;
+          deferredInstall = null;
+          b.remove();
+        } else {
+          alert(adalahIOS ? t('instalIOS') : t('instalAndroid'));
+        }
+      };
+      document.getElementById('btnTutupBanner').onclick = () => {
+        localStorage.setItem('install_dismissed', '1');
+        b.remove();
+      };
+    }
+
+    /* ---------- 10. NAMA ANAK, TIMER, STIKER, SERTIFIKAT ---------- */
     function loadChildName() {
       const name = localStorage.getItem("child_name") || "Kak Pintar";
       document.getElementById("childGreeting").innerText = `🌱 Halo, ${name}! ✏️`;
@@ -432,11 +786,11 @@
       }
     }
 
-    /* 4. TIMER LAYAR */
     let screenTimerDuration = 0;
     let timerInterval = null;
 
     function bukaTimerModal() { document.getElementById("timerModal").classList.remove("hidden"); }
+
     function setScreenTimer(menit) {
       if (timerInterval) clearInterval(timerInterval);
       if (menit === 0) {
@@ -457,37 +811,32 @@
 
     function bukaLagiAksesOrtu() {
       const pin = prompt("Orang tua: Ketik angka 1234 untuk membuka kembali:");
-      if (pin === "1234") {
-        document.getElementById("restScreenModal").classList.add("hidden");
-      }
+      if (pin === "1234") document.getElementById("restScreenModal").classList.add("hidden");
     }
 
-    /* 5. STIKER PRESTASI */
     const STICKER_LIST = [
-      { id: 1, name: "Kelinci Ceria", emoji: "🐰", req: 1 },
-      { id: 2, name: "Stroberi Manis", emoji: "🍓", req: 5 },
-      { id: 3, name: "Kuas Ajaib", emoji: "🎨", req: 15 },
-      { id: 4, name: "Donat Lezat", emoji: "🍩", req: 30 },
-      { id: 5, name: "Singa Perkasa", emoji: "🦁", req: 60 },
-      { id: 6, name: "Koin Emas", emoji: "💰", req: 90 },
-      { id: 7, name: "Roket Cepat", emoji: "🚀", req: 120 },
-      { id: 8, name: "Mahkota Juara", emoji: "👑", req: 151 }
+      { name: "Kelinci Ceria", emoji: "🐰", req: 1 },
+      { name: "Stroberi Manis", emoji: "🍓", req: 5 },
+      { name: "Kuas Ajaib", emoji: "🎨", req: 15 },
+      { name: "Donat Lezat", emoji: "🍩", req: 30 },
+      { name: "Singa Perkasa", emoji: "🦁", req: 60 },
+      { name: "Koin Emas", emoji: "💰", req: 90 },
+      { name: "Roket Cepat", emoji: "🚀", req: 120 },
+      { name: "Mahkota Juara", emoji: "👑", req: 151 }
     ];
 
     function bukaStikerModal() {
       const totalStars = parseInt(document.getElementById("starCounter").innerText) || 0;
       const grid = document.getElementById("stikerGrid");
       grid.innerHTML = "";
-
       STICKER_LIST.forEach(s => {
-        const unlocked = totalStars >= s.req;
+        const terbuka = totalStars >= s.req;
         const div = document.createElement("div");
-        div.className = `p-3 rounded-2xl border-2 border-[#362925] flex flex-col items-center justify-center ${unlocked ? 'bg-[#bbf7d0]' : 'bg-[#e2e8f0] opacity-60'}`;
+        div.className = `p-3 rounded-2xl border-2 border-[#362925] flex flex-col items-center justify-center ${terbuka ? 'bg-[#bbf7d0]' : 'bg-[#e2e8f0] opacity-60'}`;
         div.innerHTML = `
-          <div class="text-3xl mb-1">${unlocked ? s.emoji : '🔒'}</div>
+          <div class="text-3xl mb-1">${terbuka ? s.emoji : '🔒'}</div>
           <span class="text-[10px] font-chubby text-[#362925] leading-tight">${s.name}</span>
-          <span class="text-[9px] font-bold text-slate-500">${s.req} ⭐</span>
-        `;
+          <span class="text-[9px] font-bold text-slate-500">${s.req} ⭐</span>`;
         grid.appendChild(div);
       });
       document.getElementById("stikerModal").classList.remove("hidden");
@@ -500,543 +849,7 @@
 
     function tutupModal(id) { document.getElementById(id).classList.add("hidden"); }
 
-    /* =========================================================
-       6. 151 GAME DATABASE (100% PERSIS, ZERO-SPOILER)
-    ========================================================= */
-    const gamesData = [
-      // 1 - 25: Balon Pop
-      { id: 1, title: "Pecah Balon Merah", category: "pop", icon: "🎈", item: "🎈", desc: "Pecahkan 5 Balon Merah!" },
-      { id: 2, title: "Pecah Bintang Kuning", category: "pop", icon: "⭐", item: "⭐", desc: "Tangkap 5 Bintang Kuning!" },
-      { id: 3, title: "Letup Stroberi Manis", category: "pop", icon: "🍓", item: "🍓", desc: "Pecahkan 5 Stroberi Segar!" },
-      { id: 4, title: "Pecah Balon Donat", category: "pop", icon: "🍩", item: "🍩", desc: "Tangkap 5 Donat Ceria!" },
-      { id: 5, title: "Letup Apel Merah", category: "pop", icon: "🍎", item: "🍎", desc: "Pecahkan 5 Apel Merah!" },
-      { id: 6, title: "Balon Permen Warna", category: "pop", icon: "🍬", item: "🍬", desc: "Tangkap 5 Permen Manis!" },
-      { id: 7, title: "Pecah Jeruk Segar", category: "pop", icon: "🍊", item: "🍊", desc: "Pecahkan 5 Jeruk Manis!" },
-      { id: 8, title: "Tangkap Bunga Mekar", category: "pop", icon: "🌸", item: "🌸", desc: "Tangkap 5 Bunga Cantik!" },
-      { id: 9, title: "Letup Balon Ceri", category: "pop", icon: "🍒", item: "🍒", desc: "Pecahkan 5 Buah Ceri!" },
-      { id: 10, title: "Pecah Bola Sepak", category: "pop", icon: "⚽", item: "⚽", desc: "Tangkap 5 Bola Sepak!" },
-      { id: 11, title: "Balon Semangka Manis", category: "pop", icon: "🍉", item: "🍉", desc: "Pecahkan 5 Semangka Segar!" },
-      { id: 12, title: "Tangkap Kado Hadiah", category: "pop", icon: "🎁", item: "🎁", desc: "Kumpulkan 5 Kado Hadiah!" },
-      { id: 13, title: "Balon Pisang Kuning", category: "pop", icon: "🍌", item: "🍌", desc: "Pecahkan 5 Pisang Manis!" },
-      { id: 14, title: "Letup Balon Es Krim", category: "pop", icon: "🍦", item: "🍦", desc: "Tangkap 5 Es Krim Lezat!" },
-      { id: 15, title: "Balon Mobil Cepat", category: "pop", icon: "🚗", item: "🚗", desc: "Tangkap 5 Mobil Balap!" },
-      { id: 16, title: "Pecah Roket Angkasa", category: "pop", icon: "🚀", item: "🚀", desc: "Tangkap 5 Roket Meluncur!" },
-      { id: 17, title: "Balon Kucing Imut", category: "pop", icon: "🐱", item: "🐱", desc: "Pecahkan 5 Balon Kucing!" },
-      { id: 18, title: "Letup Kelinci Lucu", category: "pop", icon: "🐰", item: "🐰", desc: "Tangkap 5 Kelinci Melompat!" },
-      { id: 19, title: "Balon Mahkota Raja", category: "pop", icon: "👑", item: "👑", desc: "Kumpulkan 5 Mahkota Emas!" },
-      { id: 20, title: "Pecah Lonceng Ceria", category: "pop", icon: "🔔", item: "🔔", desc: "Bunyikan 5 Lonceng Ajaib!" },
-      { id: 21, title: "Tangkap Ikan Badut", category: "pop", icon: "🐟", item: "🐟", desc: "Tangkap 5 Ikan Berenang!" },
-      { id: 22, title: "Balon Anggur Ungu", category: "pop", icon: "🍇", item: "🍇", desc: "Pecahkan 5 Anggur Manis!" },
-      { id: 23, title: "Pecah Lolipop Manis", category: "pop", icon: "🍭", item: "🍭", desc: "Tangkap 5 Lolipop Ceria!" },
-      { id: 24, title: "Balon Katak Melompat", category: "pop", icon: "🐸", item: "🐸", desc: "Tangkap 5 Katak Hijau!" },
-      { id: 25, title: "Letup Bintang Kejora", category: "pop", icon: "🌟", item: "🌟", desc: "Kumpulkan 5 Bintang Berkilau!" },
-
-      // 26 - 51: Memori
-      { id: 26, title: "Memori Hewan Ternak", category: "memori", icon: "🐮", cards: ["🐮", "🐔", "🐴", "🐑"] },
-      { id: 27, title: "Pasangan Buah Manis", category: "memori", icon: "🍎", cards: ["🍎", "🍌", "🍇", "🍓"] },
-      { id: 28, title: "Memori Kendaraan Darat", category: "memori", icon: "🚗", cards: ["🚗", "🚌", "🚂", "🚕"] },
-      { id: 29, title: "Pasang Hewan Rimba", category: "memori", icon: "🦁", cards: ["🦁", "🐯", "🐵", "🐘"] },
-      { id: 30, title: "Memori Sahabat Kucing Anjing", category: "memori", icon: "🐱", cards: ["🐱", "🐶", "🐰", "🐼"] },
-      { id: 31, title: "Cocok Kendaraan Terbang", category: "memori", icon: "✈️", cards: ["✈️", "🚀", "🚁", "🎈"] },
-      { id: 32, title: "Pasangan Makanan Lezat", category: "memori", icon: "🍕", cards: ["🍕", "🍔", "🍩", "🍦"] },
-      { id: 33, title: "Memori Sayur Sehat", category: "memori", icon: "🥕", cards: ["🥕", "🌽", "🥦", "🍅"] },
-      { id: 34, title: "Pasang Hewan Air", category: "memori", icon: "🐬", cards: ["🐬", "🐟", "🐙", "🦀"] },
-      { id: 35, title: "Memori Alat Musik", category: "memori", icon: "🎸", cards: ["🎸", "🥁", "🎹", "🔔"] },
-      { id: 36, title: "Pasang Olahraga Bola", category: "memori", icon: "⚽", cards: ["⚽", "🏀", "🎾", "🏈"] },
-      { id: 37, title: "Memori Kue Ulang Tahun", category: "memori", icon: "🎂", cards: ["🎂", "🧁", "🍩", "🍪"] },
-      { id: 38, title: "Pasangan Burung Bernyanyi", category: "memori", icon: "🐦", cards: ["🐦", "🦆", "🦉", "🦜"] },
-      { id: 39, title: "Memori Benda Bermain", category: "memori", icon: "🪁", cards: ["🪁", "⚽", "🚗", "🎈"] },
-      { id: 40, title: "Pasangan Emoji Ceria", category: "memori", icon: "😄", cards: ["😄", "🥳", "😍", "😎"] },
-      { id: 41, title: "Memori Perlengkapan Belajar", category: "memori", icon: "📚", cards: ["📚", "✏️", "🎨", "🎒"] },
-      { id: 42, title: "Pasangan Musim Alam", category: "memori", icon: "☀️", cards: ["☀️", "🌧️", "🌈", "⭐"] },
-      { id: 43, title: "Memori Binatang Kecil", category: "memori", icon: "🐝", cards: ["🐝", "🦋", "🐞", "🐜"] },
-      { id: 44, title: "Pasangan Hadiah Kejutan", category: "memori", icon: "🎁", cards: ["🎁", "👑", "💎", "⭐"] },
-      { id: 45, title: "Memori Jeruk & Ceri", category: "memori", icon: "🍒", cards: ["🍒", "🍊", "🍋", "🍉"] },
-      { id: 46, title: "Pasang Hewan Kutub", category: "memori", icon: "🐧", cards: ["🐧", "🐻", "🐋", "🐟"] },
-      { id: 47, title: "Memori Minuman Segar", category: "memori", icon: "🧃", cards: ["🧃", "🥛", "🥤", "🍼"] },
-      { id: 48, title: "Pasangan Luar Angkasa", category: "memori", icon: "🪐", cards: ["🪐", "🚀", "⭐", "🌙"] },
-      { id: 49, title: "Memori Transportasi Air", category: "memori", icon: "🚢", cards: ["🚢", "⛵", "🚤", "🛳️"] },
-      { id: 50, title: "Pasang Bunga Warna", category: "memori", icon: "🌻", cards: ["🌻", "🌸", "🌹", "🌷"] },
-      { id: 51, title: "Memori Hobi Seru", category: "memori", icon: "🎨", cards: ["🎨", "📷", "🎸", "⚽"] },
-
-      // 52 - 76: Tebak Objek
-      { id: 52, title: "Mana Buah Pisang?", category: "tebak", icon: "🧺", q: "Yang mana buah Pisang Manis?", ans: "🍌", ops: ["🍎", "🍌", "🍇"] },
-      { id: 53, title: "Kendaraan di Langit?", category: "tebak", icon: "☁️", q: "Kendaraan yang terbang tinggi di awan?", ans: "✈️", ops: ["🚗", "✈️", "🚢"] },
-      { id: 54, title: "Hewan yang Mengeong?", category: "tebak", icon: "🐾", q: "Hewan mana yang suka bersuara meong?", ans: "🐱", ops: ["🐱", "🐶", "🦁"] },
-      { id: 55, title: "Mana Benda Bulat?", category: "tebak", icon: "📐", q: "Benda mana yang berbentuk bola bulat?", ans: "⚽", ops: ["📦", "⚽", "📐"] },
-      { id: 56, title: "Hewan Suka Wortel?", category: "tebak", icon: "🥕", q: "Hewan mana yang paling suka makan wortel?", ans: "🐰", ops: ["🐼", "🐰", "🐮"] },
-      { id: 57, title: "Mana Alat Musik Petik?", category: "tebak", icon: "🎶", q: "Alat musik mana yang dimainkan dengan dipetik?", ans: "🎸", ops: ["🎸", "🥁", "🔔"] },
-      { id: 58, title: "Buah Warna Merah?", category: "tebak", icon: "🎨", q: "Yang mana buah Apel Merah segar?", ans: "🍎", ops: ["🍌", "🍎", "🍊"] },
-      { id: 59, title: "Siapa Raja Hutan?", category: "tebak", icon: "👑", q: "Hewan perkasa mana yang dijuluki Raja Hutan?", ans: "🦁", ops: ["🦁", "🐵", "🐰"] },
-      { id: 60, title: "Kendaraan di Atas Air?", category: "tebak", icon: "🌊", q: "Kendaraan mana yang berlayar di laut?", ans: "🚢", ops: ["🚗", "🚂", "🚢"] },
-      { id: 61, title: "Mana Makanan Manis?", category: "tebak", icon: "🧁", q: "Camilan dingin mana yang rasanya manis?", ans: "🍦", ops: ["🥦", "🍦", "🌽"] },
-      { id: 62, title: "Hewan Berkokok Pagi?", category: "tebak", icon: "🌅", q: "Hewan mana yang berkokok membangunkan pagi?", ans: "🐔", ops: ["🐔", "🐱", "🐶"] },
-      { id: 63, title: "Kendaraan Berjalan di Rel?", category: "tebak", icon: "🛤️", q: "Kendaraan mana yang berjalan di atas rel?", ans: "🚂", ops: ["🚂", "🚌", "✈️"] },
-      { id: 64, title: "Mana Kendaraan Luar Angkasa?", category: "tebak", icon: "🌌", q: "Kendaraan mana yang meluncur menuju bintang?", ans: "🚀", ops: ["🚲", "🚀", "🚗"] },
-      { id: 65, title: "Hewan Berbelalai Panjang?", category: "tebak", icon: "🌿", q: "Hewan besar mana yang memiliki belalai panjang?", ans: "🐘", ops: ["🐘", "🐯", "🐴"] },
-      { id: 66, title: "Mana Buah Berwarna Jingga?", category: "tebak", icon: "🎨", q: "Yang mana buah Jeruk segar kaya vitamin C?", ans: "🍊", ops: ["🍇", "🍊", "🍏"] },
-      { id: 67, title: "Mana Benda Pelindung Hujan?", category: "tebak", icon: "🌧️", q: "Benda mana yang melindungi kita dari tetesan hujan?", ans: "☂️", ops: ["🕶️", "☂️", "🎒"] },
-      { id: 68, title: "Hewan Pandai Berenang?", category: "tebak", icon: "🌊", q: "Hewan mana yang hidup dan bernapas di dalam air?", ans: "🐟", ops: ["🐱", "🐟", "🐵"] },
-      { id: 69, title: "Mana Buah Berbiji Banyak?", category: "tebak", icon: "🧺", q: "Buah besar hijau berair mana yang bijinya banyak?", ans: "🍉", ops: ["🍉", "🍌", "🥑"] },
-      { id: 70, title: "Siapa Teman Penghasil Madu?", category: "tebak", icon: "🍯", q: "Hewan kecil mana yang membuat madu manis?", ans: "🐝", ops: ["🦋", "🐝", "🐞"] },
-      { id: 71, title: "Mana Benda Penerang Malam?", category: "tebak", icon: "✨", q: "Benda langit mana yang bersinar di malam hari?", ans: "🌙", ops: ["🌙", "☁️", "🌈"] },
-      { id: 72, title: "Kendaraan Roda Dua?", category: "tebak", icon: "🚦", q: "Kendaraan santai mana yang dikayuh dengan pedal?", ans: "🚲", ops: ["🚲", "🚗", "🚌"] },
-      { id: 73, title: "Mana Camilan Donat Cokelat?", category: "tebak", icon: "☕", q: "Kue lezat mana yang memiliki lubang di tengahnya?", ans: "🍩", ops: ["🍕", "🍩", "🍞"] },
-      { id: 74, title: "Hewan Bertubuh Belang?", category: "tebak", icon: "🔍", q: "Hewan mana yang tubuhnya bergaris hitam-putih?", ans: "🦓", ops: ["🦓", "🐮", "🦁"] },
-      { id: 75, title: "Mana Mahkota Sang Raja?", category: "tebak", icon: "🏰", q: "Perhiasan emas mana yang dipakai di kepala raja?", ans: "👑", ops: ["👑", "👒", "🎩"] },
-      { id: 76, title: "Benda Berdenting Merdu?", category: "tebak", icon: "🎵", q: "Benda mana yang berbunyi saat digoyangkan?", ans: "🔔", ops: ["📦", "🔔", "📚"] },
-
-      // 77 - 101: Hitung Cepat
-      { id: 77, title: "Hitung Apel Merah", category: "hitung", icon: "🍎", item: "🍎", name: "Apel Merah" },
-      { id: 78, title: "Berapa Jumlah Bintang?", category: "hitung", icon: "⭐", item: "⭐", name: "Bintang Kuning" },
-      { id: 79, title: "Hitung Stroberi Segar", category: "hitung", icon: "🍓", item: "🍓", name: "Stroberi" },
-      { id: 80, title: "Jumlah Koin Emas", category: "hitung", icon: "💰", item: "💰", name: "Koin Emas" },
-      { id: 81, title: "Hitung Mobil Balap", category: "hitung", icon: "🚗", item: "🚗", name: "Mobil Balap" },
-      { id: 82, title: "Berapa Ikan Berenang?", category: "hitung", icon: "🐟", item: "🐟", name: "Ikan Ceria" },
-      { id: 83, title: "Hitung Donat Lezat", category: "hitung", icon: "🍩", item: "🍩", name: "Donat Manis" },
-      { id: 84, title: "Hitung Bola Sepak", category: "hitung", icon: "⚽", item: "⚽", name: "Bola Sepak" },
-      { id: 85, title: "Berapa Kado Hadiah?", category: "hitung", icon: "🎁", item: "🎁", name: "Kado Hadiah" },
-      { id: 86, title: "Hitung Jeruk Segar", category: "hitung", icon: "🍊", item: "🍊", name: "Jeruk Segar" },
-      { id: 87, title: "Berapa Bebek Kuning?", category: "hitung", icon: "🐥", item: "🐥", name: "Bebek Kuning" },
-      { id: 88, title: "Hitung Permen Manis", category: "hitung", icon: "🍬", item: "🍬", name: "Permen Warna" },
-      { id: 89, title: "Berapa Balon Udara?", category: "hitung", icon: "🎈", item: "🎈", name: "Balon Ceria" },
-      { id: 90, title: "Jumlah Es Krim Lezat", category: "hitung", icon: "🍦", item: "🍦", name: "Es Krim" },
-      { id: 91, title: "Hitung Semangka Manis", category: "hitung", icon: "🍉", item: "🍉", name: "Semangka Segar" },
-      { id: 92, title: "Berapa Pesawat Terbang?", category: "hitung", icon: "✈️", item: "✈️", name: "Pesawat Terbang" },
-      { id: 93, title: "Hitung Ceri Merah", category: "hitung", icon: "🍒", item: "🍒", name: "Buah Ceri" },
-      { id: 94, title: "Berapa Lonceng Emas?", category: "hitung", icon: "🔔", item: "🔔", name: "Lonceng Emas" },
-      { id: 95, title: "Hitung Mahkota Juara", category: "hitung", icon: "👑", item: "👑", name: "Mahkota Juara" },
-      { id: 96, title: "Berapa Kue Ulang Tahun?", category: "hitung", icon: "🎂", item: "🎂", name: "Kue Lezat" },
-      { id: 97, title: "Hitung Pisang Manis", category: "hitung", icon: "🍌", item: "🍌", name: "Pisang Manis" },
-      { id: 98, title: "Berapa Kupu-kupu Cantik?", category: "hitung", icon: "🦋", item: "🦋", name: "Kupu-kupu" },
-      { id: 99, title: "Hitung Bunga Mekar", category: "hitung", icon: "🌸", item: "🌸", name: "Bunga Mekar" },
-      { id: 100, title: "Berapa Roket Angkasa?", category: "hitung", icon: "🚀", item: "🚀", name: "Roket Angkasa" },
-      { id: 101, title: "Hitung Bintang Kejora", category: "hitung", icon: "🌟", item: "🌟", name: "Bintang Kejora" }
-    ];
-
-    /* =========================================================
-       7. DAFTAR 50 GAME MEWARNAI (IKON LOBI & OBJEK SINKRON)
-    ========================================================= */
-    const daftar50Mewarnai = [
-      { id: 102, title: "Warna Apel Manis", icon: "🍎", model: "apel" },
-      { id: 103, title: "Warna Jeruk Segar", icon: "🍊", model: "jeruk" },
-      { id: 104, title: "Warna Kucing Ceria", icon: "🐱", model: "kucing" },
-      { id: 105, title: "Warna Mobil Balap", icon: "🚗", model: "mobil" },
-      { id: 106, title: "Warna Bintang Langit", icon: "⭐", model: "bintang" },
-      { id: 107, title: "Warna Es Krim Lezat", icon: "🍦", model: "eskrim" },
-      { id: 108, title: "Warna Kupu-kupu", icon: "🦋", model: "kupu_kupu" },
-      { id: 109, title: "Warna Rumah Impian", icon: "🏡", model: "rumah" },
-      { id: 110, title: "Warna Bunga Cantik", icon: "🌸", model: "bunga" },
-      { id: 111, title: "Warna Roket Angkasa", icon: "🚀", model: "roket" },
-      { id: 112, title: "Warna Donat Cokelat", icon: "🍩", model: "donat" },
-      { id: 113, title: "Warna Stroberi Manis", icon: "🍓", model: "stroberi" },
-      { id: 114, title: "Warna Kelinci Lucu", icon: "🐰", model: "kelinci" },
-      { id: 115, title: "Warna Ikan Badut", icon: "🐟", model: "ikan" },
-      { id: 116, title: "Warna Pisang Kuning", icon: "🍌", model: "pisang" },
-      { id: 117, title: "Warna Semangka Segar", icon: "🍉", model: "semangka" },
-      { id: 118, title: "Warna Kapal Layar", icon: "⛵", model: "kapal" },
-      { id: 119, title: "Warna Mahkota Raja", icon: "👑", model: "mahkota" },
-      { id: 120, title: "Warna Permen Manis", icon: "🍬", model: "permen" },
-      { id: 121, title: "Warna Kue Ulang Tahun", icon: "🎂", model: "kue" },
-      { id: 122, title: "Warna Balon Ceria", icon: "🎈", model: "balon" },
-      { id: 123, title: "Warna Pesawat Terbang", icon: "✈️", model: "pesawat" },
-      { id: 124, title: "Warna Katak Melompat", icon: "🐸", model: "katak" },
-      { id: 125, title: "Warna Kado Hadiah", icon: "🎁", model: "kado" },
-      { id: 126, title: "Warna Payung Hujan", icon: "☂️", model: "payung" },
-      { id: 127, title: "Warna Singa Rimba", icon: "🦁", model: "singa" },
-      { id: 128, title: "Warna Anggur Ungu", icon: "🍇", model: "anggur" },
-      { id: 129, title: "Warna Burung Ceria", icon: "🐦", model: "burung" },
-      { id: 130, title: "Warna Bola Sepak", icon: "⚽", model: "bola" },
-      { id: 131, title: "Warna Jamur Hutan", icon: "🍄", model: "jamur" },
-      { id: 132, title: "Warna Robot Canggih", icon: "🤖", model: "robot" },
-      { id: 133, title: "Warna Dinosaurus Imut", icon: "🦖", model: "dino" },
-      { id: 134, title: "Warna Ceri Kembar", icon: "🍒", model: "ceri" },
-      { id: 135, title: "Warna Kacamata Keren", icon: "👓", model: "kacamata" },
-      { id: 136, title: "Warna Topi Pantai", icon: "👒", model: "topi" },
-      { id: 137, title: "Warna Kaus Kaki", icon: "🧦", model: "kaos_kaki" },
-      { id: 138, title: "Warna Jam Weker", icon: "⏰", model: "jam" },
-      { id: 139, title: "Warna Pensil Gambar", icon: "✏️", model: "pensil" },
-      { id: 140, title: "Warna Cangkir Susu", icon: "☕", model: "cangkir" },
-      { id: 141, title: "Warna Mobil Bus", icon: "🚌", model: "bus" },
-      { id: 142, title: "Warna Kereta Api", icon: "🚂", model: "kereta" },
-      { id: 143, title: "Warna Pohon Rindang", icon: "🌳", model: "pohon" },
-      { id: 144, title: "Warna Awan Tersenyum", icon: "☁️", model: "awan" },
-      { id: 145, title: "Warna Matahari Pagi", icon: "☀️", model: "matahari" },
-      { id: 146, title: "Warna Kura-kura", icon: "🐢", model: "kura_kura" },
-      { id: 147, title: "Warna Kuda Nil", icon: "🦛", model: "kuda_nil" },
-      { id: 148, title: "Warna Bebek Kuning", icon: "🦆", model: "bebek" },
-      { id: 149, title: "Warna Nanas Tropis", icon: "🍍", model: "nanas" },
-      { id: 150, title: "Warna Pelangi Indah", icon: "🌈", model: "pelangi" },
-      { id: 151, title: "Warna Hati Manis", icon: "💖", model: "hati" }
-    ];
-
-    daftar50Mewarnai.forEach(item => {
-      gamesData.push({
-        id: item.id,
-        title: item.title,
-        category: "warna",
-        icon: item.icon,
-        modelType: item.model
-      });
-    });
-
-    /* =========================================================
-       8. 50 MODEL GAMBAR VEKTOR SVG LENGKAP & KHUSUS
-    ========================================================= */
-    const SVG_MODELS = {
-      apel: `
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="96" y="25" width="8" height="25" rx="4"/>
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M104,35 Q135,20 140,40 Q115,50 104,35 Z"/>
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M50,75 C30,115 40,165 100,170 C160,165 170,115 150,75 C130,55 110,65 100,70 C90,65 70,55 50,75 Z"/>
-      `,
-      jeruk: `
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="96" y="32" width="8" height="20" rx="4"/>
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M104,40 Q130,25 140,35 Q130,55 104,40 Z"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="115" r="62"/>
-        <circle cx="100" cy="115" r="5" fill="#362925"/>
-      `,
-      kucing: `
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="45,80 30,30 80,55"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="155,80 170,30 120,55"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="110" r="62"/>
-        <circle cx="75" cy="100" r="6" fill="#362925"/><circle cx="125" cy="100" r="6" fill="#362925"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="95,115 105,115 100,123"/>
-        <path d="M90 128 Q100 135 110 128" stroke="#362925" stroke-width="4" fill="none" stroke-linecap="round"/>
-      `,
-      mobil: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M45,95 L65,55 L135,55 L160,95 Z"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="20" y="95" width="160" height="42" rx="14"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="58" cy="138" r="18"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="142" cy="138" r="18"/>
-        <circle cx="58" cy="138" r="7" fill="#362925"/><circle cx="142" cy="138" r="7" fill="#362925"/>
-      `,
-      bintang: `
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="100,20 125,75 185,80 140,120 155,180 100,150 45,180 60,120 15,80 75,75"/>
-        <circle cx="80" cy="100" r="6" fill="#362925"/><circle cx="120" cy="100" r="6" fill="#362925"/>
-        <path d="M88 122 Q100 132 112 122" stroke="#362925" stroke-width="4" fill="none" stroke-linecap="round"/>
-      `,
-      eskrim: `
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="45,105 155,105 100,185"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="80" r="48"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="28" r="14"/>
-      `,
-      kupu_kupu: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M92,85 Q40,30 30,75 Q25,115 92,110 Z"/>
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M92,110 Q40,110 40,145 Q40,170 92,135 Z"/>
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M108,85 Q160,30 170,75 Q175,115 108,110 Z"/>
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M108,110 Q160,110 160,145 Q160,170 108,135 Z"/>
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="110" rx="10" ry="42"/>
-      `,
-      rumah: `
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="100,30 25,95 175,95"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="45" y="95" width="110" height="75" rx="6"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="85" y="118" width="30" height="52" rx="4"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="122" y="110" width="24" height="24" rx="4"/>
-      `,
-      bunga: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="55" r="28"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="145" r="28"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="55" cy="100" r="28"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="145" cy="100" r="28"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="100" r="26"/>
-      `,
-      roket: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M75,70 Q100,20 125,70 Z"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="75" y="70" width="50" height="70" rx="10"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="75,110 40,145 75,140"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="125,110 160,145 125,140"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="95" r="14"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="85,140 100,180 115,140"/>
-      `,
-      donat: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="100" r="70"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="100" r="48"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="100" r="25"/>
-      `,
-      stroberi: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M60,65 C40,105 50,155 100,185 C150,155 160,105 140,65 C120,50 80,50 60,65 Z"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="70,60 100,75 130,60 100,35"/>
-      `,
-      kelinci: `
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="68" cy="55" rx="16" ry="45"/>
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="132" cy="55" rx="16" ry="45"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="120" r="55"/>
-        <circle cx="80" cy="115" r="6" fill="#362925"/><circle cx="120" cy="115" r="6" fill="#362925"/>
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="130" rx="8" ry="6"/>
-      `,
-      ikan: `
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="95" cy="100" rx="58" ry="42"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="145,100 185,65 185,135"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="65" cy="90" r="10"/>
-        <circle cx="65" cy="90" r="5" fill="#362925"/>
-      `,
-      pisang: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M50,150 C40,90 90,40 155,45 C135,80 90,135 50,150 Z"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="148" y="38" width="14" height="12" rx="3"/>
-      `,
-      semangka: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M30,85 C40,155 160,155 170,85 Z"/>
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M42,90 C50,140 150,140 158,90 Z"/>
-        <circle cx="80" cy="108" r="4" fill="#362925"/><circle cx="100" cy="118" r="4" fill="#362925"/><circle cx="120" cy="108" r="4" fill="#362925"/>
-      `,
-      kapal: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M35,130 L165,130 L145,165 L55,165 Z"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="95,30 95,120 45,120"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="105,50 105,120 155,120"/>
-      `,
-      mahkota: `
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="35,140 45,70 80,105 100,55 120,105 155,70 165,140"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="45" cy="65" r="9"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="50" r="10"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="155" cy="65" r="9"/>
-      `,
-      permen: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="100" r="42"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="58,100 20,70 20,130"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="142,100 180,70 180,130"/>
-      `,
-      kue: `
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="45" y="105" width="110" height="55" rx="10"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="60" y="70" width="80" height="35" rx="8"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="95" y="45" width="10" height="25" rx="3"/>
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="35" rx="6" ry="10"/>
-      `,
-      balon: `
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="85" rx="55" ry="65"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="95,150 105,150 100,162"/>
-        <path d="M100,162 Q90,175 100,190" stroke="#362925" stroke-width="4" fill="none"/>
-      `,
-      pesawat: `
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="100" rx="20" ry="70"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="100,85 20,115 100,115"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="100,85 180,115 100,115"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="100,150 65,168 135,168"/>
-      `,
-      katak: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="65" cy="70" r="22"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="135" cy="70" r="22"/>
-        <circle cx="65" cy="70" r="8" fill="#362925"/><circle cx="135" cy="70" r="8" fill="#362925"/>
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="115" rx="65" ry="48"/>
-        <path d="M75,120 Q100,140 125,120" stroke="#362925" stroke-width="4" fill="none" stroke-linecap="round"/>
-      `,
-      kado: `
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="45" y="85" width="110" height="85" rx="8"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="38" y="65" width="124" height="22" rx="6"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="90" y="65" width="20" height="105"/>
-      `,
-      payung: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M35,115 C35,50 165,50 165,115 Z"/>
-        <path d="M100,115 L100,165 A12,12 0 0,1 80,165" stroke="#362925" stroke-width="5" fill="none" stroke-linecap="round"/>
-      `,
-      singa: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="100" r="70"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="105" r="48"/>
-        <circle cx="80" cy="98" r="6" fill="#362925"/><circle cx="120" cy="98" r="6" fill="#362925"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="95,112 105,112 100,120"/>
-      `,
-      anggur: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="80" cy="75" r="20"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="120" cy="75" r="20"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="65" cy="110" r="20"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="110" r="20"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="135" cy="110" r="20"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="145" r="20"/>
-      `,
-      burung: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="95" cy="95" r="45"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="55,90 25,100 55,105"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="135,90 175,70 155,110"/>
-        <circle cx="80" cy="85" r="6" fill="#362925"/>
-      `,
-      bola: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="100" r="68"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="100,80 118,92 110,112 90,112 82,92"/>
-      `,
-      jamur: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M40,110 C40,45 160,45 160,110 Z"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="80" y="110" width="40" height="55" rx="10"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="75" cy="80" r="10"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="125" cy="80" r="10"/>
-      `,
-      robot: `
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="50" y="55" width="100" height="90" rx="16"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="95" y="25" width="10" height="30"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="22" r="8"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="75" cy="90" r="12"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="125" cy="90" r="12"/>
-      `,
-      dino: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M50,140 C40,90 90,60 135,70 C165,70 170,100 150,115 C130,130 110,160 50,140 Z"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="90,62 100,45 110,65"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="115,65 125,50 135,68"/>
-        <circle cx="145" cy="88" r="5" fill="#362925"/>
-      `,
-      ceri: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="68" cy="130" r="30"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="132" cy="130" r="30"/>
-        <path d="M68,102 Q90,50 100,40 Q110,50 132,102" stroke="#362925" stroke-width="5" fill="none"/>
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M100,40 Q125,30 135,45 Q115,55 100,40 Z"/>
-      `,
-      kacamata: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="65" cy="100" r="35"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="135" cy="100" r="35"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="95" y="96" width="10" height="8"/>
-      `,
-      topi: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M55,110 C55,50 145,50 145,110 Z"/>
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="115" rx="75" ry="20"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="55" y="98" width="90" height="14"/>
-      `,
-      kaos_kaki: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M70,40 L120,40 L120,110 L155,140 C145,165 110,175 90,145 L70,110 Z"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="70" y="35" width="50" height="15" rx="4"/>
-      `,
-      jam: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="105" r="55"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="60" cy="55" r="18"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="140" cy="55" r="18"/>
-        <line x1="100" y1="105" x2="100" y2="75" stroke="#362925" stroke-width="5" stroke-linecap="round"/>
-        <line x1="100" y1="105" x2="125" y2="105" stroke="#362925" stroke-width="5" stroke-linecap="round"/>
-      `,
-      pensil: `
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="85" y="55" width="30" height="90" rx="4"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="85,145 100,180 115,145"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="85" y="35" width="30" height="20" rx="5"/>
-      `,
-      cangkir: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M50,75 L130,75 L120,150 C120,165 60,165 60,150 Z"/>
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M125,90 C155,90 155,130 120,130" stroke="#362925" stroke-width="5" fill="none"/>
-      `,
-      bus: `
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="30" y="60" width="140" height="75" rx="14"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="45" y="75" width="30" height="25" rx="4"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="85" y="75" width="30" height="25" rx="4"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="125" y="75" width="30" height="25" rx="4"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="65" cy="138" r="16"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="135" cy="138" r="16"/>
-      `,
-      kereta: `
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="35" y="85" width="85" height="50" rx="8"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="110" y="60" width="50" height="75" rx="8"/>
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="50" y="55" width="20" height="30"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="60" cy="142" r="15"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="142" r="15"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="140" cy="142" r="15"/>
-      `,
-      pohon: `
-        <rect class="color-part" fill="#ffffff" onclick="fillPart(this)" x="88" y="115" width="24" height="60" rx="6"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="75" r="45"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="65" cy="95" r="30"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="135" cy="95" r="30"/>
-      `,
-      awan: `
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="115" rx="60" ry="32"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="75" cy="95" r="28"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="120" cy="90" r="32"/>
-        <path d="M85 125 Q100 135 115 125" stroke="#362925" stroke-width="4" fill="none" stroke-linecap="round"/>
-      `,
-      matahari: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="100" r="45"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="100,30 92,48 108,48"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="100,170 92,152 108,152"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="30,100 48,92 48,108"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="170,100 152,92 152,108"/>
-      `,
-      kura_kura: `
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="105" rx="55" ry="42"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="155" cy="105" r="16"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="65" cy="140" r="12"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="135" cy="140" r="12"/>
-        <circle cx="158" cy="100" r="4" fill="#362925"/>
-      `,
-      kuda_nil: `
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="90" r="50"/>
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="125" rx="52" ry="32"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="60" cy="50" r="14"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="140" cy="50" r="14"/>
-        <circle cx="85" cy="125" r="5" fill="#362925"/><circle cx="115" cy="125" r="5" fill="#362925"/>
-      `,
-      bebek: `
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="125" rx="52" ry="36"/>
-        <circle class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="135" cy="85" r="24"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="155,85 185,92 155,98"/>
-        <circle cx="138" cy="80" r="4" fill="#362925"/>
-      `,
-      nanas: `
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="100" cy="120" rx="46" ry="58"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="85,68 100,25 115,68"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="70,72 80,35 95,70"/>
-        <polygon class="color-part" fill="#ffffff" onclick="fillPart(this)" points="130,72 120,35 105,70"/>
-      `,
-      pelangi: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M40,140 A60,60 0 0,1 160,140" stroke="#362925" stroke-width="16" fill="none"/>
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M56,140 A44,44 0 0,1 144,140" stroke="#362925" stroke-width="16" fill="none"/>
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="40" cy="140" rx="20" ry="14"/>
-        <ellipse class="color-part" fill="#ffffff" onclick="fillPart(this)" cx="160" cy="140" rx="20" ry="14"/>
-      `,
-      hati: `
-        <path class="color-part" fill="#ffffff" onclick="fillPart(this)" d="M100,165 C40,115 35,65 75,50 C95,40 100,65 100,65 C100,65 105,40 125,50 C165,65 160,115 100,165 Z"/>
-      `
-    };
-
-    /* =========================================================
-       9. RENDER LOBBY
-    ========================================================= */
-    const gameGrid = document.getElementById("gameGrid");
-    let activeFilter = 'all';
-
-    function renderLobby() {
-      gameGrid.innerHTML = '';
-      const list = activeFilter === 'all' ? gamesData : gamesData.filter(g => g.category === activeFilter);
-
-      list.forEach(game => {
-        const isDone = localStorage.getItem(`done_game_${game.id}`);
-        const card = document.createElement("div");
-        card.className = "bg-[#fffdf7] p-3.5 rounded-[26px] cozy-slab flex flex-col items-center justify-between text-center cursor-pointer relative overflow-hidden group";
-        card.onclick = () => {
-          if (!isBgmPlaying) startBGM();
-          bukaGame(game);
-        };
-
-        card.innerHTML = `
-          <div class="w-full flex justify-between items-center min-h-[16px]">
-            <span class="text-[9px] font-extrabold text-[#78645a] bg-[#f5ebe0] px-2 py-0.5 rounded-full border border-[#362925]">#${game.id}</span>
-            ${isDone ? '<span class="text-xs">⭐</span>' : ''}
-          </div>
-          <div class="text-4xl my-2 filter drop-shadow group-hover:scale-110 transition-transform">${game.icon}</div>
-          <h4 class="font-chubby text-xs text-[#362925] leading-snug mb-2.5">${game.title}</h4>
-          <span class="w-full cozy-btn-yellow text-[#362925] font-chubby text-[10px] py-1.5 rounded-xl block">
-            MAIN 🌱
-          </span>
-        `;
-        gameGrid.appendChild(card);
-      });
-
-      updateBintang();
-    }
-
-    function updateBintang() {
-      let total = 0;
-      for (let i = 1; i <= 151; i++) {
-        if (localStorage.getItem(`done_game_${i}`)) total++;
-      }
-      document.getElementById("starCounter").innerText = total;
-    }
-
-    function filterKategori(kat) {
-      activeFilter = kat;
-      document.querySelectorAll(".cat-btn").forEach(btn => {
-        btn.classList.remove("bg-[#fef08a]", "bg-[#fbcfe8]");
-        btn.classList.add("bg-white", "text-[#5c4a42]");
-      });
-      event.target.classList.add(kat === 'warna' ? "bg-[#fbcfe8]" : "bg-[#fef08a]");
-      event.target.classList.remove("bg-white", "text-[#5c4a42]");
-      renderLobby();
-    }
-
-    /* =========================================================
-       10. GAME ENGINES (TERMASUK ENGINE MEWARNAI 50 MODEL)
-    ========================================================= */
+    /* ---------- 11. ARENA GAME ASLI ---------- */
     let currentGame = null;
     let activeInterval = null;
 
@@ -1056,6 +869,20 @@
       else if (game.category === 'tebak') launchTebakEngine(canvas, game);
       else if (game.category === 'hitung') launchHitungEngine(canvas, game);
       else if (game.category === 'warna') launchWarnaEngine(canvas, game);
+
+      // Narasi soal dimulai dari sentuhan pengguna (aman untuk iOS)
+      setTimeout(() => bacaTeks(teksNarasiAsli(game)), 350);
+    }
+
+    function teksNarasiAsli(g) {
+      switch (g.category) {
+        case 'pop': return `${g.desc} Awas bom!`;
+        case 'memori': return 'Temukan dua kartu yang sama!';
+        case 'tebak': return g.q;
+        case 'hitung': return `Ada berapa ${g.name} di kebun ini? Hitung pelan-pelan.`;
+        case 'warna': return 'Pilih warna, lalu ketuk gambarnya untuk mewarnai.';
+      }
+      return '';
     }
 
     function keluarGame() {
@@ -1076,14 +903,12 @@
 
     function lanjutGameBerikutnya() {
       const nextId = (currentGame.id % 151) + 1;
-      const nextGame = gamesData.find(g => g.id === nextId);
-      bukaGame(nextGame);
+      bukaGame(gamesData.find(g => g.id === nextId));
     }
 
     /* ENGINE 1: BALON POP */
     function launchPopEngine(canvas, game) {
-      let skor = 0;
-      let nyawa = 3;
+      let skor = 0, nyawa = 3;
       const target = 5;
 
       canvas.innerHTML = `
@@ -1091,19 +916,16 @@
           <div class="font-chubby text-[#362925] text-xs bg-[#fffdf7] px-3.5 py-1.5 rounded-full border-[3px] border-[#362925] shadow-sm">
             🎯 ${game.desc} <span class="text-rose-500 font-bold ml-1">(Awas 💣!)</span>
           </div>
-          <div id="heartsContainer" class="text-base tracking-wider bg-[#fffdf7] px-3 py-1 rounded-full border-[3px] border-[#362925] shadow-sm">
-            ❤️❤️❤️
-          </div>
+          <div id="heartsContainer" class="text-base tracking-wider bg-[#fffdf7] px-3 py-1 rounded-full border-[3px] border-[#362925] shadow-sm">❤️❤️❤️</div>
         </div>
-        <div id="skyBox" class="w-full h-full relative overflow-hidden"></div>
-      `;
+        <div id="skyBox" class="w-full h-full relative overflow-hidden"></div>`;
 
       const sky = document.getElementById("skyBox");
       const heartsUI = document.getElementById("heartsContainer");
 
       function updateHearts() {
         let h = "";
-        for (let i = 0; i < 3; i++) { h += i < nyawa ? "❤️" : "🖤"; }
+        for (let i = 0; i < 3; i++) h += i < nyawa ? "❤️" : "🖤";
         heartsUI.innerText = h;
       }
 
@@ -1116,12 +938,9 @@
               <div class="text-5xl mb-2">💥</div>
               <h4 class="font-chubby text-rose-600 text-lg mb-1">Awas Kena Bom!</h4>
               <p class="text-xs text-[#5c4a42] font-bold mb-4">Ayo coba pecahkan lagi pelan-pelan!</p>
-              <button onclick="mainkanLagi()" class="w-full cozy-btn-yellow font-chubby py-3 rounded-2xl text-sm">
-                🔄 COBA LAGI 🌱
-              </button>
+              <button onclick="mainkanLagi()" class="w-full cozy-btn-yellow font-chubby py-3 rounded-2xl text-sm">🔄 COBA LAGI 🌱</button>
             </div>
-          </div>
-        `;
+          </div>`;
       }
 
       activeInterval = setInterval(() => {
@@ -1129,15 +948,10 @@
 
         const b = document.createElement("button");
         const isHazard = Math.random() < 0.32;
-        const icon = isHazard ? "💣" : game.item;
-
         b.className = "absolute text-6xl select-none floating-balloon cursor-pointer filter drop-shadow active:scale-95";
-        b.innerText = icon;
+        b.innerText = isHazard ? "💣" : game.item;
         b.style.animationDuration = `${Math.random() * 1.5 + 3.2}s`;
-
-        const maxX = Math.max(sky.clientWidth - 80, 40);
-        b.style.left = `${Math.floor(Math.random() * maxX)}px`;
-
+        b.style.left = `${Math.floor(Math.random() * Math.max(sky.clientWidth - 80, 40))}px`;
         sky.appendChild(b);
 
         b.onclick = () => {
@@ -1146,25 +960,20 @@
             nyawa--;
             updateHearts();
             sky.classList.add("shake");
-            setTimeout(() => { sky.classList.remove("shake"); }, 380);
-
+            setTimeout(() => sky.classList.remove("shake"), 380);
             b.classList.add("pop-burst");
-            setTimeout(() => { b.remove(); }, 120);
-
+            setTimeout(() => b.remove(), 120);
             if (nyawa <= 0) gameOverPop();
           } else {
             soundEngine.pop();
             skor++;
             document.getElementById("arenaScore").innerText = `Poin: ${skor} / ${target}`;
-
             b.classList.add("pop-burst");
-            setTimeout(() => { b.remove(); }, 120);
-
+            setTimeout(() => b.remove(), 120);
             if (skor >= target) triggerMenang();
           }
         };
-
-        setTimeout(() => { if (b && b.parentNode) b.remove(); }, 4600);
+        setTimeout(() => { if (b.parentNode) b.remove(); }, 4600);
       }, 650);
     }
 
@@ -1174,42 +983,32 @@
       const deck = [...deckIcons, ...deckIcons].sort(() => Math.random() - 0.5);
 
       canvas.innerHTML = `
-        <div class="font-chubby text-[#362925] text-xs mb-4 bg-[#fffdf7] px-4 py-1.5 rounded-full border-[3px] border-[#362925] shadow-sm">
-          Temukan 2 Pasangan yang Sama! 🌱
-        </div>
-        <div id="memoryGrid" class="grid grid-cols-4 gap-3 max-w-xs mx-auto"></div>
-      `;
+        <div class="font-chubby text-[#362925] text-xs mb-4 bg-[#fffdf7] px-4 py-1.5 rounded-full border-[3px] border-[#362925] shadow-sm">Temukan 2 Pasangan yang Sama! 🌱</div>
+        <div id="memoryGrid" class="grid grid-cols-4 gap-3 max-w-xs mx-auto"></div>`;
+
       const grid = document.getElementById("memoryGrid");
-      let opened = [];
-      let matchedCount = 0;
+      let opened = [], matchedCount = 0;
 
       deck.forEach(symbol => {
         const card = document.createElement("div");
         card.className = "w-16 h-20 bg-[#fffdf7] rounded-2xl border-[3.5px] border-[#362925] shadow-[0_5px_0_#362925] flex items-center justify-center text-3xl font-chubby cursor-pointer active:translate-y-1 transition-all";
         card.innerText = "❓";
-
         card.onclick = () => {
           if (opened.length < 2 && !card.classList.contains("done")) {
             soundEngine.tap();
             card.innerText = symbol;
             card.classList.add("done", "bg-[#fef9c3]");
             opened.push({ elem: card, val: symbol });
-
             if (opened.length === 2) {
               if (opened[0].val === opened[1].val) {
                 soundEngine.correct();
                 matchedCount++;
                 opened = [];
-                if (matchedCount === deckIcons.length) {
-                  setTimeout(triggerMenang, 400);
-                }
+                if (matchedCount === deckIcons.length) setTimeout(triggerMenang, 400);
               } else {
                 soundEngine.wrong();
                 setTimeout(() => {
-                  opened.forEach(o => {
-                    o.elem.innerText = "❓";
-                    o.elem.classList.remove("done", "bg-[#fef9c3]");
-                  });
+                  opened.forEach(o => { o.elem.innerText = "❓"; o.elem.classList.remove("done", "bg-[#fef9c3]"); });
                   opened = [];
                 }, 700);
               }
@@ -1223,7 +1022,6 @@
     /* ENGINE 3: TEBAK OBJEK */
     function launchTebakEngine(canvas, game) {
       const opsiAcak = [...game.ops].sort(() => Math.random() - 0.5);
-
       canvas.innerHTML = `
         <div class="bg-[#fffdf7] p-6 rounded-[36px] border-4 border-[#362925] shadow-[0_8px_0_#362925] max-w-sm w-full text-center">
           <div class="bg-[#bbf7d0] text-emerald-950 text-[11px] font-chubby px-3 py-1 rounded-full inline-flex items-center gap-1 mb-3 border-2 border-[#362925]">
@@ -1232,114 +1030,70 @@
           <h4 class="font-chubby text-[#362925] text-base md:text-lg mb-6 leading-relaxed">${game.q}</h4>
           <div class="flex justify-center gap-3">
             ${opsiAcak.map(item => `
-              <button onclick="jawabTebak('${item}', '${game.ans}')" class="text-5xl p-4 bg-[#fefce8] hover:bg-[#fef08a] rounded-2xl border-[3.5px] border-[#362925] shadow-[0_5px_0_#362925] active:translate-y-1 active:shadow-none transition-all">
-                ${item}
-              </button>
-            `).join('')}
+              <button data-o="${item}" class="text-5xl p-4 bg-[#fefce8] hover:bg-[#fef08a] rounded-2xl border-[3.5px] border-[#362925] shadow-[0_5px_0_#362925] active:translate-y-1 transition-all">${item}</button>`).join('')}
           </div>
-        </div>
-      `;
+        </div>`;
+      canvas.querySelectorAll('[data-o]').forEach(b => {
+        b.onclick = () => {
+          if (b.dataset.o === game.ans) { soundEngine.correct(); triggerMenang(); }
+          else soundEngine.wrong();
+        };
+      });
     }
-
-    window.jawabTebak = (jawaban, kunci) => {
-      if (jawaban === kunci) {
-        soundEngine.correct();
-        triggerMenang();
-      } else {
-        soundEngine.wrong();
-      }
-    };
 
     /* ENGINE 4: HITUNG CEPAT */
     function launchHitungEngine(canvas, game) {
       const targetCount = Math.floor(Math.random() * 4) + 2;
       const opsi = [targetCount, targetCount - 1, targetCount + 1].sort(() => Math.random() - 0.5);
-
       canvas.innerHTML = `
         <div class="bg-[#fffdf7] p-6 rounded-[36px] border-4 border-[#362925] shadow-[0_8px_0_#362925] max-w-sm w-full text-center">
-          <div class="bg-[#fed7aa] text-amber-950 text-[11px] font-chubby px-3 py-1 rounded-full inline-block mb-2 border-2 border-[#362925]">
-            🧺 Panen Kebun Pintar
-          </div>
+          <div class="bg-[#fed7aa] text-amber-950 text-[11px] font-chubby px-3 py-1 rounded-full inline-block mb-2 border-2 border-[#362925]">🧺 Panen Kebun Pintar</div>
           <h4 class="font-chubby text-[#362925] text-sm md:text-base mb-3 leading-snug">
             Ada berapa jumlah <span class="text-emerald-800 underline font-extrabold">${game.name}</span> di bawah ini?
           </h4>
-          
-          <div class="flex flex-wrap justify-center gap-2 text-4xl mb-6 py-2">
-            ${game.item.repeat(targetCount)}
-          </div>
-
+          <div class="flex flex-wrap justify-center gap-2 text-4xl mb-6 py-2">${game.item.repeat(targetCount)}</div>
           <div class="flex justify-center gap-3">
-            ${opsi.map(num => `
-              <button onclick="jawabHitung(${num}, ${targetCount})" class="w-14 h-14 cozy-btn-green text-[#1e3325] font-chubby text-2xl rounded-2xl hover:brightness-105">
-                ${num}
-              </button>
-            `).join('')}
+            ${opsi.map(num => `<button data-n="${num}" class="w-14 h-14 cozy-btn-green text-[#1e3325] font-chubby text-2xl rounded-2xl hover:brightness-105">${num}</button>`).join('')}
           </div>
-        </div>
-      `;
+        </div>`;
+      canvas.querySelectorAll('[data-n]').forEach(b => {
+        b.onclick = () => {
+          if (Number(b.dataset.n) === targetCount) { soundEngine.correct(); triggerMenang(); }
+          else soundEngine.wrong();
+        };
+      });
     }
 
-    window.jawabHitung = (dipilih, benar) => {
-      if (dipilih === benar) {
-        soundEngine.correct();
-        triggerMenang();
-      } else {
-        soundEngine.wrong();
-      }
-    };
-
-    /* ENGINE 5: MEWARNAI (50 MODEL VEKTOR EKSKLUSIF) */
+    /* ENGINE 5: MEWARNAI */
     let selectedColor = '#f87171';
 
     function launchWarnaEngine(canvas, game) {
       const crayons = [
-        { code: '#f87171', name: 'Merah' },
-        { code: '#fb923c', name: 'Oranye' },
-        { code: '#fde047', name: 'Kuning' },
-        { code: '#4ade80', name: 'Hijau' },
-        { code: '#38bdf8', name: 'Biru' },
-        { code: '#c084fc', name: 'Ungu' },
-        { code: '#f472b6', name: 'Pink' },
-        { code: '#b45309', name: 'Cokelat' },
+        { code: '#f87171', name: 'Merah' }, { code: '#fb923c', name: 'Oranye' },
+        { code: '#fde047', name: 'Kuning' }, { code: '#4ade80', name: 'Hijau' },
+        { code: '#38bdf8', name: 'Biru' }, { code: '#c084fc', name: 'Ungu' },
+        { code: '#f472b6', name: 'Pink' }, { code: '#b45309', name: 'Cokelat' },
         { code: '#ffffff', name: 'Hapus' }
       ];
-
-      // Ambil vektor gambar khusus berdasarkan modelType objek aslinya
-      const modelContent = SVG_MODELS[game.modelType] || SVG_MODELS['apel'];
-      const svgArt = `
-        <svg viewBox="0 0 200 200" class="w-56 h-56 mx-auto">
-          ${modelContent}
-        </svg>
-      `;
+      const modelContent = SVG_MODELS[game.modelType] || MODEL_FALLBACK;
 
       canvas.innerHTML = `
         <div class="bg-[#fffdf7] p-4 rounded-[32px] border-4 border-[#362925] shadow-[0_8px_0_#362925] max-w-sm w-full text-center flex flex-col items-center">
           <div class="text-[11px] font-chubby text-[#362925] mb-2 bg-[#fbcfe8] px-3.5 py-1 rounded-full border-2 border-[#362925]">
             🎨 Ketuk krayon, lalu ketuk gambar ${game.title.replace('Warna ', '')}!
           </div>
-
           <div class="bg-white rounded-2xl border-4 border-dashed border-[#e6d5bc] p-2 w-full flex items-center justify-center my-1 shadow-inner">
-            ${svgArt}
+            <svg viewBox="0 0 200 200" class="w-56 h-56 mx-auto">${modelContent}</svg>
           </div>
-
           <div class="flex flex-wrap justify-center gap-2 mt-3 mb-3">
             ${crayons.map(c => `
-              <button onclick="pilihKrayon('${c.code}', this)" 
-                      class="crayon-btn w-8 h-8 rounded-full border-[3px] border-[#362925] shadow-sm active:scale-125 transition-transform" 
-                      style="background-color: ${c.code}" title="${c.name}"></button>
-            `).join('')}
+              <button onclick="pilihKrayon('${c.code}', this)" class="crayon-btn w-8 h-8 rounded-full border-[3px] border-[#362925] shadow-sm active:scale-125 transition-transform" style="background-color:${c.code}" title="${c.name}"></button>`).join('')}
           </div>
-
           <div class="flex gap-2 w-full">
-            <button onclick="resetWarna()" class="flex-1 bg-[#fed7aa] text-[#362925] font-chubby py-2 rounded-xl border-[2.5px] border-[#362925] text-xs active:translate-y-1">
-              🔄 Bersihkan
-            </button>
-            <button onclick="triggerMenang()" class="flex-2 w-2/3 cozy-btn-green text-[#1e3325] font-chubby py-2 rounded-xl text-xs hover:brightness-105">
-              SELESAI 🌟
-            </button>
+            <button onclick="resetWarna()" class="flex-1 bg-[#fed7aa] text-[#362925] font-chubby py-2 rounded-xl border-[2.5px] border-[#362925] text-xs active:translate-y-1">🔄 Bersihkan</button>
+            <button onclick="triggerMenang()" class="flex-[2] cozy-btn-green text-[#1e3325] font-chubby py-2 rounded-xl text-xs hover:brightness-105">SELESAI 🌟</button>
           </div>
-        </div>
-      `;
+        </div>`;
 
       setTimeout(() => {
         const first = document.querySelector('.crayon-btn');
@@ -1354,9 +1108,9 @@
       btn.style.outline = "3px solid #362925";
     };
 
-    window.fillPart = (element) => {
+    window.fillPart = (el) => {
       soundEngine.color();
-      element.setAttribute('fill', selectedColor);
+      el.setAttribute('fill', selectedColor);
     };
 
     window.resetWarna = () => {
@@ -1364,10 +1118,444 @@
       document.querySelectorAll('.color-part').forEach(p => p.setAttribute('fill', '#ffffff'));
     };
 
-    /* INISIALISASI */
+    /* ---------- 12. KELAS BELAJAR ---------- */
+    const KELAS = [
+      { id: 'huruf', title: 'Huruf & Angka', icon: '🔤', games: [
+        { id: 'k1', title: 'Cocokkan Huruf', engine: 'pasang', instruksi: 'Pasangkan huruf dengan gambar yang diawali huruf itu.',
+          pasangan: [['A','🍎','Apel'], ['B','🐝','Lebah'], ['C','🐱','Kucing'], ['D','🦆','Bebek'], ['E','🐘','Gajah']] },
+        { id: 'k2', title: 'Hitung Benda', engine: 'pilihan', instruksi: 'Ada berapa benda di gambar?',
+          soal: [
+            { gambar: '🍎🍎🍎', tanya: 'Ada berapa apel?', jawab: '3', opsi: ['2','3','4'] },
+            { gambar: '⭐⭐', tanya: 'Ada berapa bintang?', jawab: '2', opsi: ['1','2','3'] },
+            { gambar: '🐟🐟🐟🐟', tanya: 'Ada berapa ikan?', jawab: '4', opsi: ['3','4','5'] }
+          ] },
+        { id: 'k3', title: 'Urutkan Angka', engine: 'susun', instruksi: 'Susun angka dari kecil ke besar.', urutan: ['1','2','3','4','5'] }
+      ]},
+      { id: 'hijaiyah', title: 'Hijaiyah & Doa', icon: '📖', games: [
+        { id: 'h1', title: 'Kenal Huruf Hijaiyah', engine: 'pasang', instruksi: 'Pasangkan huruf hijaiyah dengan gambarnya.',
+          pasangan: [['ا','🐪','Unta'], ['ب','🐄','Sapi'], ['ت','🍇','Anggur'], ['ث','🌳','Pohon'], ['ج','🍊','Jeruk']] },
+        { id: 'h2', title: 'Susun Abjad', engine: 'susun', instruksi: 'Susun huruf hijaiyah sesuai urutannya.', urutan: ['ا','ب','ت','ث','ج','ح'] },
+        { id: 'h3', title: 'Doa Sebelum Makan', engine: 'doa', instruksi: 'Dengarkan dan ulangi doanya.',
+          teks: 'Allahumma baarik lana fiima razaqtana, waqina adzaban-nar.',
+          arti: 'Ya Allah, berkahilah rezeki kami, dan lindungi kami dari siksa neraka.' },
+        { id: 'h4', title: 'Doa Sebelum Tidur', engine: 'doa', instruksi: 'Dengarkan dan ulangi doanya.',
+          teks: 'Bismika Allahumma amutu wa ahya.', arti: 'Dengan nama-Mu ya Allah, aku mati dan aku hidup.' }
+      ]},
+      { id: 'matematika', title: 'Matematika Dasar', icon: '➕', games: [
+        { id: 'm1', title: 'Penjumlahan', engine: 'pilihan', instruksi: 'Berapa hasilnya?',
+          soal: [
+            { tanya: '2 + 3 = ?', jawab: '5', opsi: ['4','5','6'] },
+            { tanya: '1 + 4 = ?', jawab: '5', opsi: ['3','5','7'] },
+            { tanya: '3 + 3 = ?', jawab: '6', opsi: ['5','6','7'] }
+          ] },
+        { id: 'm2', title: 'Pengurangan', engine: 'pilihan', instruksi: 'Berapa sisanya?',
+          soal: [
+            { tanya: '5 - 2 = ?', jawab: '3', opsi: ['2','3','4'] },
+            { tanya: '4 - 1 = ?', jawab: '3', opsi: ['3','5','2'] },
+            { tanya: '6 - 3 = ?', jawab: '3', opsi: ['4','3','2'] }
+          ] },
+        { id: 'm3', title: 'Balapan Mobil', engine: 'balapan', instruksi: 'Jawab dengan benar supaya mobilmu sampai finis!',
+          soal: [
+            { tanya: '2 + 2 = ?', jawab: '4', opsi: ['3','4','5'] },
+            { tanya: '5 - 1 = ?', jawab: '4', opsi: ['4','6','3'] },
+            { tanya: '3 + 3 = ?', jawab: '6', opsi: ['5','6','7'] }
+          ] }
+      ]},
+      { id: 'puzzle', title: 'Puzzle & Memori', icon: '🧩', games: [
+        { id: 'p1', title: 'Memori Hewan', engine: 'memori', instruksi: 'Temukan dua kartu yang sama.', kartu: ['🐶','🐱','🐰','🐸'] },
+        { id: 'p2', title: 'Cocokkan Gambar', engine: 'pasang', instruksi: 'Pasangkan gambar yang sama.',
+          pasangan: [['🐶','🐶','Anjing'], ['🐱','🐱','Kucing'], ['🐰','🐰','Kelinci']] },
+        { id: 'p3', title: 'Cari yang Berbeda', engine: 'pilihan', instruksi: 'Pilih gambar yang berbeda dari yang lain.',
+          soal: [
+            { gambar: '🍎🍎🍎🍌', tanya: 'Mana yang berbeda?', jawab: '🍌', opsi: ['🍎','🍌','🍇'] },
+            { gambar: '🐶🐶🐱', tanya: 'Mana yang berbeda?', jawab: '🐱', opsi: ['🐶','🐱','🐰'] }
+          ] }
+      ]},
+      { id: 'emosi', title: 'Emosi & Kebiasaan', icon: '💛', games: [
+        { id: 'e1', title: 'Kapan Gosok Gigi?', engine: 'pilihan', instruksi: 'Pilih kegiatan yang benar.',
+          soal: [
+            { tanya: 'Kapan kita gosok gigi?', jawab: '🪥', opsi: ['🪥','🛏️','⚽'] },
+            { tanya: 'Kapan kita makan?', jawab: '🍚', opsi: ['🍚','📚','🧸'] }
+          ] },
+        { id: 'e2', title: 'Wajah Perasaan', engine: 'pasang', instruksi: 'Pasangkan wajah dengan perasaannya.',
+          pasangan: [['😊','😊','Senang'], ['😢','😢','Sedih'], ['😠','😠','Marah']] },
+        { id: 'e3', title: 'Rapikan Mainan', engine: 'pilihan', instruksi: 'Mainan mana yang harus dirapikan?',
+          soal: [{ tanya: 'Simpan benda yang berantakan ke kotak!', jawab: '🧸', opsi: ['🧸','🍎','🌳'] }] }
+      ]},
+      { id: 'inggris', title: 'Bahasa Inggris', icon: '🇬🇧', games: [
+        { id: 'i1', title: 'Animals', engine: 'pasang', lang: 'en-US', instruksi: 'Match the picture with the word.',
+          pasangan: [['Cat','🐱','Cat'], ['Dog','🐶','Dog'], ['Cow','🐮','Cow']] },
+        { id: 'i2', title: 'Colors', engine: 'pasang', lang: 'en-US', instruksi: 'Match the color with the picture.',
+          pasangan: [['Red','🍎','Red'], ['Yellow','🍌','Yellow'], ['Green','🍏','Green']] },
+        { id: 'i3', title: 'Fruits', engine: 'pilihan', lang: 'en-US', instruksi: 'Pick the right fruit.',
+          soal: [{ tanya: 'Which one is a banana?', jawab: '🍌', opsi: ['🍎','🍌','🍇'] }] }
+      ]},
+      { id: 'labirin', title: 'Petualangan', icon: '🗺️', games: [
+        { id: 'l1', title: 'Jalan ke Rumah', engine: 'labirin', instruksi: 'Bantu kelinci sampai ke rumah!',
+          peta: ['🐰⬜⬜🌳', '🌳🟦⬜🌳', '⬜⬜🟦🏡'], mulai: [0,0], selesai: [2,3] },
+        { id: 'l2', title: 'Kumpulkan Bintang', engine: 'labirin', instruksi: 'Kumpulkan bintang lalu sampai ke tujuan!',
+          peta: ['🦊⭐⬜⬜', '⬜🌳⭐⬜', '⬜⬜⬜🏁'], mulai: [0,0], selesai: [2,3] }
+      ]}
+    ];
+
+    const kelasLayar = document.getElementById('kelasScreen');
+    const kelasIsi = () => document.getElementById('kelasIsi');
+    const setJudulKelas = txt => document.getElementById('kelasJudul').textContent = txt;
+    const selesaiKelasKey = id => `kelas_done_${id}`;
+    const sudahSelesaiKelas = id => localStorage.getItem(selesaiKelasKey(id)) === '1';
+    const acak = arr => [...arr].sort(() => Math.random() - 0.5);
+
+    document.getElementById('kelasKeluar').onclick = () => {
+      kelasLayar.classList.add('hidden');
+      if ('speechSynthesis' in window) speechSynthesis.cancel();
+    };
+
+    function bukaKelas() {
+      kelasLayar.classList.remove('hidden');
+      tampilDaftarKelas();
+    }
+
+    function tampilDaftarKelas() {
+      setJudulKelas(uiLang === 'id' ? 'Kelas Belajar' : 'Learning Class');
+      kelasIsi().innerHTML = `
+        <div class="grid grid-cols-2 gap-3 w-full max-w-md">
+          ${KELAS.map(k => `
+            <button data-kelas="${k.id}" class="bg-[#fffdf7] p-4 rounded-[24px] cozy-slab text-center font-chubby text-[#362925] active:translate-y-1">
+              <div class="text-4xl mb-1">${k.icon}</div>
+              <div class="text-xs">${k.title}</div>
+              <div class="text-[10px] text-emerald-800 mt-1">${k.games.filter(g => sudahSelesaiKelas(g.id)).length}/${k.games.length} ${t('selesai')}</div>
+            </button>`).join('')}
+        </div>`;
+      kelasIsi().querySelectorAll('[data-kelas]').forEach(b => {
+        b.onclick = () => tampilDaftarGameKelas(KELAS.find(k => k.id === b.dataset.kelas));
+      });
+    }
+
+    function tampilDaftarGameKelas(kelas) {
+      setJudulKelas(kelas.title);
+      kelasIsi().innerHTML = `
+        <div class="w-full max-w-md space-y-3">
+          ${kelas.games.map(g => `
+            <button data-game="${g.id}" class="w-full bg-[#fffdf7] p-4 rounded-[22px] cozy-slab flex justify-between items-center font-chubby text-[#362925] active:translate-y-1">
+              <span class="text-sm">${g.title}</span>
+              <span>${sudahSelesaiKelas(g.id) ? '⭐' : '▶️'}</span>
+            </button>`).join('')}
+          <button id="kembaliKelas" class="w-full bg-white border-[3px] border-[#362925] py-2 rounded-2xl font-chubby text-xs">${t('kembali')}</button>
+        </div>`;
+      kelasIsi().querySelectorAll('[data-game]').forEach(b => {
+        b.onclick = () => jalankanGameKelas(kelas.games.find(g => g.id === b.dataset.game));
+      });
+      document.getElementById('kembaliKelas').onclick = tampilDaftarKelas;
+    }
+
+    function jalankanGameKelas(game) {
+      setJudulKelas(game.title);
+      const mesin = { pasang: mesinPasang, pilihan: mesinPilihan, susun: mesinSusun, doa: mesinDoa, balapan: mesinBalapan, labirin: mesinLabirin, memori: mesinMemori };
+      mesin[game.engine](game, () => {
+        localStorage.setItem(selesaiKelasKey(game.id), '1');
+        bacaTeks(t('hebat'));
+        tampilMenangKelas(game);
+      });
+    }
+
+    function tampilMenangKelas(game) {
+      kelasIsi().innerHTML = `
+        <div class="bg-[#fffdf7] p-6 rounded-[32px] cozy-slab text-center max-w-xs w-full">
+          <div class="text-6xl mb-2">🏆</div>
+          <h4 class="font-chubby text-xl mb-1">Hebat!</h4>
+          <p class="text-xs font-bold text-[#5c4a42] mb-4">${game.title} ${t('selesai')}.</p>
+          <button id="menangKembali" class="w-full cozy-btn-green font-chubby py-3 rounded-2xl text-sm">KEMBALI 🌱</button>
+        </div>`;
+      document.getElementById('menangKembali').onclick = tampilDaftarKelas;
+    }
+
+    function salahKedip(el) {
+      el.classList.add('bg-[#fecaca]');
+      setTimeout(() => el.classList.remove('bg-[#fecaca]'), 400);
+    }
+
+    /* Mesin Pasang */
+    function mesinPasang(game, selesai) {
+      const bahasa = game.lang || KODE_SUARA[uiLang];
+      const kanan = acak(game.pasangan.map(p => p[1]));
+      let pilihKiri = null, benar = 0;
+
+      kelasIsi().innerHTML = `
+        <p class="font-chubby text-xs mb-4 bg-white px-4 py-1.5 rounded-full border-[3px] border-[#362925]">${game.instruksi}</p>
+        <div class="flex gap-6 justify-center w-full max-w-sm">
+          <div class="flex flex-col gap-3" id="pKiri">
+            ${game.pasangan.map(p => `<button data-k="${p[0]}" class="bg-white w-24 py-4 rounded-2xl border-[3.5px] border-[#362925] font-chubby text-2xl shadow-[0_4px_0_#362925] active:translate-y-1">${p[0]}</button>`).join('')}
+          </div>
+          <div class="flex flex-col gap-3" id="pKanan">
+            ${kanan.map(img => `<button data-img="${img}" class="bg-[#fefce8] w-24 py-4 rounded-2xl border-[3.5px] border-[#362925] text-4xl shadow-[0_4px_0_#362925] active:translate-y-1">${img}</button>`).join('')}
+          </div>
+        </div>`;
+
+      kelasIsi().querySelectorAll('#pKiri button').forEach(b => {
+        b.onclick = () => {
+          kelasIsi().querySelectorAll('#pKiri button').forEach(x => x.classList.remove('bg-[#fef08a]'));
+          b.classList.add('bg-[#fef08a]');
+          pilihKiri = b.dataset.k;
+          bacaTeks(pilihKiri, bahasa);
+        };
+      });
+
+      kelasIsi().querySelectorAll('#pKanan button').forEach(b => {
+        b.onclick = () => {
+          if (!pilihKiri || b.disabled) return;
+          const info = game.pasangan.find(p => p[0] === pilihKiri);
+          if (info[1] === b.dataset.img) {
+            b.classList.add('bg-[#bbf7d0]');
+            b.disabled = true;
+            const kiriBtn = kelasIsi().querySelector(`#pKiri [data-k="${pilihKiri}"]`);
+            kiriBtn.disabled = true;
+            kiriBtn.classList.add('bg-[#bbf7d0]');
+            bacaTeks(info[2], bahasa);
+            benar++;
+            pilihKiri = null;
+            if (benar === game.pasangan.length) setTimeout(selesai, 700);
+          } else {
+            salahKedip(b);
+          }
+        };
+      });
+    }
+
+    /* Mesin Pilihan */
+    function mesinPilihan(game, selesai) {
+      const bahasa = game.lang || KODE_SUARA[uiLang];
+      let idx = 0;
+
+      function tampil() {
+        const s = game.soal[idx];
+        const gambar = s.gambar ? `<div class="text-4xl mb-3">${s.gambar}</div>` : '';
+        kelasIsi().innerHTML = `
+          <div class="bg-[#fffdf7] p-6 rounded-[32px] cozy-slab text-center max-w-sm w-full">
+            <p class="text-xs font-chubby text-emerald-800 mb-2">${t('soal')} ${idx + 1} / ${game.soal.length}</p>
+            ${gambar}
+            <h4 class="font-chubby text-lg mb-5">${s.tanya}</h4>
+            <div class="flex justify-center gap-3 flex-wrap">
+              ${acak(s.opsi).map(o => `<button data-o="${o}" class="text-3xl bg-[#fefce8] p-4 rounded-2xl border-[3.5px] border-[#362925] shadow-[0_5px_0_#362925] active:translate-y-1 min-w-[72px]">${o}</button>`).join('')}
+            </div>
+          </div>`;
+        bacaTeks(s.tanya, bahasa);
+
+        kelasIsi().querySelectorAll('[data-o]').forEach(b => {
+          b.onclick = () => {
+            if (b.dataset.o === String(s.jawab)) {
+              b.classList.add('bg-[#bbf7d0]');
+              idx++;
+              setTimeout(() => idx < game.soal.length ? tampil() : selesai(), 600);
+            } else {
+              salahKedip(b);
+            }
+          };
+        });
+      }
+      tampil();
+    }
+
+    /* Mesin Susun */
+    function mesinSusun(game, selesai) {
+      const urut = game.urutan;
+      let langkah = 0;
+
+      kelasIsi().innerHTML = `
+        <p class="font-chubby text-xs mb-4 bg-white px-4 py-1.5 rounded-full border-[3px] border-[#362925]">${game.instruksi}</p>
+        <div class="flex gap-2 flex-wrap justify-center mb-6" id="slotWadah"></div>
+        <div class="flex gap-2 flex-wrap justify-center" id="pilihWadah"></div>`;
+
+      const slot = document.getElementById('slotWadah');
+      const pilih = document.getElementById('pilihWadah');
+
+      urut.forEach(() => {
+        const s = document.createElement('div');
+        s.className = 'w-16 h-16 bg-white border-[3px] border-dashed border-[#362925] rounded-2xl';
+        slot.appendChild(s);
+      });
+
+      acak(urut).forEach(v => {
+        const b = document.createElement('button');
+        b.textContent = v;
+        b.className = 'w-16 h-16 bg-[#fefce8] border-[3.5px] border-[#362925] rounded-2xl text-2xl font-chubby shadow-[0_4px_0_#362925] active:translate-y-1';
+        b.onclick = () => {
+          if (v === urut[langkah]) {
+            const s = slot.children[langkah];
+            s.className = 'w-16 h-16 bg-[#bbf7d0] border-[3px] border-[#362925] rounded-2xl text-2xl font-chubby flex items-center justify-center';
+            s.textContent = v;
+            b.disabled = true;
+            b.style.opacity = '0.3';
+            langkah++;
+            bacaTeks(v);
+            if (langkah === urut.length) setTimeout(selesai, 600);
+          } else {
+            salahKedip(b);
+          }
+        };
+        pilih.appendChild(b);
+      });
+    }
+
+    /* Mesin Doa */
+    function mesinDoa(game, selesai) {
+      kelasIsi().innerHTML = `
+        <div class="bg-[#fffdf7] p-6 rounded-[32px] cozy-slab text-center max-w-sm w-full">
+          <div class="text-5xl mb-3">🤲</div>
+          <p class="font-chubby text-xs text-emerald-800 mb-2">${game.instruksi}</p>
+          <h4 class="font-chubby text-base leading-relaxed mb-3">${game.teks}</h4>
+          <p class="text-xs font-bold text-[#5c4a42] mb-5">${t('arti')}: ${game.arti}</p>
+          <div class="flex gap-2">
+            <button id="doaUlang" class="flex-1 bg-[#bae6fd] border-[3px] border-[#362925] py-2.5 rounded-2xl font-chubby text-xs">${t('dengar')}</button>
+            <button id="doaSelesai" class="flex-1 cozy-btn-green font-chubby py-2.5 rounded-2xl text-xs">${t('hafal')}</button>
+          </div>
+        </div>`;
+      document.getElementById('doaUlang').onclick = () => bacaTeks(game.teks, 'id-ID');
+      document.getElementById('doaSelesai').onclick = selesai;
+      bacaTeks(game.teks, 'id-ID');
+    }
+
+    /* Mesin Balapan */
+    function mesinBalapan(game, selesai) {
+      let idx = 0;
+      const total = game.soal.length;
+
+      function tampil() {
+        const s = game.soal[idx];
+        const persen = Math.round((idx / total) * 100);
+        kelasIsi().innerHTML = `
+          <div class="w-full max-w-sm">
+            <div class="relative h-14 bg-[#bbf7d0] border-[3px] border-[#362925] rounded-2xl mb-5 overflow-hidden">
+              <div class="absolute top-1/2 -translate-y-1/2 text-3xl transition-all duration-500" style="left:calc(${persen}% - 8px)">🚗</div>
+              <div class="absolute right-2 top-1/2 -translate-y-1/2 text-2xl">🏁</div>
+            </div>
+            <div class="bg-[#fffdf7] p-6 rounded-[32px] cozy-slab text-center">
+              <h4 class="font-chubby text-xl mb-5">${s.tanya}</h4>
+              <div class="flex justify-center gap-3">
+                ${acak(s.opsi).map(o => `<button data-o="${o}" class="w-16 h-16 text-2xl font-chubby bg-[#fefce8] rounded-2xl border-[3.5px] border-[#362925] shadow-[0_5px_0_#362925] active:translate-y-1">${o}</button>`).join('')}
+              </div>
+            </div>
+          </div>`;
+        bacaTeks(s.tanya);
+
+        kelasIsi().querySelectorAll('[data-o]').forEach(b => {
+          b.onclick = () => {
+            if (b.dataset.o === String(s.jawab)) {
+              idx++;
+              idx < total ? tampil() : selesai();
+            } else {
+              salahKedip(b);
+            }
+          };
+        });
+      }
+      tampil();
+    }
+
+    /* Mesin Memori */
+    function mesinMemori(game, selesai) {
+      const deck = acak([...game.kartu, ...game.kartu]);
+      let terbuka = [], cocok = 0, kunci = false;
+
+      kelasIsi().innerHTML = `
+        <p class="font-chubby text-xs mb-4 bg-white px-4 py-1.5 rounded-full border-[3px] border-[#362925]">${game.instruksi}</p>
+        <div class="grid grid-cols-4 gap-3 max-w-xs mx-auto" id="memoriGrid"></div>`;
+
+      const grid = document.getElementById('memoriGrid');
+      deck.forEach(sym => {
+        const k = document.createElement('button');
+        k.dataset.sym = sym;
+        k.textContent = '❓';
+        k.className = 'w-16 h-20 bg-[#fffdf7] rounded-2xl border-[3.5px] border-[#362925] shadow-[0_5px_0_#362925] text-3xl active:translate-y-1';
+        k.onclick = () => {
+          if (kunci || k.dataset.buka || terbuka.includes(k)) return;
+          k.textContent = sym;
+          k.classList.add('bg-[#fef9c3]');
+          terbuka.push(k);
+          if (terbuka.length === 2) {
+            kunci = true;
+            const [a, b] = terbuka;
+            if (a.dataset.sym === b.dataset.sym) {
+              a.dataset.buka = '1'; b.dataset.buka = '1';
+              a.classList.add('bg-[#bbf7d0]'); b.classList.add('bg-[#bbf7d0]');
+              cocok++;
+              terbuka = []; kunci = false;
+              if (cocok === game.kartu.length) setTimeout(selesai, 600);
+            } else {
+              setTimeout(() => {
+                [a, b].forEach(x => { x.textContent = '❓'; x.classList.remove('bg-[#fef9c3]'); });
+                terbuka = []; kunci = false;
+              }, 700);
+            }
+          }
+        };
+        grid.appendChild(k);
+      });
+    }
+
+    /* Mesin Labirin */
+    function mesinLabirin(game, selesai) {
+      const peta = game.peta.map(b => b.match(/\p{Extended_Pictographic}|⬜|🟦/gu));
+      let [r, c] = game.mulai;
+      const [tr, tc] = game.selesai;
+
+      function gambar() {
+        const kisi = peta.map((baris, ri) =>
+          baris.map((sel, ci) => {
+            if (ri === r && ci === c) return '🧒';
+            if (ri === tr && ci === tc) return '🏡';
+            return sel === '⬜' ? '▫️' : sel;
+          }).join('')
+        ).join('\n');
+
+        kelasIsi().innerHTML = `
+          <p class="font-chubby text-xs mb-4 bg-white px-4 py-1.5 rounded-full border-[3px] border-[#362925]">${game.instruksi}</p>
+          <pre class="text-3xl leading-tight bg-[#fffdf7] p-4 rounded-2xl cozy-slab mb-5">${kisi}</pre>
+          <div class="grid grid-cols-3 gap-2 w-48">
+            <span></span>
+            <button data-d="up" class="bg-white border-[3px] border-[#362925] rounded-xl py-2 text-lg">⬆️</button>
+            <span></span>
+            <button data-d="left" class="bg-white border-[3px] border-[#362925] rounded-xl py-2 text-lg">⬅️</button>
+            <span></span>
+            <button data-d="right" class="bg-white border-[3px] border-[#362925] rounded-xl py-2 text-lg">➡️</button>
+            <span></span>
+            <button data-d="down" class="bg-white border-[3px] border-[#362925] rounded-xl py-2 text-lg">⬇️</button>
+            <span></span>
+          </div>`;
+        kelasIsi().querySelectorAll('[data-d]').forEach(b => b.onclick = () => gerak(b.dataset.d));
+      }
+
+      function gerak(arah) {
+        const d = { up: [-1,0], down: [1,0], left: [0,-1], right: [0,1] }[arah];
+        const nr = r + d[0], nc = c + d[1];
+        if (nr < 0 || nc < 0 || nr >= peta.length || nc >= peta[nr].length) return;
+        if (peta[nr][nc] === '🟦' || peta[nr][nc] === '🌳') { bacaTeks(t('terhalang')); return; }
+        r = nr; c = nc;
+        if (peta[r][c] === '⭐') { peta[r][c] = '⬜'; bacaTeks(t('bintang')); }
+        if (r === tr && c === tc) { selesai(); return; }
+        gambar();
+      }
+      gambar();
+    }
+
+    /* Tombol masuk Kelas Belajar di lobi */
+    function pasangTombolKelas() {
+      const lobi = document.getElementById('lobbyScreen');
+      const btn = document.createElement('button');
+      btn.id = 'btnKelas';
+      btn.className = 'bg-[#fbcfe8] border-[3px] border-[#362925] text-[#362925] px-4 py-2 rounded-2xl font-chubby text-xs shadow-[0_4px_0_#362925] active:translate-y-1 mb-4';
+      btn.textContent = t('kelas');
+      btn.onclick = bukaKelas;
+      lobi.insertBefore(btn, lobi.firstChild);
+    }
+
+    /* ---------- 13. INISIALISASI ---------- */
     window.onload = () => {
       checkVIPAccess();
       loadChildName();
+      pasangTabUsia();
+      pasangTombolHeader();
+      pasangTombolKelas();
+      pasangBannerInstall();
       renderLobby();
     };
   </script>
